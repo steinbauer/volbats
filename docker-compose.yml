@@ -1,5 +1,5 @@
 # Statický web servírovaný nginxem a vystavený přes traefik v labu.
-# Adresa vychází z větve: https://${BRANCH_NAME}.volbats.me.lab.home
+# Adresa vychází z větve: https://${BRANCH_NAME}.volbats.kamil.lab.home
 #
 # BRANCH_NAME dosazuje Makefile z aktuální větve (lomítka -> pomlčky), takže
 # každý worktree dostane vlastní kontejner i vlastní adresu a navzájem si
@@ -14,16 +14,18 @@ services:
       - proxy
     volumes:
       - ./site:/usr/share/nginx/html:ro
+    # Labely schválně jako seznam, ne jako mapa: docker compose dosazuje
+    # proměnné pouze do hodnot, v klíčích je nechá být. V mapě by ve jménu
+    # routeru zůstalo doslova "${BRANCH_NAME}" a všechny větve by se praly
+    # o jeden router.
     labels:
-      traefik.enable: "true"
-      traefik.docker.network: "proxy"
-      traefik.http.routers.volbats-${BRANCH_NAME:-main}.rule: >-
-        Host(`${BRANCH_NAME:-main}.volbats.me.lab.home`) ||
-        Host(`${BRANCH_NAME:-main}.volbats.kamil.lab.home`)
-      traefik.http.routers.volbats-${BRANCH_NAME:-main}.entrypoints: "websecure"
-      traefik.http.routers.volbats-${BRANCH_NAME:-main}.tls: "true"
-      traefik.http.routers.volbats-${BRANCH_NAME:-main}.tls.certresolver: "step-ca"
-      traefik.http.services.volbats-${BRANCH_NAME:-main}.loadbalancer.server.port: "80"
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.volbats-${BRANCH_NAME:-main}.rule=Host(`${BRANCH_NAME:-main}.volbats.kamil.lab.home`)"
+      - "traefik.http.routers.volbats-${BRANCH_NAME:-main}.entrypoints=websecure"
+      - "traefik.http.routers.volbats-${BRANCH_NAME:-main}.tls=true"
+      - "traefik.http.routers.volbats-${BRANCH_NAME:-main}.tls.certresolver=step-ca"
+      - "traefik.http.services.volbats-${BRANCH_NAME:-main}.loadbalancer.server.port=80"
 
 networks:
   proxy:

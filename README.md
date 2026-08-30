@@ -24,7 +24,7 @@ make logs       # log nginxu
 Adresa vychází z názvu větve, takže každý worktree má vlastní:
 
 ```
-https://<vetev>.volbats.me.lab.home/
+https://<vetev>.volbats.kamil.lab.home/
 ```
 
 Servíruje to nginx v dockeru, vystavený přes labový traefik (`docker-compose.yml`).

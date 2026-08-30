@@ -9,7 +9,7 @@
 BRANCH_NAME ?= $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null | tr '/' '-')
 SITE        ?= site
 COMPOSE      = BRANCH_NAME=$(BRANCH_NAME) docker compose
-URL          = https://$(BRANCH_NAME).volbats.me.lab.home/
+URL          = https://$(BRANCH_NAME).volbats.kamil.lab.home/
 
 .PHONY: url run-dev stop-dev restart-dev status logs mirror
 
