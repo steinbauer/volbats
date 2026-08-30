@@ -13,7 +13,9 @@ services:
     networks:
       - proxy
     volumes:
-      - ./site:/usr/share/nginx/html:ro
+      # Publikuje se build, ne zdrojáky — `make build` ho vytvoří do dist/.
+      - ./dist:/usr/share/nginx/html:ro
+      - ./tools/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     # Labely schválně jako seznam, ne jako mapa: docker compose dosazuje
     # proměnné pouze do hodnot, v klíčích je nechá být. V mapě by ve jménu
     # routeru zůstalo doslova "${BRANCH_NAME}" a všechny větve by se praly

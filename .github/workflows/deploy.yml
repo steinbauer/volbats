@@ -21,12 +21,28 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      # Publikuje se jen site/ — Makefile, tools/ a docker-compose.yml
-      # jsou nástroje pro vývoj a na Pages nemají co dělat.
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v7
         with:
-          path: site
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Na Pages web nesedí v kořeni domény, ale v /volbats/, takže o tom
+      # musí Vite vědět — jinak by odkazy na assety mířily mimo.
+      - run: npm run build
+        env:
+          VITE_BASE: /volbats/
+
+      - uses: actions/configure-pages@v6
+
+      # dist/ obsahuje předgenerované HTML pro každou stránku a assety
+      # s hashem v názvu.
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

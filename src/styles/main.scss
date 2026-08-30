@@ -1,0 +1,487 @@
+// Šablona volbats2022 přenesená z původního webu na Bootstrap 5.
+//
+// Design zůstává stejný, mění se jen to, co si vynutil přechod z Bootstrapu 4:
+//   .jumbotron        -> vlastní .box (v BS5 už není)
+//   .embed-responsive -> .ratio (přejmenováno)
+//   .text-right       -> .text-end
+//   data-toggle       -> data-bs-toggle
+// Rozbalovací menu navíc nejede na JS, ale na :hover a :focus-within, takže
+// odpadl jQuery i bootstrap.bundle.
+
+@use 'sass:color';
+@use './roboto.css';
+
+// Firemní barvy z původní šablony
+$zluta: #eed239;
+$oranzova: #dd4c2f;
+$zlata: #f1bf0a;
+$zlata-tmava: #8f7106;
+$cervena: #dd3333;
+$prechod: linear-gradient(0.25turn, $zluta, $oranzova);
+
+// Bootstrap se generuje rovnou s našimi hodnotami. `@use ... with` je
+// nástupce dvojice „přepsat proměnné + @import", který Dart Sass 3 zruší.
+@use 'bootstrap/scss/bootstrap' as bs with (
+  $font-family-sans-serif: ('Roboto', arial, sans-serif),
+  $link-color: #dd3333,
+  $link-hover-color: #dd3333,
+  $warning: #f1bf0a,
+  $headings-font-weight: 300,
+  $enable-shadows: false
+);
+
+$pismo: 'Roboto', arial, sans-serif;
+
+body {
+  // Bootstrap si necháváme na výchozích 16 px (jinak by narostly nadpisy
+  // i tlačítka); zvětšuje se jen běžný text, přesně jako v původní šabloně.
+  font-size: 21px;
+  line-height: 170%;
+  font-weight: 300;
+  background: $prechod;
+  padding: 10px 0;
+}
+
+body > div {
+  background: #fff;
+}
+
+// --- hlavička a hlavní obrázek -------------------------------------------
+.header,
+.header .col-6 {
+  min-height: 106px;
+}
+
+.background {
+  background: $prechod;
+}
+
+.hp .row {
+  display: block;
+  text-align: center;
+  background: #eee;
+}
+
+.hp .row img {
+  margin: 0 auto;
+}
+
+.list {
+  overflow: hidden;
+
+  img {
+    transform: scale(1);
+    transition: 0.5s ease-in-out;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+  }
+}
+
+// --- typografie -----------------------------------------------------------
+h1, h2, h3 {
+  font-family: $pismo;
+  font-weight: 300;
+  padding: 30px 0 10px 0;
+  margin: 0 0 15px 0;
+
+  &::after {
+    content: '';
+    height: 5px;
+    width: 100%;
+    background: $prechod;
+    position: relative;
+    display: block;
+  }
+}
+
+p {
+  padding: 0;
+  margin: 0 0 5px 0;
+}
+
+ul li {
+  list-style: square;
+}
+
+blockquote {
+  margin: 10px;
+  padding: 10px;
+  border-left: 3px solid $zlata;
+
+  p em {
+    text-align: right;
+    display: block;
+  }
+}
+
+.content {
+  min-height: 50vh;
+}
+
+// Obrázek vlevo/vpravo uvnitř textu (z CMS chodí třídy .iright/.ileft)
+.iright {
+  float: right;
+  margin: 0 0 15px 15px;
+}
+
+.ileft {
+  float: left;
+  margin: 0 15px 15px 0;
+}
+
+.iodst {
+  max-width: 45%;
+
+  @include bs.media-breakpoint-down(md) {
+    float: none;
+    max-width: 100%;
+    margin: 0 0 15px 0;
+  }
+}
+
+.clear {
+  clear: both;
+}
+
+.text-small {
+  font-size: 75%;
+}
+
+// --- rozcestníky na homepage (dřív .jumbotron) ---------------------------
+.box {
+  background-color: var(--bs-secondary-bg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: var(--bs-border-radius-lg);
+}
+
+.box-anchor {
+  display: block;
+  color: #000;
+  text-decoration: none;
+
+  &:hover {
+    background: #eee;
+    color: #000;
+    text-decoration: none;
+  }
+
+  &:hover .btn-warning {
+    color: #212529;
+    background-color: color.adjust($zlata, $lightness: -5%);
+    border-color: color.adjust($zlata, $lightness: -8%);
+  }
+}
+
+// --- horní menu -----------------------------------------------------------
+#top_menu {
+  padding-top: 5px;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      position: relative;
+
+      > a {
+        padding: 10px 20px 15px 20px;
+        color: #000;
+        display: block;
+        text-decoration: none;
+
+        &.active {
+          background: #fff;
+          cursor: default;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+      }
+    }
+  }
+
+  // Podmenu se otevírá hoverem i klávesnicí, žádný JS není potřeba.
+  .ma-podmenu {
+    &:hover > a,
+    &:focus-within > a {
+      background: $zlata-tmava;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    &:hover > .podmenu,
+    &:focus-within > .podmenu {
+      padding: 0.5% 0;
+      max-height: 1000px;
+      border: 1px solid $zlata-tmava;
+      display: grid;
+      grid-template-rows: repeat(7, 1fr);
+      grid-auto-flow: column;
+
+      @include bs.media-breakpoint-down(lg) {
+        grid-template-rows: repeat(10, 1fr);
+      }
+
+      @include bs.media-breakpoint-down(md) {
+        display: block;
+        grid-template-rows: unset;
+        grid-auto-flow: unset;
+        padding: 0;
+      }
+    }
+  }
+
+  .podmenu {
+    border-radius: 0;
+    display: block;
+    overflow: hidden;
+    max-height: 0;
+    min-width: 280px;
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+    background: $zlata;
+    transition: all 0.3s;
+    border: 1px solid #fff;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0.5%;
+      display: inline-block;
+
+      @include bs.media-breakpoint-down(md) {
+        width: 100%;
+        margin: 0;
+      }
+
+      a {
+        padding: 3px 15px;
+
+        &::before {
+          content: '→ ';
+        }
+
+        &.active {
+          background: $zlata-tmava;
+          cursor: default;
+        }
+
+        &:hover {
+          border-radius: 0;
+
+          &::before {
+            content: '⇒ ';
+          }
+        }
+      }
+    }
+  }
+}
+
+// --- patička --------------------------------------------------------------
+.footer a {
+  color: #000;
+}
+
+.downmenu {
+  ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      list-style: none;
+    }
+  }
+
+  a {
+    color: #000;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+
+    &::before {
+      content: '→ ';
+    }
+
+    &.active {
+      background: #fff;
+      cursor: default;
+    }
+  }
+}
+
+.downmenu-inline li {
+  display: inline-block;
+}
+
+// --- kandidáti ------------------------------------------------------------
+.thumbnail {
+  position: relative;
+  margin-bottom: 20px;
+
+  // Původní .embed-responsive-1by1 mělo přebité padding-top na 148 %,
+  // v BS5 je totéž .ratio s vlastním poměrem.
+  .ratio-kandidat {
+    --bs-aspect-ratio: 148%;
+    text-align: center;
+  }
+
+  .ramecek {
+    background: $prechod;
+    padding: 5px;
+    border-bottom-right-radius: 35px;
+    overflow: hidden;
+  }
+
+  img {
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0 auto;
+    transform: scale(1);
+    transition: 0.3s ease-in-out;
+  }
+
+  .ratio-kandidat:hover img {
+    transform: scale(1.3);
+  }
+
+  .ratio-kandidat:hover .cislo {
+    border: 5px solid transparent;
+  }
+
+  .cislo {
+    // .ratio > * v Bootstrapu nastavuje top/left na 0; bez tohohle by číslo
+    // skončilo vlevo nahoře místo vpravo dole.
+    top: auto;
+    left: auto;
+    background: #fff;
+    border: 5px solid $oranzova;
+    color: #000;
+    font-size: 40px;
+    width: 70px;
+    height: 70px;
+    border-radius: 70px;
+    line-height: 60px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    transition: 0.3s ease-in-out;
+  }
+
+  .caption {
+    text-align: center;
+
+    h4 {
+      margin: 10px 0 5px 0;
+      font-family: $pismo;
+      font-weight: 600;
+      text-align: center;
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.peopleInfo {
+  font-size: 93%;
+  line-height: 150%;
+}
+
+// --- medailonek -----------------------------------------------------------
+.kotva {
+  padding: 0 0 15px 0;
+
+  h1, h2, h3 {
+    border-bottom: 0 none;
+  }
+
+  img {
+    float: left;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 200px;
+    background: #fff;
+    border: 5px solid $zlata;
+    margin: 0 15px 15px 0;
+  }
+
+  .perex {
+    overflow: hidden;
+  }
+}
+
+.zpet_na {
+  background: $zlata;
+  display: block;
+  text-align: right;
+  width: 100%;
+  padding: 5px 15px;
+  margin: 0 0 10px 0;
+  text-decoration: none;
+  color: #000;
+
+  &:hover {
+    background: color.adjust($zlata, $lightness: -8%);
+    color: #000;
+  }
+}
+
+// --- galerie na homepage --------------------------------------------------
+.galerie {
+  text-align: center;
+
+  a {
+    background: $prechod;
+    padding: 3px;
+    margin: 5px 8px 0 8px;
+    display: inline-block;
+    overflow: hidden;
+    width: 75px;
+    height: 110px;
+    text-align: center;
+
+    img {
+      width: 100%;
+      transform: scale(1);
+      transition: 0.5s ease-in-out;
+
+      &:hover {
+        transform: scale(1.3);
+      }
+    }
+  }
+}
+
+// --- kontaktní formulář ---------------------------------------------------
+.formular {
+  label {
+    margin-bottom: 0.25rem;
+  }
+
+  .form_povinne {
+    color: $cervena;
+  }
+}

@@ -1,0 +1,29 @@
+/* Roboto z původního webu (cdn.polyweb.cz), aby písmo zůstalo stejné.
+   Cesty jsou relativní, takže si je Vite ofinguje hashem a nasadí base. */
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../fonts/roboto-300.woff') format('woff'),
+       url('../fonts/roboto-300.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/roboto-400.woff') format('woff'),
+       url('../fonts/roboto-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/roboto-700.woff') format('woff'),
+       url('../fonts/roboto-700.ttf') format('truetype');
+}
