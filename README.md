@@ -63,8 +63,9 @@ Co se proti roku 2022 změnilo:
   `.embed-responsive` je `.ratio`, `.text-right` je `.text-end`.
 - **jQuery, fancybox a bootstrap.bundle jsou pryč.** Rozbalovací menu jede
   na CSS (`:hover` / `:focus-within`), takže funguje i bez JS.
-- **Kontaktní formulář** dřív odesílal data na server PolyWeb CMS
-  s reCAPTCHOU. Statický web backend nemá, takže formulář teď poskládá zprávu
-  a otevře ji v poštovním klientovi. Až bude potřeba doručovat napřímo, stačí
-  v `src/pages/Kontakt.jsx` vyměnit `onSubmit` za volání externí služby
-  (Formspree, Netlify Forms).
+- **Kontaktní formulář je pryč.** Dřív odesílal data na server PolyWeb CMS
+  s reCAPTCHOU; statický web backend nemá a psát se dá e-mailem.
+- **Hlavička už není obrázek.** Název, město i claim jsou text, srdce
+  je vektor (obtažené z původního PNG) a volební číslo je `cislo`
+  v `src/data/web.js`. Celé logo se škáluje jedinou hodnotou `font-size`,
+  takže na mobilu zůstane čitelné — dřív se zmenšovalo do nečitelna.

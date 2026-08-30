@@ -46,9 +46,87 @@ body > div {
   background: #fff;
 }
 
-// --- hlavička a hlavní obrázek -------------------------------------------
-.header,
-.header .col-6 {
+// --- logo v hlavičce ------------------------------------------------------
+// Dřív to byl jeden PNG obrázek. Teď je to text plus vektorové srdce, takže
+// jde změnit jméno i volební číslo a na malém displeji zůstane čitelné.
+//
+// Všechny rozměry uvnitř jsou v em, takže se celé logo škáluje jedinou
+// hodnotou font-size — stejně proporčně jako se dřív zmenšoval obrázek.
+.logo {
+  font-size: clamp(1.35rem, 4.6vw, 3.875rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+  color: #000;
+  text-decoration: none;
+  padding: 0.25em 0;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.logo__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.logo__nazev {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.logo__mesto {
+  font-size: 0.84em;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.logo__claim {
+  font-size: 0.42em;
+  font-style: italic;
+  font-weight: 400;
+  text-align: right;
+  // Claim v předloze podtéká pod srdce, proto trochu přečnívá doprava.
+  margin-right: -0.6em;
+  margin-top: 0.35em;
+}
+
+.logo__srdce {
+  height: 3.3em;
+  width: 3.35em;
+  flex: none;
+}
+
+.logo__cislo {
+  font-family: $pismo;
+  font-weight: 700;
+  font-size: 82px;   // v souřadnicích viewBoxu 202×199
+  fill: #dd4c2f;
+}
+
+@include bs.media-breakpoint-down(sm) {
+  // Na úzkém displeji by se claim i srdce mačkaly; srdce jde nad text
+  // a všechno se vycentruje.
+  .logo {
+    flex-direction: column-reverse;
+    gap: 0.15em;
+    font-size: clamp(1.5rem, 8.5vw, 2.6rem);
+  }
+
+  .logo__text {
+    align-items: center;
+  }
+
+  .logo__claim {
+    margin-right: 0;
+    text-align: center;
+  }
+}
+
+.header {
   min-height: 106px;
 }
 
@@ -472,16 +550,5 @@ blockquote {
         transform: scale(1.3);
       }
     }
-  }
-}
-
-// --- kontaktní formulář ---------------------------------------------------
-.formular {
-  label {
-    margin-bottom: 0.25rem;
-  }
-
-  .form_povinne {
-    color: $cervena;
   }
 }

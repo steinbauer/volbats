@@ -1,17 +1,39 @@
 import { Link } from 'react-router-dom'
-import { obrazek } from '../obrazky'
+import { web } from '../data/web'
+
+// Srdce z původního loga převedené do vektoru. Dřív byla celá hlavička jeden
+// PNG obrázek — text v něm nešel změnit a na mobilu se zmenšoval do nečitelna.
+const SRDCE = 'M 138.131 3.541 C 127.600 5.826, 119.613 10.201, 111.290 18.245 C 104.510 24.797, 95 36.618, 95 38.495 C 95 38.903, 99.242 35.181, 104.428 30.224 C 127.439 8.225, 152.433 6.125, 170.140 24.703 C 195.395 51.201, 184.393 86.315, 142 114.510 C 124.239 126.323, 117.869 134.420, 118.068 144.928 C 118.144 148.963, 118.942 147.689, 120.883 140.431 C 122.648 133.836, 127.924 129.582, 145 120.989 C 188.021 99.340, 204.933 75.160, 198.496 44.500 C 192.382 15.379, 166.017 -2.510, 138.131 3.541 M 43 4.433 C 34.587 6.778, 27.632 11.143, 19.966 18.888 C -3.850 42.953, -2.954 75.093, 22.273 101.651 C 31.763 111.641, 36.123 114.664, 55.946 125 C 77.364 136.168, 85.427 141.389, 92.761 148.838 C 104.850 161.116, 111.132 180.716, 106.884 192.902 C 105.112 197.985, 106.765 197.786, 109.040 192.643 C 115.420 178.220, 113.240 160.824, 102.855 143.274 C 97.688 134.543, 83.438 120.975, 61.788 104.175 C 50.946 95.761, 40.043 86.617, 37.559 83.854 C 18.026 62.129, 23.112 27.931, 47.675 15.839 C 61.461 9.053, 80.969 11.679, 94.116 22.092 C 99.809 26.601, 98.851 23.880, 92.569 17.697 C 80.030 5.357, 59.447 -0.151, 43 4.433'
 
 export default function Header() {
   return (
     <div className="container">
       <div className="row header">
-        <div className="col-12 text-center">
-          <Link to="/">
-            <img
-              src={obrazek('volbats.png')}
-              className="img-fluid"
-              alt="Volba pro město Trhové Sviny"
-            />
+        <div className="col-12">
+          <Link className="logo" to="/">
+            <span className="logo__text">
+              <span className="logo__nazev">{web.nazev}</span>
+              <span className="logo__mesto">{web.mesto}</span>
+              <span className="logo__claim">{web.claim}</span>
+            </span>
+
+            <svg
+              className="logo__srdce"
+              viewBox="0 0 202 199"
+              role="img"
+              aria-label={`Volební číslo ${web.cislo}`}
+            >
+              <defs>
+                <linearGradient id="logo-prechod" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stopColor="#eed239" />
+                  <stop offset="1" stopColor="#dd4c2f" />
+                </linearGradient>
+              </defs>
+              <path d={SRDCE} fill="url(#logo-prechod)" />
+              <text className="logo__cislo" x="105.5" y="105" textAnchor="middle">
+                {web.cislo}
+              </text>
+            </svg>
           </Link>
         </div>
       </div>
