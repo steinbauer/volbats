@@ -28,22 +28,23 @@ export default function KandidatDetail() {
             <div className="kotva">
               <h1>{kandidat.jmeno}</h1>
             </div>
+            {/* Údaje z kandidátní listiny má každý stejně, ať už medailonek
+                napsaný má, nebo ne. */}
+            <dl className="udaje">
+              <dt>Povolání</dt>
+              <dd>{kandidat.povolani}</dd>
+              <dt>Bydliště</dt>
+              <dd>{kandidat.cast}</dd>
+              <dt>Politická příslušnost</dt>
+              <dd>{kandidat.strana}</dd>
+              <dt>Věk ke druhému dni voleb</dt>
+              <dd>{kandidat.vek} let</dd>
+            </dl>
+
             {kandidat.zivotopis ? (
               <Prose html={kandidat.zivotopis} />
             ) : (
-              <>
-                <dl className="udaje">
-                  <dt>Povolání</dt>
-                  <dd>{kandidat.povolani}</dd>
-                  <dt>Bydliště</dt>
-                  <dd>{kandidat.cast}</dd>
-                  <dt>Politická příslušnost</dt>
-                  <dd>{kandidat.strana}</dd>
-                  <dt>Věk ke druhému dni voleb</dt>
-                  <dd>{kandidat.vek} let</dd>
-                </dl>
-                <p className="pripravuje">Medailonek se připravuje.</p>
-              </>
+              <p className="pripravuje">Medailonek se připravuje.</p>
             )}
           </div>
 
