@@ -1,0 +1,7 @@
+# Infrastruktura lab-agenta, generuje se na stroji
+.claude/
+
+# Nastavení IDE do repa nepatří
+.idea/
+
+.DS_Store
