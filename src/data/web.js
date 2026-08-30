@@ -8,6 +8,8 @@ export const web = {
   cislo: 2,
   // Volební rok, ukazuje se v patičce
   rok: 2026,
+  // Termín z kandidátní listiny, ukazuje se v hlavičce
+  termin: '9.–10. října 2026',
   email: 'vera@korcak.cz',
   lidr: 'Věra Korčaková',
 }

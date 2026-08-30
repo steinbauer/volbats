@@ -1,21 +1,21 @@
-import Stranka from './Stranka'
+import Meta from '../components/Meta'
 import Prose from '../components/Prose'
+import Bilance from '../components/Bilance'
 import stranky from '../data/stranky.json'
-import tabulka from '../data/program-tabulka.json'
 
 export default function Program() {
   return (
-    <Stranka nadpis={stranky.program.nadpis} html={stranky.program.html}>
-      {tabulka.map((radek, i) => (
-        <div className="row border m-3" key={i}>
-          {radek.map((sloupec, j) => (
-            <div className="col-12 col-sm-6" key={j}>
-              <h2>{sloupec.nadpis}</h2>
-              <Prose html={sloupec.html} />
-            </div>
-          ))}
-        </div>
-      ))}
-    </Stranka>
+    <>
+      <Meta title="Program | Volba pro město Trhové Sviny" />
+      <div className="obal">
+        <section className="sekce">
+          <h1>{stranky.program.nadpis}</h1>
+          <div className="text mt-4 mb-5">
+            <Prose html={stranky.program.html} />
+          </div>
+          <Bilance />
+        </section>
+      </div>
+    </>
   )
 }

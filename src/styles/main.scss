@@ -1,599 +1,749 @@
-// Šablona volbats2022 přenesená z původního webu na Bootstrap 5.
+// Šablona pro volby 2026 — směr A („editorial").
 //
-// Design zůstává stejný, mění se jen to, co si vynutil přechod z Bootstrapu 4:
-//   .jumbotron        -> vlastní .box (v BS5 už není)
-//   .embed-responsive -> .ratio (přejmenováno)
-//   .text-right       -> .text-end
-//   data-toggle       -> data-bs-toggle
-// Rozbalovací menu navíc nejede na JS, ale na :hover a :focus-within, takže
-// odpadl jQuery i bootstrap.bundle.
+// Bílá plocha, výrazná typografie, gradient jen jako akcent: vlasové linky,
+// dlaždice s číslem kandidáta, pruh nad patičkou. Srdce z loga nese volební
+// číslo, takže není jen ozdoba.
+//
+// Firemní barvy zůstávají z původní šablony volbats2022; mění se všechno
+// ostatní. Předchozí podobu (Bootstrap 4 převedený na 5) drží historie gitu.
 
 @use 'sass:color';
-@use './roboto.css';
+@use './pisma.css';
 
-// Firemní barvy z původní šablony
+// Firemní barvy
 $zluta: #eed239;
 $oranzova: #dd4c2f;
 $zlata: #f1bf0a;
-$zlata-tmava: #8f7106;
-$cervena: #dd3333;
+$cervena: #c23a22;      // ztmavená pro text, aby prošla kontrastem na bílé
+$cervena-tmava: #8f2614;
 $prechod: linear-gradient(0.25turn, $zluta, $oranzova);
 
-// Bootstrap se generuje rovnou s našimi hodnotami. `@use ... with` je
-// nástupce dvojice „přepsat proměnné + @import", který Dart Sass 3 zruší.
+// Plocha a text
+$plocha: #ffffff;
+$inkoust: #191413;
+$text: #2c2521;
+$text-tlumeny: #6b5f55;
+$linka: #e4e2df;
+$tmava-plocha: #191413;
+
+$pismo: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+$pismo-nadpis: 'Bricolage Grotesque', 'Trebuchet MS', system-ui, sans-serif;
+
 @use 'bootstrap/scss/bootstrap' as bs with (
-  $font-family-sans-serif: ('Roboto', arial, sans-serif),
-  $link-color: #dd3333,
-  $link-hover-color: #dd3333,
-  $warning: #f1bf0a,
-  $headings-font-weight: 300,
-  $enable-shadows: false
+  $font-family-sans-serif: ('IBM Plex Sans', 'Segoe UI', system-ui, sans-serif),
+  $body-color: #2c2521,
+  $body-bg: #ffffff,
+  $link-color: #c23a22,
+  $link-hover-color: #8f2614,
+  $headings-font-weight: 800,
+  $enable-shadows: false,
+  $border-color: #e4e2df,
+  $grid-gutter-width: 2rem
 );
 
-$pismo: 'Roboto', arial, sans-serif;
-
+// --- základ ---------------------------------------------------------------
 body {
-  // Bootstrap si necháváme na výchozích 16 px (jinak by narostly nadpisy
-  // i tlačítka); zvětšuje se jen běžný text, přesně jako v původní šabloně.
-  font-size: 21px;
-  line-height: 170%;
-  font-weight: 300;
-  background: $prechod;
-  padding: 10px 0;
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
 }
 
-body > div {
-  background: #fff;
+h1, h2, h3, h4 {
+  font-family: $pismo-nadpis;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 0;
 }
 
-// --- logo v hlavičce ------------------------------------------------------
-// Dřív to byl jeden PNG obrázek. Teď je to text plus vektorové srdce, takže
-// jde změnit jméno i volební číslo a na malém displeji zůstane čitelné.
-//
-// Všechny rozměry uvnitř jsou v em, takže se celé logo škáluje jedinou
-// hodnotou font-size — stejně proporčně jako se dřív zmenšoval obrázek.
-.logo {
-  font-size: clamp(1.35rem, 4.6vw, 3.875rem);
-  display: flex;
+h1 { font-size: clamp(2.4rem, 5.4vw, 4.1rem); }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); }
+h3 { font-size: 1.4rem; }
+
+p { margin: 0 0 1rem; }
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.obal {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-inline: clamp(1.25rem, 5vw, 4.5rem);
+}
+
+// Popisek nad nadpisem s gradientovou čárkou
+.nadtitulek {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.3em;
-  color: #000;
-  text-decoration: none;
-  padding: 0.25em 0;
+  gap: 10px;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $cervena-tmava;
+  font-weight: 600;
+  margin-bottom: 1.4rem;
 
-  &:hover {
-    color: #000;
+  &::before {
+    content: '';
+    width: 26px;
+    height: 2px;
+    background: $prechod;
   }
 }
 
-.logo__text {
+.tlumene { color: $text-tlumeny; }
+
+// --- tlačítka -------------------------------------------------------------
+.tlacitko {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 1.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1.5px solid $inkoust;
+  transition: 0.15s ease-in-out;
+
+  &:hover { text-decoration: none; }
+}
+
+.tlacitko--plne {
+  background: $inkoust;
+  color: #fff;
+
+  &:hover { background: #000; color: #fff; }
+}
+
+.tlacitko--obrys {
+  color: $inkoust;
+
+  &:hover { background: $inkoust; color: #fff; }
+}
+
+// --- hlavička -------------------------------------------------------------
+.hlavicka {
+  border-bottom: 1px solid $linka;
+
+  .obal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.4rem;
+    // Kotva pro rozbalené podmenu — viz .podmenu
+    position: relative;
+  }
+}
+
+.logo {
   display: flex;
-  flex-direction: column;
-  line-height: 1.05;
+  align-items: center;
+  gap: 0.8rem;
+  color: $inkoust;
+  flex: none;
+
+  &:hover { color: $inkoust; text-decoration: none; }
 }
 
-.logo__nazev {
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
-
-.logo__mesto {
-  font-size: 0.84em;
-  font-weight: 300;
-  letter-spacing: 0.02em;
-}
-
-.logo__claim {
-  font-size: 0.42em;
-  font-style: italic;
-  font-weight: 400;
-  text-align: right;
-  // Claim v předloze podtéká pod srdce, proto trochu přečnívá doprava.
-  margin-right: -0.6em;
-  margin-top: 0.35em;
-}
-
-.logo__srdce {
-  height: 3.3em;
-  width: 3.35em;
+.logo__znak {
+  width: 46px;
+  height: 46px;
   flex: none;
 }
 
-.logo__cislo {
-  font-family: $pismo;
-  font-weight: 700;
-  font-size: 82px;   // v souřadnicích viewBoxu 202×199
-  fill: #dd4c2f;
+.logo__nazev {
+  font-family: $pismo-nadpis;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
-@include bs.media-breakpoint-down(sm) {
-  // Na úzkém displeji by se claim i srdce mačkaly; srdce jde nad text
-  // a všechno se vycentruje.
-  .logo {
-    flex-direction: column-reverse;
-    gap: 0.15em;
-    font-size: clamp(1.5rem, 8.5vw, 2.6rem);
-  }
-
-  .logo__text {
-    align-items: center;
-  }
-
-  .logo__claim {
-    margin-right: 0;
-    text-align: center;
-  }
+.logo__mesto {
+  font-size: 0.87rem;
+  color: $text-tlumeny;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
 }
 
-.header {
-  min-height: 106px;
+.hlavicka__vpravo {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2.2rem);
 }
 
-.background {
-  background: $prechod;
+.termin {
+  display: inline-flex;
+  align-items: center;
+  background: $inkoust;
+  color: #fff;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.87rem;
+  white-space: nowrap;
 }
 
-.hp .row {
-  display: block;
-  text-align: center;
-  background: #eee;
-}
-
-.hp .row img {
-  margin: 0 auto;
-}
-
-.list {
-  overflow: hidden;
-
-  img {
-    transform: scale(1);
-    transition: 0.5s ease-in-out;
-  }
-
-  &:hover img {
-    transform: scale(1.04);
-  }
-}
-
-// --- typografie -----------------------------------------------------------
-h1, h2, h3 {
-  font-family: $pismo;
-  font-weight: 300;
-  padding: 30px 0 10px 0;
-  margin: 0 0 15px 0;
-
-  &::after {
-    content: '';
-    height: 5px;
-    width: 100%;
-    background: $prechod;
-    position: relative;
-    display: block;
-  }
-}
-
-p {
+// --- menu -----------------------------------------------------------------
+.menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.2vw, 2.1rem);
+  list-style: none;
+  margin: 0;
   padding: 0;
-  margin: 0 0 5px 0;
-}
 
-ul li {
-  list-style: square;
-}
-
-blockquote {
-  margin: 10px;
-  padding: 10px;
-  border-left: 3px solid $zlata;
-
-  p em {
-    text-align: right;
-    display: block;
-  }
-}
-
-.content {
-  min-height: 50vh;
-}
-
-// Obrázek vlevo/vpravo uvnitř textu (z CMS chodí třídy .iright/.ileft)
-.iright {
-  float: right;
-  margin: 0 0 15px 15px;
-}
-
-.ileft {
-  float: left;
-  margin: 0 15px 15px 0;
-}
-
-.iodst {
-  max-width: 45%;
-
-  @include bs.media-breakpoint-down(md) {
-    float: none;
-    max-width: 100%;
-    margin: 0 0 15px 0;
-  }
-}
-
-.clear {
-  clear: both;
-}
-
-.text-small {
-  font-size: 75%;
-}
-
-// --- rozcestníky na homepage (dřív .jumbotron) ---------------------------
-.box {
-  background-color: var(--bs-secondary-bg);
-  padding: 2rem;
-  margin-bottom: 2rem;
-  border-radius: var(--bs-border-radius-lg);
-}
-
-.box-anchor {
-  display: block;
-  color: #000;
-  text-decoration: none;
-
-  &:hover {
-    background: #eee;
-    color: #000;
-    text-decoration: none;
-  }
-
-  &:hover .btn-warning {
-    color: #212529;
-    background-color: color.adjust($zlata, $lightness: -5%);
-    border-color: color.adjust($zlata, $lightness: -8%);
-  }
-}
-
-// --- horní menu -----------------------------------------------------------
-#top_menu {
-  padding-top: 5px;
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      position: relative;
-
-      > a {
-        padding: 10px 20px 15px 20px;
-        color: #000;
-        display: block;
-        text-decoration: none;
-
-        &.active {
-          background: #fff;
-          cursor: default;
-          border-top-left-radius: 10px;
-          border-top-right-radius: 10px;
-        }
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.2);
-          border-top-left-radius: 10px;
-          border-top-right-radius: 10px;
-        }
-      }
-    }
-  }
-
-  // Podmenu se otevírá hoverem i klávesnicí, žádný JS není potřeba.
-  //
-  // Položka Priority se schválně podbarvuje stejně jako ostatní, tedy jen
-  // průsvitnou bílou. Původní web měl tmavě zlatou, ale až po kliknutí, kdy
-  // se menu rozbalilo — při pouhém přejetí myší byla i tam bílá.
-  .ma-podmenu {
-    &:hover > .podmenu,
-    &:focus-within > .podmenu {
-      padding: 0.5% 0;
-      max-height: 1000px;
-      border: 1px solid $zlata-tmava;
-      display: grid;
-      grid-template-rows: repeat(7, 1fr);
-      grid-auto-flow: column;
-
-      @include bs.media-breakpoint-down(lg) {
-        grid-template-rows: repeat(10, 1fr);
-      }
-
-      @include bs.media-breakpoint-down(md) {
-        display: block;
-        grid-template-rows: unset;
-        grid-auto-flow: unset;
-        padding: 0;
-      }
-    }
-  }
-
-  .podmenu {
-    border-radius: 0;
-    display: block;
-    overflow: hidden;
-    max-height: 0;
-    min-width: 280px;
-    width: 100%;
-    position: absolute;
-    z-index: 20;
-    background: $zlata;
-    transition: all 0.3s;
-    border: 1px solid #fff;
-    padding: 0;
-    list-style: none;
-
-    li {
-      margin: 0 0.5%;
-      display: inline-block;
-
-      @include bs.media-breakpoint-down(md) {
-        width: 100%;
-        margin: 0;
-      }
-
-      a {
-        padding: 3px 15px;
-
-        &::before {
-          content: '→ ';
-        }
-
-        &.active {
-          background: $zlata-tmava;
-          cursor: default;
-        }
-
-        &:hover {
-          border-radius: 0;
-
-          &::before {
-            content: '⇒ ';
-          }
-        }
-      }
-    }
-  }
-}
-
-// --- patička --------------------------------------------------------------
-.footer a {
-  color: #000;
-}
-
-.downmenu {
-  ul {
-    list-style: none;
-    padding-left: 0;
-
-    li {
-      list-style: none;
-    }
-  }
+  > li { list-style: none; }
 
   a {
-    color: #000;
-    display: inline-block;
-    padding: 5px;
-    border-radius: 5px;
-    text-decoration: none;
+    display: block;
+    padding: 0.35rem 0;
+    color: #4a403a;
+    font-size: 0.95rem;
+    border-bottom: 2px solid transparent;
 
-    &::before {
-      content: '→ ';
-    }
+    &:hover { color: $inkoust; text-decoration: none; }
 
     &.active {
-      background: #fff;
-      cursor: default;
+      color: $inkoust;
+      border-bottom-color: $oranzova;
     }
   }
 }
 
-.downmenu-inline li {
-  display: inline-block;
+// Podmenu priorit — otevírá se hoverem i klávesnicí, bez JS.
+//
+// Kotví se na pravý okraj hlavičky, ne na položku menu: široký panel by od
+// položky přetekl za pravý okraj stránky a přidal vodorovné posouvání i ve
+// chvíli, kdy je zavřený.
+.podmenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 30;
+  min-width: 620px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid $linka;
+  border-top: 3px solid transparent;
+  border-image: $prechod 1;
+  box-shadow: 0 18px 40px rgba(25, 20, 19, 0.1);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: 0.16s ease-in-out;
+
+  li { list-style: none; }
+
+  a {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.93rem;
+    border-bottom: 0;
+
+    &:hover { background: #f6f5f3; }
+    &.active { color: $cervena; border-bottom: 0; }
+  }
+}
+
+.ma-podmenu:hover > .podmenu,
+.ma-podmenu:focus-within > .podmenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.menu-prepinac {
+  display: none;
+  background: none;
+  border: 1.5px solid $inkoust;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: $inkoust;
+}
+
+@include bs.media-breakpoint-down(lg) {
+  .hlavicka .obal { flex-wrap: wrap; }
+  .menu-prepinac { display: inline-flex; }
+
+  // Termín i menu jdou pod logo; column-reverse drží termín nahoře
+  .hlavicka__vpravo {
+    order: 3;
+    width: 100%;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .termin { align-self: flex-start; margin-block: 0.9rem; }
+
+  .menu {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    border-top: 1px solid $linka;
+    padding-top: 0.5rem;
+
+    a { padding: 0.7rem 0; border-bottom: 1px solid $linka; }
+
+    display: none;
+    &.menu--otevrene { display: flex; }
+  }
+
+  // Rozbalené podmenu by na mobilu udělalo z menu 1150 px dlouhý seznam.
+  // Všech 19 priorit je na vlastní stránce i v patičce, v menu stačí odkaz.
+  .podmenu { display: none; }
+}
+
+// --- úvodní blok ----------------------------------------------------------
+.uvod {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 2rem;
+  align-items: center;
+  padding-block: clamp(2.5rem, 6vw, 4.9rem) clamp(2rem, 4vw, 3.5rem);
+
+  @include bs.media-breakpoint-down(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.uvod__perex {
+  font-size: clamp(1.05rem, 2vw, 1.31rem);
+  line-height: 1.55;
+  color: #40372f;
+  max-width: 30em;
+  margin-bottom: 2.2rem;
+}
+
+.uvod__akce {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+// Srdce s volebním číslem
+.cislo-srdce {
+  position: relative;
+  width: min(340px, 78vw);
+  aspect-ratio: 202 / 199;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+}
+
+.cislo-srdce__text {
+  position: relative;
+  text-align: center;
+  margin-top: -10%;
+}
+
+.cislo-srdce__popisek {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $text-tlumeny;
+  font-weight: 600;
+}
+
+.cislo-srdce__cislo {
+  font-family: $pismo-nadpis;
+  font-weight: 800;
+  font-size: clamp(4.5rem, 11vw, 7.9rem);
+  line-height: 1;
+  color: $inkoust;
+  letter-spacing: -0.05em;
+}
+
+// --- společná fotka -------------------------------------------------------
+.spolecna-fotka {
+  margin-bottom: clamp(2.5rem, 6vw, 4.75rem);
+
+  img {
+    display: block;
+    width: 100%;
+    height: clamp(180px, 26vw, 300px);
+    object-fit: cover;
+  }
+}
+
+// --- sekce ----------------------------------------------------------------
+.sekce {
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.sekce__hlavicka {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.1rem;
+}
+
+.sekce__odkaz {
+  font-size: 0.95rem;
+  color: $cervena-tmava;
+  font-weight: 600;
+}
+
+// --- bilance: podařilo se / chceme ---------------------------------------
+.bilance {
+  border-top: 1.5px solid $inkoust;
+}
+
+.bilance__hlavicka {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-bottom: 1.5px solid $inkoust;
+
+  > div {
+    padding-block: 0.9rem;
+    font-family: $pismo-nadpis;
+    font-size: 1.35rem;
+    font-weight: 800;
+  }
+
+  > div:last-child { padding-left: 2.75rem; color: $cervena; }
+
+  @include bs.media-breakpoint-down(md) { display: none; }
+}
+
+.bilance__radek {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-bottom: 1px solid $linka;
+
+  @include bs.media-breakpoint-down(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bilance__sloupec {
+  padding: 1.7rem 2.75rem 1.9rem 0;
+
+  &:first-child { border-right: 1px solid $linka; }
+  &:last-child { padding: 1.7rem 0 1.9rem 2.75rem; }
+
+  p:last-child { margin-bottom: 0; }
+
+  @include bs.media-breakpoint-down(md) {
+    padding: 1.2rem 0 1.4rem;
+
+    &:first-child { border-right: 0; border-bottom: 1px solid $linka; }
+    &:last-child { padding: 1.2rem 0 1.4rem; }
+  }
+}
+
+// Na mobilu chybí sloupcová hlavička, tak se popisek ukáže u každé buňky
+.bilance__popisek {
+  display: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: $text-tlumeny;
+  margin-bottom: 0.6rem;
+
+  &--chceme { color: $cervena; }
+
+  @include bs.media-breakpoint-down(md) { display: block; }
+}
+
+// --- priority -------------------------------------------------------------
+.priority-tmave {
+  background: $tmava-plocha;
+  color: #f6f1e9;
+  padding-block: clamp(3rem, 6vw, 4.75rem);
+
+  h2 { color: #fff; margin-bottom: 0.75rem; }
+}
+
+.priority-tmave__perex {
+  color: #a99c90;
+  font-size: 1.1rem;
+  max-width: 34em;
+  margin-bottom: 2.5rem;
+}
+
+.dlazdice-priorit {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: #332a24;
+
+  @include bs.media-breakpoint-down(lg) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @include bs.media-breakpoint-down(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @include bs.media-breakpoint-down(sm) { grid-template-columns: 1fr; }
+}
+
+.dlazdice-priorit a {
+  background: $tmava-plocha;
+  padding: 1.6rem 1.4rem 1.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 150px;
+  color: #f6f1e9;
+
+  &:hover { background: #221b17; text-decoration: none; }
+}
+
+.dlazdice-priorit__cislo {
+  font-family: $pismo-nadpis;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: $zluta;
+}
+
+.dlazdice-priorit__nazev {
+  font-size: 1.05rem;
+  line-height: 1.32;
+}
+
+// Světlá varianta na stránce Priority
+.dlazdice-priorit--svetle {
+  background: $linka;
+  border: 1px solid $linka;
+
+  a {
+    background: #fff;
+    color: $inkoust;
+
+    &:hover { background: #faf9f8; }
+  }
+
+  .dlazdice-priorit__cislo { color: $cervena; }
+  .dlazdice-priorit__nazev { font-weight: 600; }
+}
+
+.dlazdice-priorit__vic {
+  margin-top: auto;
+  font-size: 0.87rem;
+  color: #8f8175;
 }
 
 // --- kandidáti ------------------------------------------------------------
-.thumbnail {
-  position: relative;
-  margin-bottom: 20px;
+.mrizka-kandidatu {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.9rem 1.6rem;
 
-  // Původní .embed-responsive-1by1 mělo přebité padding-top na 148 %,
-  // v BS5 je totéž .ratio s vlastním poměrem.
-  .ratio-kandidat {
-    --bs-aspect-ratio: 148%;
-    text-align: center;
-  }
+  @include bs.media-breakpoint-down(lg) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @include bs.media-breakpoint-down(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  .ramecek {
-    background: $prechod;
-    padding: 5px;
-    border-bottom-right-radius: 35px;
-    overflow: hidden;
-  }
+  &--pas {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
 
-  img {
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    margin: 0 auto;
-    transform: scale(1);
-    transition: 0.3s ease-in-out;
-  }
-
-  .ratio-kandidat:hover img {
-    transform: scale(1.3);
-  }
-
-  .ratio-kandidat:hover .cislo {
-    border: 5px solid transparent;
-  }
-
-  .cislo {
-    // .ratio > * v Bootstrapu nastavuje top/left na 0; bez tohohle by číslo
-    // skončilo vlevo nahoře místo vpravo dole.
-    top: auto;
-    left: auto;
-    background: #fff;
-    border: 5px solid $oranzova;
-    color: #000;
-    font-size: 40px;
-    width: 70px;
-    height: 70px;
-    border-radius: 70px;
-    line-height: 60px;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    transition: 0.3s ease-in-out;
-  }
-
-  .caption {
-    text-align: center;
-
-    h4 {
-      margin: 10px 0 5px 0;
-      font-family: $pismo;
-      font-weight: 600;
-      text-align: center;
-
-      a {
-        text-decoration: none;
-      }
-    }
+    @include bs.media-breakpoint-down(xl) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    @include bs.media-breakpoint-down(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 }
 
-.peopleInfo {
-  font-size: 93%;
-  line-height: 150%;
+.kandidat__foto {
+  position: relative;
+  margin-bottom: 0.9rem;
+  background: #edebe8;
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+}
+
+.kandidat__cislo {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: $prechod;
+  color: $inkoust;
+  font-family: $pismo-nadpis;
+  font-weight: 800;
+  font-size: 1.4rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kandidat__jmeno {
+  font-family: $pismo;
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
+
+  a { color: $inkoust; }
+  a:hover { color: $cervena; }
+}
+
+.kandidat__role {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: $text-tlumeny;
 }
 
 // --- medailonek -----------------------------------------------------------
-.kotva {
-  padding: 0 0 15px 0;
-
-  h1, h2, h3 {
-    border-bottom: 0 none;
-  }
-
-  img {
-    float: left;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 200px;
-    background: #fff;
-    border: 5px solid $zlata;
-    margin: 0 15px 15px 0;
-  }
-
-  .perex {
-    overflow: hidden;
-  }
-}
-
-.zpet_na {
-  background: $zlata;
-  display: block;
-  text-align: right;
-  width: 100%;
-  padding: 5px 15px;
-  margin: 0 0 10px 0;
-  text-decoration: none;
-  color: #000;
-
-  &:hover {
-    background: color.adjust($zlata, $lightness: -8%);
-    color: #000;
-  }
-}
-
-// --- medailonek, který se teprve chystá -----------------------------------
-.udaje {
+.medailonek {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.35rem 1.5rem;
-  margin: 1rem 0 1.5rem;
+  grid-template-columns: 4fr 8fr;
+  gap: 2.5rem;
+  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(2.5rem, 5vw, 5rem);
 
-  dt {
-    font-weight: 400;
-    color: #666;
+  @include bs.media-breakpoint-down(md) { grid-template-columns: 1fr; }
+}
+
+.medailonek__foto .kandidat__cislo {
+  width: 70px;
+  height: 70px;
+  font-size: 2.1rem;
+}
+
+.udaje {
+  margin: 1.4rem 0 0;
+  border-top: 1px solid $inkoust;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid $linka;
   }
 
-  dd {
-    margin: 0;
-  }
+  dt { color: $text-tlumeny; font-size: 0.88rem; font-weight: 400; margin: 0; }
+  dd { margin: 0; font-size: 0.95rem; text-align: right; }
+}
 
-  @include bs.media-breakpoint-down(sm) {
-    grid-template-columns: 1fr;
-    gap: 0 0;
-
-    dd {
-      margin-bottom: 0.75rem;
-    }
-  }
+.medailonek__role {
+  font-size: 1.2rem;
+  color: $text-tlumeny;
+  margin-bottom: 2rem;
 }
 
 .pripravuje {
-  background: #eee;
-  border-left: 5px solid $zlata;
-  padding: 0.75rem 1rem;
+  border-left: 3px solid;
+  border-image: linear-gradient($zluta, $oranzova) 1;
+  padding: 0.2rem 0 0.2rem 1.5rem;
+  color: $text-tlumeny;
 }
 
-// --- galerie na homepage --------------------------------------------------
-.galerie {
-  // Osm miniatur na řádek; na užších displejích se počet sníží, aby fotky
-  // nebyly menší než rozeznatelné.
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 10px;
-  margin: 1rem 0;
+// --- text z redakce -------------------------------------------------------
+.text {
+  font-size: 1.06rem;
+  line-height: 1.68;
 
-  @include bs.media-breakpoint-down(lg) {
-    grid-template-columns: repeat(6, 1fr);
+  h2, h3 { margin: 2.2rem 0 1rem; }
+
+  blockquote {
+    border-left: 3px solid;
+    border-image: linear-gradient($zluta, $oranzova) 1;
+    padding: 0.2rem 0 0.2rem 1.6rem;
+    margin: 1.6rem 0;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: $text;
+
+    p em { display: block; text-align: right; font-size: 0.9rem; }
   }
 
-  @include bs.media-breakpoint-down(md) {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  img { max-width: 100%; height: auto; }
 
-  @include bs.media-breakpoint-down(sm) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .iodst {
+    max-width: 42%;
 
-  a {
-    background: $prechod;
-    padding: 3px;
-    display: block;
-    overflow: hidden;
-    aspect-ratio: 75 / 110;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1);
-      transition: 0.5s ease-in-out;
-
-      &:hover {
-        transform: scale(1.3);
-      }
+    @include bs.media-breakpoint-down(md) {
+      float: none !important;
+      max-width: 100%;
+      margin: 0 0 1.2rem;
     }
   }
+
+  .iright { float: right; margin: 0 0 1.2rem 1.6rem; }
+  .ileft { float: left; margin: 0 1.6rem 1.2rem 0; }
+  .clear { clear: both; }
+
+  ul { padding-left: 1.2rem; }
+  li { list-style: square; }
+}
+
+// --- galerie na úvodní stránce -------------------------------------------
+.galerie {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 10px;
+
+  @include bs.media-breakpoint-down(lg) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  @include bs.media-breakpoint-down(md) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @include bs.media-breakpoint-down(sm) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  a { display: block; overflow: hidden; background: #edebe8; }
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    transform: scale(1);
+    transition: 0.4s ease-in-out;
+  }
+
+  a:hover img { transform: scale(1.08); }
+}
+
+// --- patička --------------------------------------------------------------
+.pruh-paticky {
+  height: 5px;
+  background: $prechod;
+}
+
+.paticka {
+  padding-block: 2.6rem 3.2rem;
+  font-size: 0.95rem;
+  color: $text-tlumeny;
+
+  .obal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  a { color: $text-tlumeny; }
+  a:hover { color: $inkoust; }
+}
+
+.paticka__nazev {
+  font-family: $pismo-nadpis;
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: $inkoust;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.paticka__odkazy {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  gap: 2rem;
+
+  li { list-style: none; }
 }

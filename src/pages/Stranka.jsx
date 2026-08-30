@@ -1,25 +1,21 @@
-import Nav from '../components/Nav'
-import Prose from '../components/Prose'
 import Meta from '../components/Meta'
+import Prose from '../components/Prose'
 
-/** Obyčejná textová stránka: nadpis a HTML obsah. */
-export default function Stranka({ nadpis, html, popis, children }) {
+/** Obyčejná textová stránka: nadtitulek, nadpis a obsah. */
+export default function Stranka({ nadpis, html, perex, popis, children }) {
   return (
     <>
       <Meta title={`${nadpis} | Volba pro město Trhové Sviny`} popis={popis} />
-      <Nav />
-      <div className="container">
-        <div className="row">
-          <div className="col-12 content">
-            <div className="kotva">
-              <h1>{nadpis}</h1>
-            </div>
+      <div className="obal">
+        <section className="sekce">
+          <h1>{nadpis}</h1>
+          {perex && <p className="uvod__perex mt-4">{perex}</p>}
+          <div className="text mt-4">
             {html && <Prose html={html} />}
             {children}
           </div>
-        </div>
+        </section>
       </div>
-      <br />
     </>
   )
 }

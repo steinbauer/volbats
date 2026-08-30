@@ -1,17 +1,17 @@
-import { useParams } from 'react-router-dom'
-import Hero from '../components/Hero'
-import Nav from '../components/Nav'
-import Prose from '../components/Prose'
+import { Link, useParams } from 'react-router-dom'
 import Meta from '../components/Meta'
-import Rozcestnik from '../components/Rozcestnik'
-import KandidatKarta from '../components/KandidatKarta'
+import Prose from '../components/Prose'
+import KandidatFoto from '../components/KandidatFoto'
 import kandidati from '../data/kandidati.json'
 import NotFound from './NotFound'
 
 export default function KandidatDetail() {
   const { slug } = useParams()
-  const kandidat = kandidati.find((k) => k.slug === slug)
-  if (!kandidat) return <NotFound />
+  const poradi = kandidati.findIndex((k) => k.slug === slug)
+  if (poradi === -1) return <NotFound />
+
+  const kandidat = kandidati[poradi]
+  const dalsi = kandidati[(poradi + 1) % kandidati.length]
 
   return (
     <>
@@ -19,44 +19,56 @@ export default function KandidatDetail() {
         title={`${kandidat.jmeno} | Volba pro město Trhové Sviny`}
         popis={kandidat.info}
       />
-      <Hero />
-      <Nav />
 
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-sm-8 col-lg-9 content">
-            <div className="kotva">
-              <h1>{kandidat.jmeno}</h1>
-            </div>
-            {/* Údaje z kandidátní listiny má každý stejně, ať už medailonek
-                napsaný má, nebo ne. */}
+      <div className="obal">
+        <div className="medailonek">
+          <div className="medailonek__foto">
+            <KandidatFoto kandidat={kandidat} />
+
             <dl className="udaje">
-              <dt>Povolání</dt>
-              <dd>{kandidat.povolani}</dd>
-              <dt>Bydliště</dt>
-              <dd>{kandidat.cast}</dd>
-              <dt>Politická příslušnost</dt>
-              <dd>{kandidat.strana}</dd>
-              <dt>Věk ke druhému dni voleb</dt>
-              <dd>{kandidat.vek} let</dd>
+              <div>
+                <dt>Povolání</dt>
+                <dd>{kandidat.povolani}</dd>
+              </div>
+              <div>
+                <dt>Bydliště</dt>
+                <dd>{kandidat.cast}</dd>
+              </div>
+              <div>
+                <dt>Politická příslušnost</dt>
+                <dd>{kandidat.strana}</dd>
+              </div>
+              <div>
+                <dt>Věk ke druhému dni voleb</dt>
+                <dd>{kandidat.vek} let</dd>
+              </div>
             </dl>
-
-            {kandidat.zivotopis ? (
-              <Prose html={kandidat.zivotopis} />
-            ) : (
-              <p className="pripravuje">Medailonek se připravuje.</p>
-            )}
           </div>
 
-          <div className="col-12 col-sm-4 col-lg-3">
-            <KandidatKarta kandidat={{ ...kandidat, slug: null }} />
+          <div>
+            <div className="nadtitulek">Kandidát č. {kandidat.cislo}</div>
+            <h1>{kandidat.jmeno}</h1>
+            <p className="medailonek__role mt-3">{kandidat.info}</p>
+
+            <div className="text">
+              {kandidat.zivotopis ? (
+                <Prose html={kandidat.zivotopis} />
+              ) : (
+                <p className="pripravuje">Medailonek se připravuje.</p>
+              )}
+            </div>
+
+            <div className="uvod__akce mt-5">
+              <Link className="tlacitko tlacitko--obrys" to="/kandidati/">
+                ← Zpět na kandidátku
+              </Link>
+              <Link className="tlacitko tlacitko--plne" to={`/kandidati/${dalsi.slug}/`}>
+                {dalsi.jmeno} →
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-
-      <br />
-      <Rozcestnik />
-      <br />
     </>
   )
 }

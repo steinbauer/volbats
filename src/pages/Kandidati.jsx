@@ -1,34 +1,27 @@
-import Nav from '../components/Nav'
 import Meta from '../components/Meta'
+import Prose from '../components/Prose'
 import KandidatKarta from '../components/KandidatKarta'
 import kandidati from '../data/kandidati.json'
 import stranky from '../data/stranky.json'
-import Prose from '../components/Prose'
 
 export default function Kandidati() {
   return (
     <>
       <Meta title="Kandidáti | Volba pro město Trhové Sviny" />
-      <Nav />
-      <div className="container">
-        <div className="row">
-          <div className="col-12 content">
-            <div className="kotva">
-              <h1>Naši kandidáti</h1>
-            </div>
-            {stranky.kandidati?.html && <Prose html={stranky.kandidati.html} />}
-
-            <div className="row">
-              {kandidati.map((k) => (
-                <div className="col-12 col-sm-6 col-lg-3" key={k.cislo ?? k.jmeno}>
-                  <KandidatKarta kandidat={k} />
-                </div>
-              ))}
-            </div>
+      <div className="obal">
+        <section className="sekce">
+          <h1>{stranky.kandidati.nadpis}</h1>
+          <div className="text mt-4 mb-5">
+            <Prose html={stranky.kandidati.html} />
           </div>
-        </div>
+
+          <div className="mrizka-kandidatu">
+            {kandidati.map((k) => (
+              <KandidatKarta kandidat={k} key={k.cislo} />
+            ))}
+          </div>
+        </section>
       </div>
-      <br />
     </>
   )
 }

@@ -1,26 +1,17 @@
 import { Link } from 'react-router-dom'
-import { obrazek } from '../obrazky'
+import KandidatFoto from './KandidatFoto'
 
-/**
- * Dlaždice kandidáta s pořadovým číslem. Jen část kandidátů má medailonek —
- * u ostatních se jméno a fotka nelinkují.
- */
+/** Dlaždice kandidáta: fotka s číslem, jméno a řádek s rolí. */
 export default function KandidatKarta({ kandidat }) {
-  const { cislo, jmeno, slug, foto, info } = kandidat
-  const cil = slug ? `/kandidati/${slug}/` : null
-  const fotka = <img src={obrazek(foto)} alt={jmeno} className="img-fluid" />
+  const cil = kandidat.slug ? `/kandidati/${kandidat.slug}/` : null
 
   return (
-    <div className="thumbnail">
-      <div className="ratio ratio-kandidat">
-        <div className="ramecek">{cil ? <Link to={cil}>{fotka}</Link> : fotka}</div>
-        {cislo != null && <div className="cislo">{cislo}</div>}
+    <div className="kandidat">
+      <KandidatFoto kandidat={kandidat} odkaz={cil} />
+      <div className="kandidat__jmeno">
+        {cil ? <Link to={cil}>{kandidat.jmeno}</Link> : kandidat.jmeno}
       </div>
-
-      <div className="caption">
-        <h4>{cil ? <Link to={cil}>{jmeno}</Link> : jmeno}</h4>
-        <p className="peopleInfo">{info}</p>
-      </div>
+      <div className="kandidat__role">{kandidat.info}</div>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { menu } from '../data/navigace'
 import { web } from '../data/web'
 
@@ -6,48 +6,35 @@ export default function Footer() {
   const priority = menu.find((p) => p.podmenu)?.podmenu ?? []
 
   return (
-    <div className="background footer">
-      <br />
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-md-4">
-            <h4>Volba pro město Trhové Sviny</h4>
-            <div className="downmenu">
-              <ul>
-                {menu.map((polozka) => (
-                  <li key={polozka.cesta}>
-                    <NavLink to={polozka.cesta} end={polozka.cesta === '/'}>
-                      <span>{polozka.popisek}</span>
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
+    <>
+      <div className="pruh-paticky" />
+      <footer className="paticka">
+        <div className="obal">
+          <div>
+            <div className="paticka__nazev">
+              {web.nazev} {web.mesto}
+            </div>
+            <div>{web.claim}</div>
+            <div className="mt-3">
+              <a href={`mailto:${web.email}`}>{web.email}</a>
             </div>
           </div>
 
-          <div className="col-12 col-md-8">
-            <h4>Priority</h4>
-            <div className="downmenu downmenu-inline">
-              <ul>
-                {priority.map((polozka) => (
-                  <li key={polozka.cesta}>
-                    <NavLink to={polozka.cesta}>
-                      <span>{polozka.popisek}</span>
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div>
+            <ul className="paticka__odkazy">
+              {priority.map((p) => (
+                <li key={p.cesta}>
+                  <Link to={p.cesta}>{p.popisek}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-12 text-end text-small">
-            © {web.rok} – {web.nazev} {web.mesto}
+          <div>
+            © {web.rok} · {web.nazev}, politické hnutí
           </div>
         </div>
-      </div>
-      <br />
-    </div>
+      </footer>
+    </>
   )
 }
