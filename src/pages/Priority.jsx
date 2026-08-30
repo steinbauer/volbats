@@ -10,7 +10,7 @@ export default function Priority() {
         <ul>
           {priority.map((p) => (
             <li key={p.slug}>
-              <Link to={`/priority/${p.slug}`}>{p.nadpis}</Link>
+              <Link to={`/priority/${p.slug}/`}>{p.nadpis}</Link>
             </li>
           ))}
         </ul>

@@ -7,7 +7,7 @@ import { obrazek } from '../obrazky'
  */
 export default function KandidatKarta({ kandidat }) {
   const { cislo, jmeno, slug, foto, info } = kandidat
-  const cil = slug ? `/kandidati/${slug}` : null
+  const cil = slug ? `/kandidati/${slug}/` : null
   const fotka = <img src={obrazek(foto)} alt={jmeno} className="img-fluid" />
 
   return (

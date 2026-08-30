@@ -4,14 +4,14 @@ import priority from './priority.json'
 export const menu = [
   { cesta: '/', popisek: 'Volba pro město' },
   {
-    cesta: '/priority',
+    cesta: '/priority/',
     popisek: 'Priority',
     podmenu: priority.map((p) => ({
-      cesta: `/priority/${p.slug}`,
+      cesta: `/priority/${p.slug}/`,
       popisek: p.nadpis,
     })),
   },
-  { cesta: '/program', popisek: 'Program' },
-  { cesta: '/kandidati', popisek: 'Kandidáti' },
-  { cesta: '/kontakt', popisek: 'Kontakt' },
+  { cesta: '/program/', popisek: 'Program' },
+  { cesta: '/kandidati/', popisek: 'Kandidáti' },
+  { cesta: '/kontakt/', popisek: 'Kontakt' },
 ]

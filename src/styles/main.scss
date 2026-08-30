@@ -291,14 +291,11 @@ blockquote {
   }
 
   // Podmenu se otevírá hoverem i klávesnicí, žádný JS není potřeba.
+  //
+  // Položka Priority se schválně podbarvuje stejně jako ostatní, tedy jen
+  // průsvitnou bílou. Původní web měl tmavě zlatou, ale až po kliknutí, kdy
+  // se menu rozbalilo — při pouhém přejetí myší byla i tam bílá.
   .ma-podmenu {
-    &:hover > a,
-    &:focus-within > a {
-      background: $zlata-tmava;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-    }
-
     &:hover > .podmenu,
     &:focus-within > .podmenu {
       padding: 0.5% 0;
@@ -525,6 +522,38 @@ blockquote {
     background: color.adjust($zlata, $lightness: -8%);
     color: #000;
   }
+}
+
+// --- medailonek, který se teprve chystá -----------------------------------
+.udaje {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1.5rem;
+  margin: 1rem 0 1.5rem;
+
+  dt {
+    font-weight: 400;
+    color: #666;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  @include bs.media-breakpoint-down(sm) {
+    grid-template-columns: 1fr;
+    gap: 0 0;
+
+    dd {
+      margin-bottom: 0.75rem;
+    }
+  }
+}
+
+.pripravuje {
+  background: #eee;
+  border-left: 5px solid $zlata;
+  padding: 0.75rem 1rem;
 }
 
 // --- galerie na homepage --------------------------------------------------

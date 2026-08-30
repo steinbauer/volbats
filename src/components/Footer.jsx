@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { menu } from '../data/navigace'
+import { web } from '../data/web'
 
 export default function Footer() {
   const priority = menu.find((p) => p.podmenu)?.podmenu ?? []
@@ -42,7 +43,7 @@ export default function Footer() {
 
         <div className="row">
           <div className="col-12 text-end text-small">
-            © 2022 - Volba pro město Trhové Sviny
+            © {web.rok} – {web.nazev} {web.mesto}
           </div>
         </div>
       </div>

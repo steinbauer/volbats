@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 /** Dva boxy pod obsahem — dřív .jumbotron, ten v Bootstrapu 5 už není. */
 export default function Rozcestnik() {
   const boxy = [
-    { cesta: '/program', nadpis: 'Náš program', tlacitko: 'Zobrazit náš program' },
-    { cesta: '/kandidati', nadpis: 'Naši kandidáti', tlacitko: 'Zobrazit naše kandidáty' },
+    { cesta: '/program/', nadpis: 'Náš program', tlacitko: 'Zobrazit náš program' },
+    { cesta: '/kandidati/', nadpis: 'Naši kandidáti', tlacitko: 'Zobrazit naše kandidáty' },
   ]
 
   return (

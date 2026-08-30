@@ -84,7 +84,11 @@ def preloz_odkaz(page_rel: str, href: str) -> str:
     cil = re.sub(r'(^|/)\./', r'\1', cil)
     while '../' in cil:
         cil = re.sub(r'[^/]+/\.\./', '', cil, count=1)
-    cil = cil.removesuffix('index.html').removesuffix('/')
+    # Lomítko na konci necháváme: adresa pak míří rovnou na předgenerovaný
+    # soubor a při obnovení stránky nedojde k přesměrování.
+    cil = cil.removesuffix('index.html')
+    if cil and not cil.endswith('/'):
+        cil += '/'
     return '/' + cil if cil else '/'
 
 

@@ -6,6 +6,8 @@ export const web = {
   // Volební číslo pro komunální volby 2026. Zatím drží číslo z roku 2022 —
   // až přijde losování, přepíše se jen tahle hodnota.
   cislo: 2,
+  // Volební rok, ukazuje se v patičce
+  rok: 2026,
   email: 'vera@korcak.cz',
   lidr: 'Věra Korčaková',
 }
