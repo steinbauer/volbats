@@ -262,5 +262,17 @@
     "vek": 74,
     "info": "důchodkyně, 74 let",
     "zivotopis": ""
+  },
+  {
+    "cislo": 23,
+    "jmeno": "Karel Bartyzal",
+    "slug": "karel-bartyzal",
+    "foto": "obrazky/silueta.svg",
+    "povolani": "Majitel stavební firmy",
+    "cast": "Trhové Sviny",
+    "strana": "bez politické příslušnosti",
+    "vek": 58,
+    "info": "majitel stavební firmy, 58 let",
+    "zivotopis": ""
   }
 ]
