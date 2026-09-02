@@ -3,9 +3,8 @@ export const web = {
   nazev: 'Volba pro město',
   mesto: 'Trhové Sviny',
   claim: 'Naše srdeční záležitost…',
-  // Volební číslo pro komunální volby 2026. Zatím drží číslo z roku 2022 —
-  // až přijde losování, přepíše se jen tahle hodnota.
-  cislo: 2,
+  // Volební číslo vylosované pro komunální volby 2026 (e-mail 1. 9. 2026).
+  cislo: 4,
   // Volební rok, ukazuje se v patičce
   rok: 2026,
   // Termín z kandidátní listiny, ukazuje se v hlavičce

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import Meta from '../components/Meta'
 import Prose from '../components/Prose'
 import Galerie from '../components/Galerie'
-import Bilance from '../components/Bilance'
+import ProgramBody from '../components/ProgramBody'
 import CisloSrdce from '../components/CisloSrdce'
 import KandidatKarta from '../components/KandidatKarta'
 import { obrazek } from '../obrazky'
@@ -10,7 +10,7 @@ import { web } from '../data/web'
 import stranky from '../data/stranky.json'
 import priority from '../data/priority.json'
 import kandidati from '../data/kandidati.json'
-import tabulka from '../data/program-tabulka.json'
+import programBody from '../data/program-body.json'
 
 // Úvodní odstavec putuje do hlavičky stránky jako perex, zbytek zůstává
 // v textovém bloku pod fotkou — ať se stejná věta neopakuje dvakrát.
@@ -60,12 +60,12 @@ export default function Home() {
 
         <section className="sekce">
           <div className="sekce__hlavicka">
-            <h2>Bilance, ne sliby</h2>
+            <h2>Co chceme</h2>
             <Link className="sekce__odkaz" to="/program/">
               Celý program →
             </Link>
           </div>
-          <Bilance radky={tabulka.slice(0, 3)} />
+          <ProgramBody body={programBody.slice(0, 3)} />
         </section>
       </div>
 

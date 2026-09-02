@@ -399,67 +399,42 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
 }
 
-// --- bilance: podařilo se / chceme ---------------------------------------
-.bilance {
+// --- body programu --------------------------------------------------------
+.program {
   border-top: 1.5px solid $inkoust;
 }
 
-.bilance__hlavicka {
+.program__bod {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-bottom: 1.5px solid $inkoust;
-
-  > div {
-    padding-block: 0.9rem;
-    font-family: $pismo-nadpis;
-    font-size: 1.35rem;
-    font-weight: 800;
-  }
-
-  > div:last-child { padding-left: 2.75rem; color: $cervena; }
-
-  @include bs.media-breakpoint-down(md) { display: none; }
-}
-
-.bilance__radek {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1.5rem;
+  padding: 1.6rem 0 1.7rem;
   border-bottom: 1px solid $linka;
-
-  @include bs.media-breakpoint-down(md) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.bilance__sloupec {
-  padding: 1.7rem 2.75rem 1.9rem 0;
-
-  &:first-child { border-right: 1px solid $linka; }
-  &:last-child { padding: 1.7rem 0 1.9rem 2.75rem; }
 
   p:last-child { margin-bottom: 0; }
 
-  @include bs.media-breakpoint-down(md) {
-    padding: 1.2rem 0 1.4rem;
-
-    &:first-child { border-right: 0; border-bottom: 1px solid $linka; }
-    &:last-child { padding: 1.2rem 0 1.4rem; }
+  @include bs.media-breakpoint-down(sm) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 }
 
-// Na mobilu chybí sloupcová hlavička, tak se popisek ukáže u každé buňky
-.bilance__popisek {
-  display: none;
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+.program__cislo {
+  font-family: $pismo-nadpis;
   font-weight: 600;
-  color: $text-tlumeny;
-  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  color: $cervena;
+  padding-top: 0.25rem;
+}
 
-  &--chceme { color: $cervena; }
-
-  @include bs.media-breakpoint-down(md) { display: block; }
+// Jediný bod v programu je „Nechceme"; ostatní popisek nepotřebují, opakoval
+// by se patnáctkrát.
+.program__popisek {
+  font-family: $pismo-nadpis;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: $cervena;
+  margin-bottom: 0.4rem;
 }
 
 // --- priority -------------------------------------------------------------
