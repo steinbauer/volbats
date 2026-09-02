@@ -621,13 +621,6 @@ a:hover { text-decoration: underline; }
   margin-bottom: 2rem;
 }
 
-.pripravuje {
-  border-left: 3px solid;
-  border-image: linear-gradient($zluta, $oranzova) 1;
-  padding: 0.2rem 0 0.2rem 1.5rem;
-  color: $text-tlumeny;
-}
-
 // --- text z redakce -------------------------------------------------------
 .text {
   font-size: 1.06rem;
