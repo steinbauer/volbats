@@ -4,6 +4,9 @@ import KandidatKarta from '../components/KandidatKarta'
 import kandidati from '../data/kandidati.json'
 import stranky from '../data/stranky.json'
 
+const SIZES =
+  '(min-width: 1200px) 310px, (min-width: 992px) 22vw, (min-width: 768px) 30vw, 45vw'
+
 export default function Kandidati() {
   return (
     <>
@@ -17,7 +20,7 @@ export default function Kandidati() {
 
           <div className="mrizka-kandidatu">
             {kandidati.map((k) => (
-              <KandidatKarta kandidat={k} key={k.cislo} />
+              <KandidatKarta kandidat={k} sizes={SIZES} key={k.cislo} />
             ))}
           </div>
         </section>

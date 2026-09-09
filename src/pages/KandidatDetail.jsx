@@ -23,7 +23,7 @@ export default function KandidatDetail() {
       <div className="obal">
         <div className="medailonek">
           <div className="medailonek__foto">
-            <KandidatFoto kandidat={kandidat} />
+            <KandidatFoto kandidat={kandidat} sizes="(min-width: 1200px) 420px, (min-width: 768px) 30vw, 92vw" />
 
             <dl className="udaje">
               <div>

@@ -371,11 +371,13 @@ a:hover { text-decoration: underline; }
 .spolecna-fotka {
   margin-bottom: clamp(2.5rem, 6vw, 4.75rem);
 
+  // Fotka se ukazuje celá. Dřív měla pevnou výšku a object-fit: cover, takže
+  // si prohlížeč podle šířky okna ukrajoval z krajů — a na úzkém displeji
+  // z ní zbyl proužek prostředka. Ořez patří do obrázku na disku, ne sem.
   img {
     display: block;
     width: 100%;
-    height: clamp(180px, 26vw, 300px);
-    object-fit: cover;
+    height: auto;
   }
 }
 
