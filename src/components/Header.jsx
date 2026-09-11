@@ -12,7 +12,8 @@ export default function Header() {
     <header className="hlavicka">
       <div className="obal">
         <Link className="logo" to="/" onClick={() => setOtevreno(false)}>
-          <Znak className="logo__znak" aria-hidden="true" />
+          <Znak className="logo__znak" cislo={web.cislo} role="img"
+            aria-label={`Volební číslo ${web.cislo}`} />
           <span>
             <span className="logo__nazev d-block">{web.nazev}</span>
             <span className="logo__mesto d-block">{web.mesto}</span>

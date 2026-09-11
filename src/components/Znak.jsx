@@ -8,8 +8,10 @@ const CESTA =
 /**
  * Srdce s gradientem. Každá instance má vlastní id přechodu — dvě SVG se
  * stejným id by si v jedné stránce přebíjela výplň.
+ *
+ * S `cislo` sedí uvnitř srdce volební číslo, jako mělo původní logo.
  */
-export default function Znak({ className, sikmo = false, ...zbytek }) {
+export default function Znak({ className, sikmo = false, cislo, ...zbytek }) {
   const id = useId()
 
   return (
@@ -21,6 +23,11 @@ export default function Znak({ className, sikmo = false, ...zbytek }) {
         </linearGradient>
       </defs>
       <path d={CESTA} fill={`url(#${id})`} />
+      {cislo != null && (
+        <text className="znak__cislo" x="105.5" y="105" textAnchor="middle">
+          {cislo}
+        </text>
+      )}
     </svg>
   )
 }

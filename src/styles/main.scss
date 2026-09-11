@@ -154,6 +154,15 @@ a:hover { text-decoration: underline; }
   flex: none;
 }
 
+// Volební číslo uvnitř srdce v logu. Souřadnice i velikost jsou v jednotkách
+// viewBoxu 202×199, takže se škálují spolu se znakem.
+.znak__cislo {
+  font-family: $pismo-nadpis;
+  font-weight: 800;
+  font-size: 86px;
+  fill: $inkoust;
+}
+
 .logo__nazev {
   font-family: $pismo-nadpis;
   font-weight: 800;
