@@ -1,7 +1,7 @@
 import Meta from '../components/Meta'
 import Prose from '../components/Prose'
 import KandidatKarta from '../components/KandidatKarta'
-import kandidati from '../data/kandidati.json'
+import { kandidati } from '../data/lide'
 import stranky from '../data/stranky.json'
 
 const SIZES =

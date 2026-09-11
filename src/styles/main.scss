@@ -351,6 +351,13 @@ a:hover { text-decoration: underline; }
   justify-content: center;
 
   svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  // Vloženo až za základní deklarace: Sass vysazuje @media tam, kde ho
+  // napíšeme, a stejně specifické pravidlo níž by ho jinak přebilo.
+  // Na mobilu srdce zabíralo půl obrazovky, než se návštěvník dostal k obsahu.
+  @include bs.media-breakpoint-down(md) {
+    display: none;
+  }
 }
 
 .cislo-srdce__text {
@@ -601,7 +608,19 @@ a:hover { text-decoration: underline; }
   gap: 2.5rem;
   padding-block: clamp(2rem, 4vw, 3.5rem) clamp(2.5rem, 5vw, 5rem);
 
-  @include bs.media-breakpoint-down(md) { grid-template-columns: 1fr; }
+  @include bs.media-breakpoint-down(md) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    // display: contents rozpustí oba sloupce, takže se jejich obsah stane
+    // položkami téhle mřížky a dá se přeskládat.
+    > div { display: contents; }
+
+    .kandidat__foto { order: 1; }
+    .medailonek__hlavicka { order: 2; }
+    .udaje { order: 3; margin-top: 0; }
+    .medailonek__telo { order: 4; }
+  }
 }
 
 .medailonek__foto .kandidat__cislo {

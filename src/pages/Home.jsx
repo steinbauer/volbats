@@ -9,7 +9,7 @@ import { obrazek } from '../obrazky'
 import { web } from '../data/web'
 import stranky from '../data/stranky.json'
 import priority from '../data/priority.json'
-import kandidati from '../data/kandidati.json'
+import { kandidati } from '../data/lide'
 import programBody from '../data/program-body.json'
 
 // Pás kandidátů na úvodní stránce má šest sloupců, na užších displejích méně

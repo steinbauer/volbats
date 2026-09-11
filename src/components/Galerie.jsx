@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { obrazek } from '../obrazky'
-import kandidati from '../data/kandidati.json'
+import { kandidati, odkazNaMedailonek } from '../data/lide'
 
 const SIRKY = [400, 800]
 // Osm miniatur na řádek v kontejneru do 1440 px, na užších méně sloupců
@@ -11,7 +11,7 @@ export default function Galerie() {
   return (
     <div className="galerie">
       {kandidati.map((k) => (
-        <Link to={`/kandidati/${k.slug}/`} key={k.cislo} title={k.jmeno}>
+        <Link to={odkazNaMedailonek(k) ?? '/kandidati/'} key={k.cislo} title={k.jmeno}>
           <img
             src={obrazek(`${k.foto}-400.webp`)}
             srcSet={SIRKY.map((w) => `${obrazek(`${k.foto}-${w}.webp`)} ${w}w`).join(', ')}

@@ -8,7 +8,7 @@ import KandidatDetail from './pages/KandidatDetail'
 import Kontakt from './pages/Kontakt'
 import NotFound from './pages/NotFound'
 import priority from './data/priority.json'
-import kandidati from './data/kandidati.json'
+import { kandidati, maStranku } from './data/lide'
 
 export const routes = [
   {
@@ -36,6 +36,6 @@ export const vsechnyCesty = [
   ...priority.map((p) => `/priority/${p.slug}/`),
   '/program/',
   '/kandidati/',
-  ...kandidati.filter((k) => k.slug).map((k) => `/kandidati/${k.slug}/`),
+  ...kandidati.filter(maStranku).map((k) => `/kandidati/${k.slug}/`),
   '/kontakt/',
 ]
