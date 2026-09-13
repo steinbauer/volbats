@@ -12,6 +12,9 @@ import priority from '../data/priority.json'
 import { kandidati } from '../data/lide'
 import programBody from '../data/program-body.json'
 
+// Šířky, ve kterých tools/fotky.py ukládá společnou fotku
+const SIRKY_SPOLECNA = [800, 1400, 2000, 2600]
+
 // Pás kandidátů na úvodní stránce má pět sloupců, na užších displejích méně
 const SIZES_PAS =
   '(min-width: 1200px) 250px, (min-width: 992px) 26vw, (min-width: 768px) 30vw, 45vw'
@@ -48,9 +51,13 @@ export default function Home() {
       </div>
 
       <div className="obal spolecna-fotka">
+        {/* Ukazuje se celá, bez ořezu v prohlížeči — proto jen zmenšeniny
+            v několika šířkách a žádná pevná výška. */}
         <img
-          src={obrazek('kandidati-volbats.jpg')}
-          alt={`Kandidáti sdružení ${web.nazev}`}
+          src={obrazek('spolecna-1400.webp')}
+          srcSet={SIRKY_SPOLECNA.map((w) => `${obrazek(`spolecna-${w}.webp`)} ${w}w`).join(', ')}
+          sizes="(min-width: 1440px) 1296px, 92vw"
+          alt={`Kandidáti sdružení ${web.nazev} ${web.mesto}`}
         />
       </div>
 
