@@ -671,6 +671,21 @@ a:hover { text-decoration: underline; }
   dd { margin: 0; font-size: 0.95rem; text-align: right; }
 }
 
+// Zpět na kandidátku + další kandidát. Vlastní třída, ne .uvod__akce:
+// tlačítka na úvodní stránce musí na mobilu zůstat vedle sebe, kdežto tady
+// se jméno kandidáta do řádku nevejde a roztahovalo by stránku.
+.medailonek__navigace {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+
+  @include bs.media-breakpoint-down(md) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+}
+
 .medailonek__role {
   font-size: 1.2rem;
   color: $text-tlumeny;

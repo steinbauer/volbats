@@ -65,7 +65,7 @@ export default function KandidatDetail() {
                 </div>
               )}
 
-              <div className="uvod__akce mt-5">
+              <div className="medailonek__navigace mt-5">
                 <Link className="tlacitko tlacitko--obrys" to="/kandidati/">
                   ← Zpět na kandidátku
                 </Link>
