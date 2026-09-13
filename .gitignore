@@ -9,3 +9,7 @@ dist-ssr/
 .idea/
 
 .DS_Store
+
+# Leták se generuje z dat, viz make letak
+letak.pdf
+letak.html
