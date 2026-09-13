@@ -12,9 +12,9 @@ import priority from '../data/priority.json'
 import { kandidati } from '../data/lide'
 import programBody from '../data/program-body.json'
 
-// Pás kandidátů na úvodní stránce má šest sloupců, na užších displejích méně
+// Pás kandidátů na úvodní stránce má pět sloupců, na užších displejích méně
 const SIZES_PAS =
-  '(min-width: 1200px) 205px, (min-width: 992px) 22vw, (min-width: 768px) 30vw, 45vw'
+  '(min-width: 1200px) 250px, (min-width: 992px) 26vw, (min-width: 768px) 30vw, 45vw'
 
 // Úvodní odstavec putuje do hlavičky stránky jako perex, zbytek zůstává
 // v textovém bloku pod fotkou — ať se stejná věta neopakuje dvakrát.
@@ -110,7 +110,7 @@ export default function Home() {
           </div>
 
           <div className="mrizka-kandidatu mrizka-kandidatu--pas">
-            {kandidati.slice(0, 6).map((k) => (
+            {kandidati.slice(0, 10).map((k) => (
               <KandidatKarta kandidat={k} sizes={SIZES_PAS} key={k.cislo} />
             ))}
           </div>
