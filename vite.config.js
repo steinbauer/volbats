@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Web běží na dvou místech s jiným kořenem:
-//   GitHub Pages   https://steinbauer.github.io/volbats/   -> base '/volbats/'
-//   lab (traefik)  https://main.volbats.kamil.lab.home/    -> base '/'
-// Proto se base bere z proměnné a build pro Pages ji nastavuje ve workflow.
+// Ostrý web i lokální náhled sedí v kořeni domény, takže base zůstává '/':
+//   veřejně       https://volbats.cz/
+//   lab (traefik) https://main.volbats.kamil.lab.home/
+// Proměnná zbyla pro případ, že by web někdy běžel v podadresáři — tak to
+// bylo, dokud se publikovalo na steinbauer.github.io/volbats/.
 const base = process.env.VITE_BASE || '/'
 
 export default defineConfig(({ isSsrBuild }) => ({

@@ -30,11 +30,10 @@ jobs:
 
       - run: npm ci
 
-      # Na Pages web nesedí v kořeni domény, ale v /volbats/, takže o tom
-      # musí Vite vědět — jinak by odkazy na assety mířily mimo.
+      # Web sedí v kořeni volbats.cz, takže base zůstává '/'. Dokud běžel
+      # na steinbauer.github.io/volbats/, musel build dostat VITE_BASE
+      # s prefixem — s vlastní doménou by odkazy na assety mířily mimo.
       - run: npm run build
-        env:
-          VITE_BASE: /volbats/
 
       - uses: actions/configure-pages@v6
 

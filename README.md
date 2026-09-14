@@ -9,7 +9,8 @@ React + Vite, výstup jsou **statické soubory** — žádný backend. Každá a
 se při buildu předgeneruje do vlastního `index.html`, takže přímé odkazy
 fungují, vyhledávače vidí obsah bez spouštění JS a React se na hotové HTML jen
 napojí. Publikuje se na **GitHub Pages** přes Actions při každém pushi do
-`main` (`.github/workflows/deploy.yml`).
+`main` (`.github/workflows/deploy.yml`), veřejná adresa je **volbats.cz** —
+vlastní doména nad Pages, drží ji `public/CNAME`.
 
 Názvy souborů v `dist/assets/` obsahují hash obsahu. Po nasazení nové verze
 tedy prohlížeč nemá jak podstrčit starou — **ctrl+F5 není potřeba**. Lokální
