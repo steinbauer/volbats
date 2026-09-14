@@ -57,13 +57,9 @@ export default function KandidatDetail() {
             </div>
 
             <div className="medailonek__telo">
-              {/* Kdo medailonek ještě nemá, nechá po sobě jen údaje z listiny —
-                  oznamovat, že se text připravuje, si lídryně nepřeje. */}
-              {kandidat.zivotopis && (
-                <div className="text">
-                  <Prose html={kandidat.zivotopis} />
-                </div>
-              )}
+              <div className="text">
+                <Prose html={kandidat.zivotopis} />
+              </div>
 
               <div className="medailonek__navigace mt-5">
                 <Link className="tlacitko tlacitko--obrys" to="/kandidati/">
