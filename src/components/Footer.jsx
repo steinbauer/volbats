@@ -3,7 +3,9 @@ import { menu } from '../data/navigace'
 import { web } from '../data/web'
 
 export default function Footer() {
-  const priority = menu.find((p) => p.podmenu)?.podmenu ?? []
+  // Patička dřív vypisovala priority; ty jsou teď schované spolu s programem,
+  // tak v ní zbyly obyčejné odkazy z menu.
+  const odkazy = menu.filter((p) => p.cesta !== '/')
 
   return (
     <>
@@ -22,7 +24,7 @@ export default function Footer() {
 
           <div>
             <ul className="paticka__odkazy">
-              {priority.map((p) => (
+              {odkazy.map((p) => (
                 <li key={p.cesta}>
                   <Link to={p.cesta}>{p.popisek}</Link>
                 </li>

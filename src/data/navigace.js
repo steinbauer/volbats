@@ -1,17 +1,10 @@
-import priority from './priority.json'
-
-// Hlavní menu. Priority se doplňují z dat, aby se seznam držel na jednom místě.
+// Hlavní menu.
+//
+// Program a priority z něj 14. 9. 2026 zmizely — dokud o nich členové
+// hlasují, ukazuje /program/ jen oznámení a pracovní verze leží na neveřejné
+// adrese /program-navrh/. Až se program odsouhlasí, vrátí se položky sem.
 export const menu = [
   { cesta: '/', popisek: 'Volba pro město' },
-  {
-    cesta: '/priority/',
-    popisek: 'Priority',
-    podmenu: priority.map((p) => ({
-      cesta: `/priority/${p.slug}/`,
-      popisek: p.nadpis,
-    })),
-  },
-  { cesta: '/program/', popisek: 'Program' },
   { cesta: '/kandidati/', popisek: 'Kandidáti' },
   { cesta: '/kontakt/', popisek: 'Kontakt' },
 ]

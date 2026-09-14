@@ -481,6 +481,9 @@ a:hover { text-decoration: underline; }
 }
 
 // --- priority -------------------------------------------------------------
+// Dlaždice priorit ani jejich tmavý pás se teď nikde nekreslí — priority jsou
+// schované, dokud o programu členové hlasují. Styly zůstávají, ať se dá
+// sekce vrátit jedním odkomentováním v Home.jsx a navigaci.
 .priority-tmave {
   background: $tmava-plocha;
   color: #f6f1e9;
@@ -551,6 +554,114 @@ a:hover { text-decoration: underline; }
   margin-top: auto;
   font-size: 0.87rem;
   color: #8f8175;
+}
+
+// --- program se dolaďuje --------------------------------------------------
+// Pás na místě, kde byly body programu a dlaždice priorit. Drží stejnou
+// tmavou plochu jako dřív priority, aby úvodní stránka nepřišla o rytmus
+// bílá — tmavá — bílá a nevypadalo to, že se na program zapomnělo.
+.stav-programu {
+  background: $tmava-plocha;
+  color: #f6f1e9;
+  padding-block: clamp(3rem, 6vw, 4.75rem);
+
+  h2 { color: #fff; margin-bottom: 1.1rem; }
+}
+
+.stav-programu__stitek {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: $pismo-nadpis;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $zluta;
+  margin-bottom: 1.2rem;
+
+  &::before {
+    content: '';
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: $zluta;
+  }
+}
+
+.stav-programu__text {
+  color: #c4b9ae;
+  font-size: 1.1rem;
+  max-width: 38em;
+
+  &:last-of-type { margin-bottom: 2.1rem; }
+}
+
+// Na tmavé ploše by tlačítko s inkoustovým obrysem zmizelo
+.tlacitko--zlute {
+  background: $zluta;
+  border-color: $zluta;
+  color: $inkoust;
+
+  &:hover { background: #fff; border-color: #fff; color: $inkoust; }
+}
+
+// Odstavce na šířku, která se dobře čte, i mimo blok .uvod
+.uzky { max-width: 38em; }
+
+// --- pracovní verze programu ----------------------------------------------
+// Jen pro neveřejné /program-navrh/. Nápadný pruh nahoře, aby bylo na první
+// pohled jasné, že tahle stránka ven nepatří.
+.pracovni-verze {
+  background: #fdf3d4;
+  border-left: 4px solid $zlata;
+  padding: 1rem 1.3rem;
+  margin-bottom: 2.5rem;
+  font-size: 0.97rem;
+}
+
+.navrh__nadpis {
+  padding-top: 2.5rem;
+  border-top: 1.5px solid $inkoust;
+  margin-bottom: 1.6rem;
+}
+
+.navrh__obsah {
+  columns: 3 14rem;
+  gap: 2rem;
+  padding-left: 1.1rem;
+  margin-bottom: 3rem;
+  font-size: 0.97rem;
+
+  li { break-inside: avoid; margin-bottom: 0.35rem; }
+}
+
+.navrh__priorita {
+  padding-block: 1.8rem;
+  border-top: 1px solid $linka;
+
+  h3 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  // Text priorit má uvnitř nadpisy „Chceme" jako h2. Na vlastní stránce
+  // stály pod h1, tady jsou zanořené pod nadpisem priority — tak ať ho
+  // velikostí nepřerostou.
+  .text h2 {
+    font-size: 1.2rem;
+    color: $cervena;
+    margin: 1.8rem 0 0.8rem;
+  }
+}
+
+.navrh__cislo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: $cervena;
 }
 
 // --- kandidáti ------------------------------------------------------------

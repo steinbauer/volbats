@@ -14,4 +14,4 @@ export function render(cesta, zaklad) {
   )
 }
 
-export { vsechnyCesty } from './routes'
+export { vsechnyCesty, skryteCesty } from './routes'

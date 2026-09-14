@@ -15,13 +15,23 @@ const base = process.env.VITE_BASE || '/'
 const zaklad = base.replace(/\/$/, '')
 
 const sablona = await readFile(join(DIST, 'index.html'), 'utf-8')
-const { render, vsechnyCesty } = await import(join(KOREN, 'dist-ssr/entry-server.js'))
+const { render, vsechnyCesty, skryteCesty } = await import(join(KOREN, 'dist-ssr/entry-server.js'))
 
 for (const cesta of vsechnyCesty) {
   // StaticRouter porovnává location s basename, takže mu adresu předáváme
   // včetně prefixu (/volbats/program). Bez toho by na Pages nevykreslil nic.
   const html = render(zaklad + cesta, zaklad)
-  const stranka = sablona.replace('<!--app-html-->', html)
+  let stranka = sablona.replace('<!--app-html-->', html)
+
+  // Pracovní verze programu se nemá objevit ve vyhledávačích. Z Reactu by se
+  // značka doplnila až po spuštění JS — robot ji musí vidět rovnou v HTML.
+  if (skryteCesty.includes(cesta)) {
+    stranka = stranka.replace(
+      '</head>',
+      '  <meta name="robots" content="noindex, nofollow" />\n  </head>',
+    )
+  }
+
   const soubor = cesta === '/'
     ? join(DIST, 'index.html')
     : join(DIST, cesta.slice(1), 'index.html')

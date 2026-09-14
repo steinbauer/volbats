@@ -2,15 +2,13 @@ import { Link } from 'react-router-dom'
 import Meta from '../components/Meta'
 import Prose from '../components/Prose'
 import Galerie from '../components/Galerie'
-import ProgramBody from '../components/ProgramBody'
+import StavProgramu from '../components/StavProgramu'
 import CisloSrdce from '../components/CisloSrdce'
 import KandidatKarta from '../components/KandidatKarta'
 import { obrazek } from '../obrazky'
 import { web } from '../data/web'
 import stranky from '../data/stranky.json'
-import priority from '../data/priority.json'
 import { kandidati } from '../data/lide'
-import programBody from '../data/program-body.json'
 
 // Šířky, ve kterých tools/fotky.py ukládá společnou fotku
 const SIRKY_SPOLECNA = [800, 1400, 2000, 2600]
@@ -36,12 +34,14 @@ export default function Home() {
             <div className="nadtitulek">Komunální volby v Trhových Svinech</div>
             <h1>{web.claim}</h1>
             <Prose className="uvod__perex" html={perex} />
+            {/* Dokud se program dolaďuje, nemá první tlačítko kam vést —
+                nejsilnější, co teď máme, je kandidátka. */}
             <div className="uvod__akce">
-              <Link className="tlacitko tlacitko--plne" to="/program/">
-                Prohlédnout program
-              </Link>
-              <Link className="tlacitko tlacitko--obrys" to="/kandidati/">
+              <Link className="tlacitko tlacitko--plne" to="/kandidati/">
                 {kandidati.length} kandidátů
+              </Link>
+              <Link className="tlacitko tlacitko--obrys" to="/kontakt/">
+                Napište nám
               </Link>
             </div>
           </div>
@@ -68,44 +68,9 @@ export default function Home() {
           </div>
           <Galerie />
         </section>
-
-        <section className="sekce">
-          <div className="sekce__hlavicka">
-            <h2>Co chceme</h2>
-            <Link className="sekce__odkaz" to="/program/">
-              Celý program →
-            </Link>
-          </div>
-          <ProgramBody body={programBody.slice(0, 3)} />
-        </section>
       </div>
 
-      <section className="priority-tmave">
-        <div className="obal">
-          <h2>{priority.length} priorit</h2>
-          <p className="priority-tmave__perex">
-            Od hospodaření města po místní části. Každá má svou stránku, kde je
-            konkrétně napsáno, co s ní chceme dělat.
-          </p>
-
-          <div className="dlazdice-priorit">
-            {priority.slice(0, 8).map((p, i) => (
-              <Link to={`/priority/${p.slug}/`} key={p.slug}>
-                <span className="dlazdice-priorit__cislo">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span className="dlazdice-priorit__nazev">{p.nadpis}</span>
-              </Link>
-            ))}
-          </div>
-
-          <p className="mt-4 mb-0">
-            <Link className="sekce__odkaz" style={{ color: '#eed239' }} to="/priority/">
-              Všech {priority.length} priorit →
-            </Link>
-          </p>
-        </div>
-      </section>
+      <StavProgramu />
 
       <div className="obal">
         <section className="sekce">
