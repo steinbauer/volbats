@@ -157,7 +157,9 @@ p { margin: 0 0 2.6mm; }
 
 .obalka__nadpis { font-size: 40pt; margin: 0; }
 .obalka__perex { font-size: 12pt; line-height: 1.5; color: #2c2521; }
-.obalka__foto { margin: 7mm 0; }
+/* Fotka jde až k rámečku — odsazení strany se ruší zápornými okraji,
+   tím dostane víc místa a strana působí méně prázdně. */
+.obalka__foto { margin: 0 -8mm; }
 .obalka__foto img { width: 100%; display: block; }
 
 .obalka__dole {
@@ -216,6 +218,25 @@ p { margin: 0 0 2.6mm; }
   font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 800; font-size: 13pt;
 }
+.vyzva {
+  border: 0.5mm solid #dd4c2f;
+  border-radius: 2mm;
+  padding: 4mm 3mm;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2mm;
+}
+.vyzva__text {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; font-size: 12pt; line-height: 1.1;
+}
+.vyzva__qr { width: 28mm; }
+.vyzva__qr svg { width: 100%; height: auto; display: block; }
+.vyzva__web { font-size: 8pt; color: #6b5f55; letter-spacing: 0.04em; }
+
 .kandidat__jmeno { font-weight: 600; font-size: 8.8pt; line-height: 1.18; margin-bottom: 0.8mm; }
 .kandidat__role { font-size: 6.8pt; line-height: 1.25; color: #554d46; }
 
@@ -263,8 +284,10 @@ def hlavicka(web: dict, id_prechodu: str) -> str:
 
 def strana_obalka(web, kandidati, uvod) -> str:
     spolecna = OBRAZKY / 'spolecna-2600.webp'
-    # Části obce bez skloňování — na obálce to funguje jako popiska
-    mista = ' · '.join(sorted({k['cast'] for k in kandidati}))
+    # Části obce bez skloňování — na obálce to funguje jako popiska.
+    # Trhové Sviny patří na začátek, zbytek abecedně.
+    casti = sorted({k['cast'] for k in kandidati})
+    mista = ' · '.join(['Trhové Sviny'] + [c for c in casti if c != 'Trhové Sviny'])
     return f"""<div class="strana strana--obalka">
   {hlavicka(web, 'obalka')}
   <h1 class="obalka__nadpis">Záleží nám<br>na našem městě.</h1>
@@ -294,7 +317,18 @@ def strana_obalka(web, kandidati, uvod) -> str:
 </div>"""
 
 
-def strana_kandidatu(web, kandidati, id_prechodu) -> str:
+def dlazdice_vyzvy(web) -> str:
+    """Vyplní volné okénko v mřížce — kandidátů je 23, mřížka má 24 polí."""
+    qr = (OBRAZKY / 'qr-volbats.svg').read_text(encoding='utf-8')
+    return f"""<div class="vyzva">
+  {znak(20, web['cislo'], 'vyzva')}
+  <div class="vyzva__text">Volte číslo {web['cislo']}</div>
+  <div class="vyzva__qr">{qr}</div>
+  <div class="vyzva__web">volbats.cz</div>
+</div>"""
+
+
+def strana_kandidatu(web, kandidati, id_prechodu, vyzva=False) -> str:
     dlazdice = ''
     for k in kandidati:
         foto = OBRAZKY / f"{k['foto']}-{SIRKA_PORTRETU}.webp"
@@ -310,7 +344,7 @@ def strana_kandidatu(web, kandidati, id_prechodu) -> str:
   {hlavicka(web, id_prechodu)}
   <div class="nadtitulek" style="margin-top:4mm">Kandidátní listina</div>
   <h2 style="font-size:21pt">Naši kandidáti</h2>
-  <div class="mrizka">{dlazdice}</div>
+  <div class="mrizka">{dlazdice}{dlazdice_vyzvy(web) if vyzva else ''}</div>
   <div class="paticka-strany"><span>Volba pro město Trhové Sviny</span></div>
 </div>"""
 
@@ -328,7 +362,7 @@ def strana_programu(web, body, uvod) -> str:
   {hlavicka(web, 'program')}
   <div class="nadtitulek" style="margin-top:7mm">Co chceme prosadit</div>
   <h2 style="font-size:26pt">Náš program</h2>
-  <p style="font-size:10pt;line-height:1.45;margin-top:4mm;max-width:150mm">{uvod}</p>
+  <p style="font-size:10pt;line-height:1.45;margin-top:4mm">{uvod}</p>
   <div class="program">{polozky}</div>
   <div class="paticka-strany">
     <span>Celý program na volbats.cz</span>
@@ -369,7 +403,7 @@ def main():
 <style>{fonty}{STYL}</style></head><body>
 {strana_obalka(web, kandidati, uvod)}
 {strana_kandidatu(web, prvni, 'kand1')}
-{strana_kandidatu(web, druha, 'kand2')}
+{strana_kandidatu(web, druha, 'kand2', vyzva=True)}
 {strana_programu(web, program, uvod_programu)}
 </body></html>"""
 
