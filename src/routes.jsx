@@ -7,6 +7,7 @@ import KandidatDetail from './pages/KandidatDetail'
 import Kontakt from './pages/Kontakt'
 import NotFound from './pages/NotFound'
 import { kandidati, maStranku } from './data/lide'
+import priority from './data/priority.json'
 
 export const routes = [
   {
@@ -42,6 +43,11 @@ export const vsechnyCesty = [
   '/',
   '/program/',
   '/priority/',
+  // Adresy priorit jsou na volbats.cz od roku 2022 a mají je vyhledávače.
+  // Po přepnutí domény musí odpovědět oznámením, ne tvrdou 404 — proto se
+  // předgenerují i teď, kdy priority samy nikde nejsou. Až se program
+  // schválí, vrátí se na ně jejich vlastní obsah.
+  ...priority.map((p) => `/priority/${p.slug}/`),
   '/kandidati/',
   ...kandidati.filter(maStranku).map((k) => `/kandidati/${k.slug}/`),
   '/kontakt/',
