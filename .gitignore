@@ -13,3 +13,7 @@ dist-ssr/
 # Leták se generuje z dat, viz make letak
 letak.pdf
 letak.html
+
+# Python bytecode
+__pycache__/
+*.pyc
