@@ -89,7 +89,14 @@ body {
 .strana {
   width: 210mm;
   height: 297mm;
-  padding: 11mm 12mm;
+  /* Rámeček v barvách sdružení kolem celé strany; box-sizing: border-box
+     ho drží uvnitř formátu A4. Pozadí je světlý odstín téhož přechodu —
+     dost na to, aby strana nepůsobila prázdně, a zároveň tak světlý,
+     že text zůstane čitelný a tisk nespolyká zbytečně barvu. */
+  border: 8mm solid;
+  border-image: linear-gradient(0.25turn, #eed239, #dd4c2f) 1;
+  background: linear-gradient(0.25turn, #fdf7e4, #fdeee7);
+  padding: 7mm 8mm;
   position: relative;
   overflow: hidden;
   page-break-after: always;
@@ -115,17 +122,6 @@ p { margin: 0 0 2.6mm; }
   font-size: 86px;
   fill: #191413;
 }
-
-/* pruh v barvách sdružení nahoře a dole */
-.strana::before, .strana::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0;
-  height: 6mm;
-  background: linear-gradient(0.25turn, #eed239, #dd4c2f);
-}
-.strana::before { top: 0; }
-.strana::after { bottom: 0; }
 
 .nadtitulek {
   display: flex;
@@ -231,7 +227,7 @@ p { margin: 0 0 2.6mm; }
   grid-template-columns: 8mm 1fr;
   gap: 3mm;
   padding: 3mm 0;
-  border-bottom: 0.25mm solid #e4e2df;
+  border-bottom: 0.25mm solid #e6dccb;
 }
 .program__cislo {
   font-family: 'Bricolage Grotesque', sans-serif;
@@ -293,14 +289,12 @@ def strana_obalka(web, kandidati, uvod) -> str:
       <div class="nadtitulek" style="margin-bottom:2mm">Komunální volby</div>
       <div class="udaj-voleb__termin">{web['termin']}</div>
     </div>
-    <div class="udaj-voleb__web">
-      volbats.cz<br>{web['email']}
-    </div>
+    <div class="udaj-voleb__web">volbats.cz</div>
   </div>
 </div>"""
 
 
-def strana_kandidatu(web, kandidati, poradi, celkem, id_prechodu) -> str:
+def strana_kandidatu(web, kandidati, id_prechodu) -> str:
     dlazdice = ''
     for k in kandidati:
         foto = OBRAZKY / f"{k['foto']}-{SIRKA_PORTRETU}.webp"
@@ -317,10 +311,7 @@ def strana_kandidatu(web, kandidati, poradi, celkem, id_prechodu) -> str:
   <div class="nadtitulek" style="margin-top:4mm">Kandidátní listina</div>
   <h2 style="font-size:21pt">Naši kandidáti</h2>
   <div class="mrizka">{dlazdice}</div>
-  <div class="paticka-strany">
-    <span>Volba pro město Trhové Sviny</span>
-    <span>{poradi} / {celkem}</span>
-  </div>
+  <div class="paticka-strany"><span>Volba pro město Trhové Sviny</span></div>
 </div>"""
 
 
@@ -377,8 +368,8 @@ def main():
 <title>Volba pro město Trhové Sviny — leták</title>
 <style>{fonty}{STYL}</style></head><body>
 {strana_obalka(web, kandidati, uvod)}
-{strana_kandidatu(web, prvni, 1, 2, 'kand1')}
-{strana_kandidatu(web, druha, 2, 2, 'kand2')}
+{strana_kandidatu(web, prvni, 'kand1')}
+{strana_kandidatu(web, druha, 'kand2')}
 {strana_programu(web, program, uvod_programu)}
 </body></html>"""
 
