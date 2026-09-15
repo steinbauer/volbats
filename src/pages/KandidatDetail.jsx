@@ -16,9 +16,15 @@ export default function KandidatDetail() {
 
   return (
     <>
+      {/* Samotné „důchodce, 72 let" je jako popisek ve výsledku hledání
+          málo — doplňujeme jméno a pořadí. Tvar „č. N na kandidátce" je tu
+          schválně místo „kandidát/kandidátka", ať to sedí na všechny. */}
       <Meta
         title={`${kandidat.jmeno} | Volba pro město Trhové Sviny`}
-        popis={kandidat.info}
+        popis={
+          `${kandidat.jmeno} — ${kandidat.info}. Č. ${kandidat.cislo} ` +
+          'na kandidátce sdružení Volba pro město Trhové Sviny.'
+        }
       />
 
       <div className="obal">

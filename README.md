@@ -40,15 +40,21 @@ Servíruje to nginx v dockeru, vystavený přes labový traefik.
 |---|---|
 | `src/pages/` | jednotlivé stránky |
 | `src/components/` | hlavička, menu, patička, dlaždice kandidáta |
-| `src/data/*.json` | **obsah webu** — kandidáti, priority, texty stránek |
+| `src/data/*.json` | **obsah webu** — kandidáti, program, texty stránek |
 | `src/obrazky/` | fotky a obrázky (Vite jim dá hash) |
 | `src/styles/main.scss` | šablona volbats2022 přenesená na Bootstrap 5 |
 | `tools/prerender.js` | předgenerování stránek do statického HTML |
 | `tools/nginx.conf` | hlavičky pro lokální náhled |
 
 Obsah se upravuje v `src/data/*.json`. Kandidáta stačí přidat do
-`kandidati.json`; fotku k němu do `src/obrazky/` a odkázat ji jménem souboru.
-Priority mají v `priority.json` `slug`, který se rovnou stane adresou.
+`kandidati.json`; fotku k němu připravit `tools/fotky.py` a odkázat ji
+v poli `foto` jménem bez velikosti a přípony. Program je v `program.json`
+jako sekce s odrážkami; `slug` sekce je kotva na `/program/` i cíl dlaždice
+na úvodní stránce.
+
+Titulek a popisek stránky nastavuje komponenta `Meta`. Při předgenerování je
+sbírá `entry-server.jsx` a `tools/prerender.js` je vkládá rovnou do hlavičky,
+takže je vyhledávače vidí bez spouštění JS.
 
 ## Poznámky k migraci
 

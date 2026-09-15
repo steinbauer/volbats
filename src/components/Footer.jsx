@@ -3,8 +3,7 @@ import { menu } from '../data/navigace'
 import { web } from '../data/web'
 
 export default function Footer() {
-  // Patička dřív vypisovala priority; ty jsou teď schované spolu s programem,
-  // tak v ní zbyly obyčejné odkazy z menu.
+  // Patička vypisuje menu bez úvodní stránky — na tu vede logo v hlavičce.
   const odkazy = menu.filter((p) => p.cesta !== '/')
 
   return (

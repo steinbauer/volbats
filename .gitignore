@@ -4,6 +4,8 @@ dist-ssr/
 
 # Infrastruktura lab-agenta, generuje se na stroji
 .claude/
+.env
+compose.override.yaml
 
 # Nastavení IDE do repa nepatří
 .idea/

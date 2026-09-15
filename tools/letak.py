@@ -241,24 +241,22 @@ p { margin: 0 0 2.6mm; }
 .kandidat__role { font-size: 6.8pt; line-height: 1.25; color: #554d46; }
 
 /* --- program --- */
-.program { columns: 2; column-gap: 9mm; margin-top: 6mm; }
-.program__bod {
+.program { columns: 2; column-gap: 6mm; margin-top: 3mm; }
+.program__sekce {
   break-inside: avoid;
-  display: grid;
-  grid-template-columns: 8mm 1fr;
-  gap: 3mm;
-  padding: 3mm 0;
+  padding-bottom: 2mm;
+  margin-bottom: 2mm;
   border-bottom: 0.25mm solid #e6dccb;
 }
-.program__cislo {
+.program__nadpis {
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 600; font-size: 9pt; color: #c23a22; padding-top: 0.6mm;
+  font-weight: 800; font-size: 8.8pt; color: #c23a22;
+  margin-bottom: 0.8mm; line-height: 1.12;
 }
-.program__bod p { font-size: 10pt; line-height: 1.45; margin: 0; }
-.program__popisek {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 800; font-size: 11pt; color: #c23a22; margin-bottom: 1mm;
-}
+.program__body { margin: 0; padding-left: 3.4mm; }
+.program__body li { font-size: 7.5pt; line-height: 1.28; margin-bottom: 0.5mm; }
+.program__body li:last-child { margin-bottom: 0; }
+.program__sekce--ne .program__nadpis { text-transform: uppercase; letter-spacing: 0.04em; }
 
 .paticka-strany {
   margin-top: auto;
@@ -349,20 +347,26 @@ def strana_kandidatu(web, kandidati, id_prechodu, vyzva=False) -> str:
 </div>"""
 
 
-def strana_programu(web, body, uvod) -> str:
+def strana_programu(web, program) -> str:
+    """Program v tematických sekcích, ve dvou sloupcích.
+
+    Sekcí je patnáct a odrážek přes padesát, takže je sazba hustší než
+    zbytek letáku. Jestli se to na stranu vejde, hlídá měření v main() —
+    při přetečení se s písmem nebo s počtem odrážek musí hnout.
+    """
     polozky = ''
-    for i, bod in enumerate(body, 1):
-        popisek = ('' if bod['nadpis'] == 'Chceme'
-                   else f'<div class="program__popisek">{bod["nadpis"]}</div>')
-        polozky += f"""<div class="program__bod">
-  <div class="program__cislo">{i:02d}</div>
-  <div>{popisek}{bod['html']}</div>
+    for sekce in program['sekce']:
+        odrazky = ''.join(f'<li>{b}</li>' for b in sekce['body'])
+        ne = ' program__sekce--ne' if sekce.get('nechceme') else ''
+        polozky += f"""<div class="program__sekce{ne}">
+  <div class="program__nadpis">{sekce['nadpis']}</div>
+  <ul class="program__body">{odrazky}</ul>
 </div>"""
     return f"""<div class="strana">
   {hlavicka(web, 'program')}
-  <div class="nadtitulek" style="margin-top:7mm">Co chceme prosadit</div>
-  <h2 style="font-size:26pt">Náš program</h2>
-  <p style="font-size:10pt;line-height:1.45;margin-top:4mm">{uvod}</p>
+  <div class="nadtitulek" style="margin-top:4mm">Co chceme prosadit</div>
+  <h2 style="font-size:22pt">Náš program</h2>
+  <p style="font-size:8.2pt;line-height:1.38;margin-top:2.5mm">{program['uvod']}</p>
   <div class="program">{polozky}</div>
   <div class="paticka-strany">
     <span>Celý program na volbats.cz</span>
@@ -375,11 +379,10 @@ def main():
     cil = Path(sys.argv[1]) if len(sys.argv) > 1 else KOREN / 'letak.pdf'
     web = nacti_web()
     kandidati = json.loads((DATA / 'kandidati.json').read_text(encoding='utf-8'))
-    program = json.loads((DATA / 'program-body.json').read_text(encoding='utf-8'))
+    program = json.loads((DATA / 'program.json').read_text(encoding='utf-8'))
     stranky = json.loads((DATA / 'stranky.json').read_text(encoding='utf-8'))
 
     uvod = bez_znacek(stranky['home']['html'].split('</p>')[0])
-    uvod_programu = bez_znacek(stranky['program']['html'].split('</p>')[0])
 
     # 23 lidí na dvě strany po dvanácti a jedenácti
     prvni, druha = kandidati[:12], kandidati[12:]
@@ -404,7 +407,7 @@ def main():
 {strana_obalka(web, kandidati, uvod)}
 {strana_kandidatu(web, prvni, 'kand1')}
 {strana_kandidatu(web, druha, 'kand2', vyzva=True)}
-{strana_programu(web, program, uvod_programu)}
+{strana_programu(web, program)}
 </body></html>"""
 
     zdroj = cil.with_suffix('.html')

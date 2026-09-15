@@ -3,15 +3,26 @@ import { renderToString } from 'react-dom/server'
 // rovnou v react-router.
 import { StaticRouter } from 'react-router'
 import App from './App'
+import { SberMeta } from './components/Meta'
 import './styles/main.scss'
 
-/** Vykreslí jednu adresu do HTML. Volá se z tools/prerender.js. */
+/**
+ * Vykreslí jednu adresu. Volá se z tools/prerender.js.
+ *
+ * Vrací kromě HTML i titulek a popisek, které si stránka za běhu nastavila —
+ * prerender je vloží do hlavičky, aby je vyhledávače a náhledy odkazů viděly
+ * bez spouštění JS.
+ */
 export function render(cesta, zaklad) {
-  return renderToString(
-    <StaticRouter location={cesta} basename={zaklad}>
-      <App />
-    </StaticRouter>,
+  const meta = {}
+  const html = renderToString(
+    <SberMeta.Provider value={meta}>
+      <StaticRouter location={cesta} basename={zaklad}>
+        <App />
+      </StaticRouter>
+    </SberMeta.Provider>,
   )
+  return { html, meta }
 }
 
-export { vsechnyCesty, skryteCesty } from './routes'
+export { vsechnyCesty, cestyBezIndexu } from './routes'

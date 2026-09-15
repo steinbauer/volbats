@@ -2,16 +2,19 @@ import { Link } from 'react-router-dom'
 import Meta from '../components/Meta'
 import Prose from '../components/Prose'
 import Galerie from '../components/Galerie'
-import StavProgramu from '../components/StavProgramu'
 import CisloSrdce from '../components/CisloSrdce'
 import KandidatKarta from '../components/KandidatKarta'
 import { obrazek } from '../obrazky'
 import { web } from '../data/web'
 import stranky from '../data/stranky.json'
+import program from '../data/program.json'
 import { kandidati } from '../data/lide'
 
 // Šířky, ve kterých tools/fotky.py ukládá společnou fotku
 const SIRKY_SPOLECNA = [800, 1400, 2000, 2600]
+
+// Osm dlaždic zaplní dva řádky mřížky; na zbytek vede odkaz pod nimi
+const DLAZDIC = 8
 
 // Pás kandidátů na úvodní stránce má pět sloupců, na užších displejích méně
 const SIZES_PAS =
@@ -19,9 +22,17 @@ const SIZES_PAS =
 
 // Úvodní odstavec putuje do hlavičky stránky jako perex, zbytek zůstává
 // v textovém bloku pod fotkou — ať se stejná věta neopakuje dvakrát.
-const konec = stranky.home.html.indexOf('</p>')
-const perex = stranky.home.html.slice(0, konec + 4)
-const zbytekTextu = stranky.home.html.slice(konec + 4)
+//
+// Text je ze starého CMS zabalený do šesti <div>. Ukrojit ho podle prvního
+// </p> by je nechalo neuzavřené a prohlížeč si je při vložení přes innerHTML
+// domyslí jinam než server — hydratace se rozešla a React překresloval celou
+// stránku znovu. Bereme proto samotný první odstavec a ze zbytku ho
+// vyřízneme, takže obě půlky mají tagy spárované.
+const prvniOdstavec = stranky.home.html.match(/<p>[\s\S]*?<\/p>/)
+const perex = prvniOdstavec?.[0] ?? ''
+const zbytekTextu = prvniOdstavec
+  ? stranky.home.html.replace(prvniOdstavec[0], '')
+  : stranky.home.html
 
 export default function Home() {
   return (
@@ -34,14 +45,12 @@ export default function Home() {
             <div className="nadtitulek">Komunální volby v Trhových Svinech</div>
             <h1>{web.claim}</h1>
             <Prose className="uvod__perex" html={perex} />
-            {/* Dokud se program dolaďuje, nemá první tlačítko kam vést —
-                nejsilnější, co teď máme, je kandidátka. */}
             <div className="uvod__akce">
-              <Link className="tlacitko tlacitko--plne" to="/kandidati/">
-                {kandidati.length} kandidátů
+              <Link className="tlacitko tlacitko--plne" to="/program/">
+                Prohlédnout program
               </Link>
-              <Link className="tlacitko tlacitko--obrys" to="/kontakt/">
-                Napište nám
+              <Link className="tlacitko tlacitko--obrys" to="/kandidati/">
+                {kandidati.length} kandidátů
               </Link>
             </div>
           </div>
@@ -70,7 +79,32 @@ export default function Home() {
         </section>
       </div>
 
-      <StavProgramu />
+      {/* Tmavý pás drží rytmus stránky bílá — tmavá — bílá. Dlaždice míří
+          na kotvy v programu, ne na vlastní podstránky: sekce jsou krátké
+          a rozpadat je na patnáct stránek by nikomu nepomohlo. */}
+      <section className="program-tmave">
+        <div className="obal">
+          <h2>Náš program</h2>
+          <p className="program-tmave__perex">{program.uvod}</p>
+
+          <div className="dlazdice-programu">
+            {program.sekce.slice(0, DLAZDIC).map((sekce, i) => (
+              <Link to={`/program/#${sekce.slug}`} key={sekce.slug}>
+                <span className="dlazdice-programu__cislo">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="dlazdice-programu__nazev">{sekce.stitek}</span>
+              </Link>
+            ))}
+          </div>
+
+          <p className="mt-4 mb-0">
+            <Link className="sekce__odkaz" style={{ color: '#eed239' }} to="/program/">
+              Celý program →
+            </Link>
+          </p>
+        </div>
+      </section>
 
       <div className="obal">
         <section className="sekce">

@@ -1,0 +1,164 @@
+{
+  "perex": "Představujeme nejdůležitější body našeho programu.",
+  "uvod": "Zabýváme se všemi oblastmi, které může samospráva ovlivnit. Myslíme na všechny věkové skupiny, na různé zájmové skupiny, vycházíme z Vašich potřeb i přání. Nabízíme konkrétní akce k realizaci v tomto volebním období i projekty, které chceme připravit pro blízkou budoucnost.",
+  "zaver": "Záleží nám na Vašich názorech a potřebách!",
+  "sekce": [
+    {
+      "slug": "rozvoj-mesta",
+      "stitek": "Rozvoj města",
+      "nadpis": "Záleží nám na rozvoji města!",
+      "body": [
+        "opravovat a budovat nové chodníky i veřejná prostranství (ulice Dělnická, Štefánikova, Sokolská, sídliště Budovatelská, horní část ulice Trocnovské)",
+        "připravit projekt na rekonstrukci dalších veřejných prostranství – např. Žižkova náměstí, Sídliště",
+        "zrekonstruovat areál fary – využít nádvoří a připravit projekty pro rekonstrukci budov",
+        "vrátit se k rekonstrukcím stávajících vodovodních a kanalizačních sítí",
+        "kompletní výměnu interiéru kaple na hřbitově, postavit na hřbitově kolumbárium"
+      ]
+    },
+    {
+      "slug": "deti",
+      "stitek": "Děti",
+      "nadpis": "Záleží nám na dětech!",
+      "body": [
+        "pokračovat v modernizaci základní školy",
+        "odstranit havarijní stav v praktické škole",
+        "realizovat workoutové hřiště u školy",
+        "zajistit důstojné místo pro přesunutí Rákosníčkova hřiště",
+        "prověřit možnosti využití prostoru bývalé skládky Na Spořilově, např. pro vybudování cyklistického parku",
+        "více podporovat protidrogovou prevenci i práci s drogově závislými"
+      ]
+    },
+    {
+      "slug": "seniori",
+      "stitek": "Senioři",
+      "nadpis": "Záleží nám na seniorech!",
+      "body": [
+        "větší zapojení seniorů do společenského života",
+        "rekonstruovat stávající dům s pečovatelskou službou – předávat pouze zrekonstruované byty a to v co nejkratším čase, napojit dům na městský teplovod a rozšířit zde parkoviště"
+      ]
+    },
+    {
+      "slug": "doprava",
+      "stitek": "Doprava",
+      "nadpis": "Záleží nám na řešení dopravy!",
+      "body": [
+        "intenzivně komunikovat s Jihočeským krajem o řešení dopravy ve městě, především v souvislosti s plánovaným obchvatem (např. řešení křižovatky ulice Husova a Žižkovo náměstí)",
+        "uvolnit prostor za radnicí pro vybudování velkokapacitního parkoviště"
+      ]
+    },
+    {
+      "slug": "bezpecnost",
+      "stitek": "Bezpečnost",
+      "nadpis": "Záleží nám na bezpečnosti!",
+      "body": [
+        "co nejefektivnější fungování městské policie (prioritní je přítomnost strážníků v našem městě a v našich místních částech)"
+      ]
+    },
+    {
+      "slug": "zdravotnictvi",
+      "stitek": "Zdravotnictví",
+      "nadpis": "Záleží nám na zdravotnictví!",
+      "body": [
+        "pokračovat v investicích do oprav budovy polikliniky",
+        "jednat s Jihočeským krajem o zachování lékařské služby první pomoci, o jejím zkvalitnění, včetně znovuzavedení návštěvních služeb u pacientů lékařem pohotovosti",
+        "kontinuálně jednat s pojišťovnami o zajištění dostatečného počtu odborných lékařů",
+        "využití prostoru v podkroví polikliniky na stabilizační byty pro zdravotní personál"
+      ]
+    },
+    {
+      "slug": "kultura",
+      "stitek": "Kultura",
+      "nadpis": "Záleží nám na kultuře!",
+      "body": [
+        "pokračovat v podpoře nejen velkých kulturních akcí, ale nabídnout co nejpestřejší kulturní program pro všechny generace",
+        "více prezentovat místní umělce všech oborů",
+        "obohatit kulturní nabídku o kvalitnější programy"
+      ]
+    },
+    {
+      "slug": "sport",
+      "stitek": "Sport",
+      "nadpis": "Záleží nám na sportu!",
+      "body": [
+        "podpořit co nejvíce druhů sportů",
+        "investovat do softbalového hřiště na Rejtech",
+        "nabídnout prostor i pro neorganizované sportování"
+      ]
+    },
+    {
+      "slug": "cestovni-ruch",
+      "stitek": "Cestovní ruch",
+      "nadpis": "Záleží nám na cestovním ruchu!",
+      "body": [
+        "investovat do oprav Buškova hamru",
+        "podpořit opravy církevních staveb",
+        "znovu prověřit realizovatelnost cyklostezek (např. do Borovan)"
+      ]
+    },
+    {
+      "slug": "zivotni-prostredi",
+      "stitek": "Životní prostředí",
+      "nadpis": "Záleží nám na životním prostředí!",
+      "body": [
+        "jasné vyjádření města proti otevření lomu na živec u Třebíčka",
+        "jasné vyjádření města proti nelegální těžbě vltavínů na našem území a zvýšení úsilí k jejímu zamezení",
+        "lépe řešit svoz odpadu a snížit náklady na něj, kultivovat stání na tříděný odpad",
+        "bránit kůrovcovým kalamitám výsadbou smíšených lesů"
+      ]
+    },
+    {
+      "slug": "zelen-ve-meste",
+      "stitek": "Zeleň ve městě",
+      "nadpis": "Záleží nám na zeleni ve městě!",
+      "body": [
+        "optimalizovat seč trávníků",
+        "více pečovat o stávající stromy",
+        "přehodnotit výsadbu letniček, nahradit ji trvalkami",
+        "revitalizovat Weyszerův park (u cesty na Sv. Trojici)"
+      ]
+    },
+    {
+      "slug": "mistni-casti",
+      "stitek": "Místní části",
+      "nadpis": "Záleží nám na místních částech!",
+      "body": [
+        "reagovat na sucho – řešit výstavbu a opravy vodohospodářských sítí",
+        "kultivovat návsi, např. v Todni, stavět chodníky, např. na Svaté Trojici",
+        "pokračovat v podpoře práce osadních výborů",
+        "pokračovat v podpoře spolkového života"
+      ]
+    },
+    {
+      "slug": "ucelne-hospodareni",
+      "stitek": "Účelné hospodaření",
+      "nadpis": "Záleží nám na účelném hospodaření!",
+      "body": [
+        "navýšit výdaje na investice",
+        "získávat co nejvyšší finanční prostředky ze všech dostupných zdrojů",
+        "prověřit možnosti dotačních investic do Tepelného hospodářství TS – např. využití komunitní elektřiny",
+        "snížit náklady na provoz úřadu"
+      ]
+    },
+    {
+      "slug": "fungovani-uradu",
+      "stitek": "Fungování úřadu",
+      "nadpis": "Záleží nám na lepším fungování úřadu!",
+      "body": [
+        "zlepšit komunikaci samosprávy i státní správy s občany",
+        "důsledně se zabývat podněty od občanů",
+        "zajistit přímý přenos z jednání zastupitelstva města"
+      ]
+    },
+    {
+      "slug": "nechceme",
+      "stitek": "Nechceme",
+      "nadpis": "Nechceme",
+      "nechceme": true,
+      "body": [
+        "další skokové navyšování ceny vodného a stočného",
+        "zvyšovat poplatky za svoz komunálního odpadu",
+        "zvyšovat ceny tepla z Tepelného hospodářství TS"
+      ]
+    }
+  ]
+}

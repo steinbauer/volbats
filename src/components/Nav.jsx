@@ -2,9 +2,10 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { menu } from '../data/navigace'
 
 /**
- * Horní menu. Rozbalovací Priority nejedou na bootstrapím JS, ale na
+ * Horní menu. Rozbalovací podmenu nejede na bootstrapím JS, ale na
  * :hover / :focus-within v CSS — díky tomu nepotřebujeme jQuery ani
- * bootstrap.bundle a menu funguje i před tím, než se stáhne JS.
+ * bootstrap.bundle a menu funguje i před tím, než se stáhne JS. Teď ho
+ * žádná položka nemá (mívaly ho Priority), ale stojí to za zachování.
  */
 export default function Nav() {
   const { pathname } = useLocation()

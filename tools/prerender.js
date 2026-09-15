@@ -15,17 +15,49 @@ const base = process.env.VITE_BASE || '/'
 const zaklad = base.replace(/\/$/, '')
 
 const sablona = await readFile(join(DIST, 'index.html'), 'utf-8')
-const { render, vsechnyCesty, skryteCesty } = await import(join(KOREN, 'dist-ssr/entry-server.js'))
+const { render, vsechnyCesty, cestyBezIndexu } = await import(join(KOREN, 'dist-ssr/entry-server.js'))
+
+// Náhrada se předává jako funkce, ne jako řetězec: v řetězci by `$&` nebo
+// `$1` v titulku String.replace vyložil jako odkaz na shodu a text by se
+// rozpadl.
+function nahrad(html, vzor, nahrada) {
+  return html.replace(vzor, () => nahrada)
+}
+
+/** Aby uvozovka nebo špičatá závorka v textu nerozbily značku. */
+function escapuj(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
+/** Vloží do šablony titulek a popisek, které si stránka nastavila. */
+function sHlavickou(html, meta) {
+  if (meta.title) {
+    html = nahrad(html, /<title>[\s\S]*?<\/title>/, `<title>${escapuj(meta.title)}</title>`)
+  }
+  if (meta.popis) {
+    html = nahrad(
+      html,
+      /<meta\s+name="description"[\s\S]*?\/>/,
+      `<meta name="description" content="${escapuj(meta.popis)}" />`,
+    )
+  }
+  return html
+}
 
 for (const cesta of vsechnyCesty) {
   // StaticRouter porovnává location s basename, takže mu adresu předáváme
   // včetně prefixu (/volbats/program). Bez toho by na Pages nevykreslil nic.
-  const html = render(zaklad + cesta, zaklad)
-  let stranka = sablona.replace('<!--app-html-->', html)
+  const { html, meta } = render(zaklad + cesta, zaklad)
+  let stranka = sHlavickou(sablona, meta).replace('<!--app-html-->', html)
 
-  // Pracovní verze programu se nemá objevit ve vyhledávačích. Z Reactu by se
-  // značka doplnila až po spuštění JS — robot ji musí vidět rovnou v HTML.
-  if (skryteCesty.includes(cesta)) {
+  // Staré adresy priorit ukazují celý program — do vyhledávačů ale patří
+  // jen jednou, pod /program/. Z Reactu by se značka doplnila až po spuštění
+  // JS, robot ji musí vidět rovnou v HTML.
+  if (cestyBezIndexu.includes(cesta)) {
     stranka = stranka.replace(
       '</head>',
       '  <meta name="robots" content="noindex, nofollow" />\n  </head>',
@@ -42,9 +74,10 @@ for (const cesta of vsechnyCesty) {
 // GitHub Pages servíruje 404.html u neznámých adres. Dáme mu tu samou
 // aplikaci, aby i překlep skončil na naší stránce „nenalezeno" místo
 // na obrazovce GitHubu.
+const nenalezeno = render(`${zaklad}/404-neexistuje`, zaklad)
 await writeFile(
   join(DIST, '404.html'),
-  sablona.replace('<!--app-html-->', render(`${zaklad}/404-neexistuje`, zaklad)),
+  sHlavickou(sablona, nenalezeno.meta).replace('<!--app-html-->', nenalezeno.html),
   'utf-8',
 )
 

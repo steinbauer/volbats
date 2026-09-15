@@ -1,13 +1,12 @@
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Program from './pages/Program'
-import ProgramNavrh from './pages/ProgramNavrh'
 import Kandidati from './pages/Kandidati'
 import KandidatDetail from './pages/KandidatDetail'
 import Kontakt from './pages/Kontakt'
 import NotFound from './pages/NotFound'
 import { kandidati, maStranku } from './data/lide'
-import priority from './data/priority.json'
+import { starePriority } from './data/stare-adresy'
 
 export const routes = [
   {
@@ -15,12 +14,11 @@ export const routes = [
     children: [
       { path: '/', element: <Home /> },
       { path: '/program', element: <Program /> },
-      // Priority jsou součástí programu, takže zmizely spolu s ním. Staré
-      // adresy míří na stejné oznámení, ať kdo si je uložil neskončí
-      // na „stránka nenalezena".
+      // Priority byly samostatné stránky programu 2022. Program 2026 je má
+      // jako sekce jedné stránky, takže staré adresy vedou rovnou na něj —
+      // kdo si odkaz uložil, dostane program, ne „stránka nenalezena".
       { path: '/priority', element: <Program /> },
       { path: '/priority/:slug', element: <Program /> },
-      { path: '/program-navrh', element: <ProgramNavrh /> },
       { path: '/kandidati', element: <Kandidati /> },
       { path: '/kandidati/:slug', element: <KandidatDetail /> },
       { path: '/kontakt', element: <Kontakt /> },
@@ -30,10 +28,14 @@ export const routes = [
 ]
 
 /**
- * Adresy, na které se z webu nikde neodkazuje. Prerender jim přidá noindex,
- * aby se pracovní verze programu neobjevila ve vyhledávačích.
+ * Adresy, které se předgenerují, ale nemají jít do vyhledávačů. Staré adresy
+ * priorit ukazují celý program; bez noindex by ho vyhledávače viděly
+ * dvacetkrát pod dvaceti adresami.
  */
-export const skryteCesty = ['/program-navrh/']
+export const cestyBezIndexu = [
+  '/priority/',
+  ...starePriority.map((slug) => `/priority/${slug}/`),
+]
 
 /** Seznam adres, které se při buildu předgenerují do statického HTML. */
 // Adresy končí lomítkem stejně jako odkazy ve webu. Kdyby se předgenerovalo
@@ -42,14 +44,8 @@ export const skryteCesty = ['/program-navrh/']
 export const vsechnyCesty = [
   '/',
   '/program/',
-  '/priority/',
-  // Adresy priorit jsou na volbats.cz od roku 2022 a mají je vyhledávače.
-  // Po přepnutí domény musí odpovědět oznámením, ne tvrdou 404 — proto se
-  // předgenerují i teď, kdy priority samy nikde nejsou. Až se program
-  // schválí, vrátí se na ně jejich vlastní obsah.
-  ...priority.map((p) => `/priority/${p.slug}/`),
   '/kandidati/',
   ...kandidati.filter(maStranku).map((k) => `/kandidati/${k.slug}/`),
   '/kontakt/',
-  ...skryteCesty,
+  ...cestyBezIndexu,
 ]
