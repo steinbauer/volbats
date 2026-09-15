@@ -1,0 +1,29 @@
+# Šablona override pro workflow systém lab-agenta. `make run-dev` ji zkopíruje
+# jako compose.override.yaml — ten je generovaný, a proto gitignorovaný.
+#
+# Proti docker-compose.yml mění dvě věci: jméno kontejneru a adresu bere
+# z proměnných v .env (BRANCH_NAME, LAB_USER, LAB_DOMAIN). Každý worktree tak
+# dostane vlastní kontejner i vlastní router a o nic se nepere.
+
+services:
+  web:
+    container_name: "volbats_${BRANCH_NAME:-main}_web"
+    # Labely se schválně nahrazují celé (!override), ne dopisují: base soubor
+    # má adresu natvrdo na kamil.lab.home. Bez !override by vznikly dva labely
+    # se stejným klíčem routeru a o výslednou hodnotu pravidla by se přetahovaly.
+    labels: !override
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.volbats-${BRANCH_NAME:-main}.rule=Host(`${BRANCH_NAME:-main}.volbats.me.${LAB_DOMAIN}`) || Host(`${BRANCH_NAME:-main}.volbats.${LAB_USER}.${LAB_DOMAIN}`)"
+      - "traefik.http.routers.volbats-${BRANCH_NAME:-main}.entrypoints=websecure"
+      - "traefik.http.routers.volbats-${BRANCH_NAME:-main}.tls=true"
+      - "traefik.http.routers.volbats-${BRANCH_NAME:-main}.tls.certresolver=step-ca"
+      # Uvnitř kontejneru poslouchá nginx na osmdesátce, viz tools/nginx.conf.
+      - "traefik.http.services.volbats-${BRANCH_NAME:-main}.loadbalancer.server.port=80"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
+    name: proxy
