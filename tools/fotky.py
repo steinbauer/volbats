@@ -21,9 +21,15 @@ from PIL import Image, ImageOps
 KOREN = Path(__file__).resolve().parent.parent
 CIL = KOREN / 'src/obrazky'
 SIRKY = (400, 800, 1200)
-SIRKY_SPOLECNA = (800, 1400, 2000, 2600)
+# Společná fotka jde přes celou šířku okna, takže na displeji s dvojnásobnou
+# hustotou bodů potřebuje i přes tři tisíce pixelů. Stáhne se vždycky jen
+# jedna varianta, takže ta největší zatíží jen toho, komu se opravdu hodí.
+SIRKY_SPOLECNA = (800, 1400, 2000, 2600, 3200)
 POMER = 3 / 4          # výška dlaždice na webu
 KVALITA = 82
+# Portrétu na dlaždici 82 stačí, ale na společné fotce přes celou šířku je
+# na fasádách a v davu poznat — tam se vyplatí přidat i za cenu kilobajtů.
+KVALITA_SPOLECNA = 90
 
 def uprav(zdroj: Path) -> list[str]:
     im = ImageOps.exif_transpose(Image.open(zdroj))   # srovná otočení z fotáku
@@ -66,7 +72,7 @@ def uprav_spolecnou(zdroj: Path, nahore: int = 0, dole: int | None = None) -> li
             continue
         vyska = round(im.height * sirka / im.width)
         im.resize((sirka, vyska), Image.LANCZOS).save(
-            CIL / jmeno, 'WEBP', quality=KVALITA, method=6)
+            CIL / jmeno, 'WEBP', quality=KVALITA_SPOLECNA, method=6)
         vytvorene.append(jmeno)
     return vytvorene
 
