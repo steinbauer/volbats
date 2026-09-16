@@ -1,7 +1,7 @@
 # volbats — Volba pro město Trhové Sviny
 
-Web pro komunální volby 2026. Obsah i vzhled zatím odpovídají webu z voleb
-2022; nová grafika, kandidátka a program přijdou v dalších krocích.
+Web pro komunální volby 2026 a tiskoviny, které z týchž dat vznikají —
+leták, plakát a kartičky s QR kódy.
 
 ## Jak to funguje
 
@@ -43,7 +43,10 @@ Servíruje to nginx v dockeru, vystavený přes labový traefik.
 | `src/data/*.json` | **obsah webu** — kandidáti, program, texty stránek |
 | `src/obrazky/` | fotky a obrázky (Vite jim dá hash) |
 | `src/styles/main.scss` | šablona volbats2022 přenesená na Bootstrap 5 |
+| `src/data/ikony.json` | kresby témat programu, vyrábí je `tools/ikony.py` |
 | `tools/prerender.js` | předgenerování stránek do statického HTML |
+| `tools/tiskoviny.py` | společný základ letáku, plakátů a kartiček |
+| `tools/qr.py` | generátor QR kódů (bez závislostí) |
 | `tools/nginx.conf` | hlavičky pro lokální náhled |
 
 Obsah se upravuje v `src/data/*.json`. Kandidáta stačí přidat do
@@ -55,6 +58,36 @@ na úvodní stránce.
 Titulek a popisek stránky nastavuje komponenta `Meta`. Při předgenerování je
 sbírá `entry-server.jsx` a `tools/prerender.js` je vkládá rovnou do hlavičky,
 takže je vyhledávače vidí bez spouštění JS.
+
+## Značka
+
+Logo je srdce s nápisem uvnitř, obtažené z letáku z roku 2022
+(`tools/obtahni-logo.py`). Křivky žijí v `src/components/Znak.jsx` a berou si
+je i generátory tiskovin, takže značka na webu a na papíře nemůže být každá
+jiná. `Logo.jsx` je plná podoba s nápisem uvnitř — čitelná zhruba od 140 px;
+menší místa sázejí název vedle srdce. Volební číslo má vlastní srdce
+s přechodem, stejně jako na letáku z minula.
+
+Ikony témat programu kreslí `tools/ikony.py` stejnou logikou jako srdce: osa
+tahu a profil šířky, který doběhne do špičky. Kresby jdou do
+`src/data/ikony.json`, odkud je čte web i tiskoviny.
+
+## Tiskoviny
+
+```bash
+make letak      # A3 přeložená napůl, čtyři strany A4
+make plakaty    # A5 ve třech variantách: temata, lide, fotka
+make qr         # kartičky s QR na A4 a holé kódy v SVG a PNG
+```
+
+Všechno se sází jako HTML a tiskne přes Chrome (browserless na `:3000`),
+obsah se bere z týchž dat jako web. Před tiskem skripty změří, jestli se
+obsah na stranu vejde — přetečení by se v PDF projevilo useknutým řádkem,
+což je na hotové tiskovině vidět pozdě. Hesla plakátu jsou v
+`src/data/plakat.json`, ať se dají přeházet bez sahání do sazby.
+
+QR kódy generuje `tools/qr.py`, vlastní kodér bez závislostí. Správnost se
+ověřovala proti `qrcode-generator` a hotové kódy se četly přes `jsQR`.
 
 ## Poznámky k migraci
 
@@ -73,6 +106,15 @@ Co se proti roku 2022 změnilo:
 - **Kontaktní formulář je pryč.** Dřív odesílal data na server PolyWeb CMS
   s reCAPTCHOU; statický web backend nemá a psát se dá e-mailem.
 - **Hlavička už není obrázek.** Název, město i claim jsou text, srdce
-  je vektor (obtažené z původního PNG) a volební číslo je `cislo`
-  v `src/data/web.js`. Celé logo se škáluje jedinou hodnotou `font-size`,
-  takže na mobilu zůstane čitelné — dřív se zmenšovalo do nečitelna.
+  je vektor a volební číslo je `cislo` v `src/data/web.js`.
+
+Proti prvnímu návrhu pro rok 2026 se pak ještě změnilo:
+
+- **Plocha není bílá.** Stránka má krémový podklad z letáku
+  (`#fdf7e4` → `#fdeee7`), obsahové bloky stojí na bílém papíře (`.papir`).
+- **Lišta se drží nahoře.** Na úvodní stránce začíná logo velké a přesahuje
+  do společné fotky; po odrolování se scvrkne do řádkové podoby v liště.
+  Na mobilu i na širokém displeji tentýž mechanismus, takže se srdce nikde
+  neobjeví dvakrát.
+- **Sekce programu mají místo čísel ikony.** Čísla 01, 02, 03 jen
+  přeříkávala pořadí.

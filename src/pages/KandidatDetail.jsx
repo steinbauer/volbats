@@ -63,7 +63,7 @@ export default function KandidatDetail() {
             </div>
 
             <div className="medailonek__telo">
-              <div className="text">
+              <div className="text papir">
                 <Prose html={kandidat.zivotopis} />
               </div>
 

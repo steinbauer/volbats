@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom'
 import { obrazek } from '../obrazky'
 import { kandidati, odkazNaMedailonek } from '../data/lide'
 
-const SIRKY = [400, 800]
-// Osm miniatur na řádek v kontejneru do 1440 px, na užších méně sloupců
-const SIZES = '(min-width: 1200px) 165px, (min-width: 992px) 11vw, (min-width: 768px) 15vw, (min-width: 576px) 22vw, 30vw'
+const SIRKY = [400, 800, 1200]
+// Pět fotek na řádek v kontejneru do 1440 px, na užších displejích méně
+const SIZES = '(min-width: 1200px) 260px, (min-width: 992px) 24vw, (min-width: 768px) 30vw, 45vw'
 
-/** Pásek fotek kandidátů na úvodní stránce. */
+/** Fotky kandidátů na úvodní stránce — jediný blok s lidmi, co tam je. */
 export default function Galerie() {
   return (
     <div className="galerie">

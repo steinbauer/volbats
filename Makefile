@@ -4,6 +4,9 @@
 #   make dev        vývojový server s hot reloadem
 #   make build      sestaví web do dist/
 #   make letak      vyrobí volební leták jako PDF
+#   make plakaty    vyrobí tři varianty plakátu A5
+#   make qr         vyrobí kartičky s QR kódy a kódy samotné
+#   make ikony      přegeneruje ikony sekcí programu
 #   make stop-dev   zastaví kontejner
 
 # Větev určuje adresu; lomítka ve větvi doména neunese, tak jdou na pomlčky.
@@ -15,7 +18,7 @@ URL          = https://$(BRANCH_NAME).volbats.kamil.lab.home/
 # přeskočil devDependencies, tedy i samotné Vite.
 NPM = NODE_ENV=development npm
 
-.PHONY: url dev build install run-dev stop-dev restart-dev status logs letak clean
+.PHONY: url dev build install run-dev stop-dev restart-dev status logs letak plakaty qr ikony clean
 
 ## Vypíše adresu a zajistí, že běží aktuální build
 url: build run-dev
@@ -60,5 +63,17 @@ logs:
 letak:
 	@python3 tools/letak.py
 
+## Plakát A5 ve třech variantách do plakaty/
+plakaty:
+	@python3 tools/plakat.py
+
+## Kartičky s QR kódy na A4 a holé kódy v SVG a PNG do qr/
+qr:
+	@python3 tools/qr-karticky.py
+
+## Ikony sekcí programu do src/data/ikony.json
+ikony:
+	@python3 tools/ikony.py
+
 clean:
-	@rm -rf dist dist-ssr letak.pdf letak.html
+	@rm -rf dist dist-ssr letak.pdf letak.html plakaty qr

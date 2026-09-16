@@ -12,9 +12,11 @@ compose.override.yaml
 
 .DS_Store
 
-# Leták se generuje z dat, viz make letak
+# Tiskoviny se generují z dat, viz make letak / plakaty / qr
 letak.pdf
 letak.html
+plakaty/
+qr/
 
 # Python bytecode
 __pycache__/

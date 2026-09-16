@@ -1,10 +1,7 @@
 import Meta from '../components/Meta'
+import IkonaSekce from '../components/IkonaSekce'
 import program from '../data/program.json'
 import { web } from '../data/web'
-
-// „Nechceme" se nečísluje — není to další v pořadí, je to protiváha
-// všeho, co je nad ním.
-const cislovane = program.sekce.filter((s) => !s.nechceme)
 
 /**
  * Celý volební program na jedné stránce.
@@ -29,34 +26,34 @@ export default function Program() {
       />
       <div className="obal">
         <section className="sekce">
-          <div className="nadtitulek">Komunální volby {web.termin}</div>
           <h1>Náš program</h1>
 
           <p className="uvod__perex mt-4">{program.perex}</p>
-          <div className="text uzky">
+          <div className="text mt-3">
             <p>{program.uvod}</p>
           </div>
 
           <nav className="program__obsah" aria-label="Obsah programu">
             {program.sekce.map((s) => (
               <a href={`#${s.slug}`} key={s.slug}>
+                <IkonaSekce slug={s.slug} className="program__obsah-ikona" />
                 {s.stitek}
               </a>
             ))}
           </nav>
 
+          <div className="papir program__sekce-obal">
           {program.sekce.map((sekce) => (
             <article
               className={`program-sekce${sekce.nechceme ? ' program-sekce--ne' : ''}`}
               id={sekce.slug}
               key={sekce.slug}
             >
+              {/* Čísla 01, 02, 03 sekce dřív jen přeříkávala pořadí. Teď
+                  je místo nich kresba tématu — pozná se od oka, o co jde,
+                  a je to stejný rukopis jako srdce z loga. */}
               <h2>
-                {!sekce.nechceme && (
-                  <span className="program-sekce__cislo">
-                    {String(cislovane.indexOf(sekce) + 1).padStart(2, '0')}
-                  </span>
-                )}
+                <IkonaSekce slug={sekce.slug} className="program-sekce__ikona" />
                 {sekce.nadpis}
               </h2>
               {!sekce.nechceme && <p className="program-sekce__uvod">Chceme:</p>}
@@ -67,6 +64,7 @@ export default function Program() {
               </ul>
             </article>
           ))}
+          </div>
 
           <div className="program__zaver">
             <h2>{program.zaver}</h2>

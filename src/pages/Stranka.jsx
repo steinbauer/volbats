@@ -10,7 +10,7 @@ export default function Stranka({ nadpis, html, perex, popis, children }) {
         <section className="sekce">
           <h1>{nadpis}</h1>
           {perex && <p className="uvod__perex mt-4">{perex}</p>}
-          <div className="text mt-4">
+          <div className="text papir mt-4">
             {html && <Prose html={html} />}
             {children}
           </div>

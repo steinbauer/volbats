@@ -11,65 +11,17 @@ takže leták nemůže tvrdit něco jiného než volbats.cz.
 Sazba je HTML vytištěné přes Chrome (browserless na localhost:3000).
 Fonty i fotky jdou do dokumentu jako data URI, aby byl soubor soběstačný.
 """
-import base64, json, re, shutil, subprocess, sys
+import sys
 from pathlib import Path
 
-KOREN = Path(__file__).resolve().parent.parent
-DATA = KOREN / 'src/data'
-OBRAZKY = KOREN / 'src/obrazky'
-FONTY = KOREN / 'src/fonts'
-BROWSERLESS = 'http://localhost:3000/pdf'
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import qr
+from tiskoviny import (KOREN, OBRAZKY, STYL_ZNACKY, bez_znacek, dataurl, do_pdf,
+                       fonty, ikona, logo, nacti, nacti_web, znak, zmer)
 
 # Fotky kandidátů na letáku vycházejí kolem 35 mm, u tisku 300 dpi to je
 # zhruba 415 px — osmistovka má rezervu a zároveň nenafoukne PDF.
 SIRKA_PORTRETU = 800
-
-
-def dataurl(cesta: Path, typ: str) -> str:
-    return f'data:{typ};base64,' + base64.b64encode(cesta.read_bytes()).decode()
-
-
-def font_face(jmeno: str, vaha: int, soubory: list[str]) -> str:
-    return '\n'.join(
-        f"""@font-face {{
-  font-family: '{jmeno}';
-  font-weight: {vaha};
-  font-style: normal;
-  src: url('{dataurl(FONTY / s, "font/woff2")}') format('woff2');
-}}""" for s in soubory if (FONTY / s).is_file())
-
-
-def nacti_web() -> dict:
-    """Vytáhne hodnoty z src/data/web.js, ať je leták bere odtamtud co web."""
-    text = (DATA / 'web.js').read_text(encoding='utf-8')
-    out = {}
-    for klic, hodnota in re.findall(r"(\w+):\s*'([^']*)'", text):
-        out[klic] = hodnota
-    for klic, hodnota in re.findall(r'(\w+):\s*(\d+),', text):
-        out[klic] = int(hodnota)
-    return out
-
-
-SRDCE = re.search(
-    r"const CESTA =\s*'([^']+)'",
-    (KOREN / 'src/components/Znak.jsx').read_text(encoding='utf-8')).group(1)
-
-
-def znak(velikost_mm: float, cislo=None, id_prechodu='p') -> str:
-    cifra = (f'<text x="105.5" y="108" text-anchor="middle" '
-             f'class="znak-cislo">{cislo}</text>') if cislo is not None else ''
-    return f"""<svg viewBox="0 0 202 199" style="width:{velikost_mm}mm;height:{velikost_mm * 199 / 202}mm">
-  <defs><linearGradient id="{id_prechodu}" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0" stop-color="#eed239"/><stop offset="1" stop-color="#dd4c2f"/>
-  </linearGradient></defs>
-  <path d="{SRDCE}" fill="url(#{id_prechodu})"/>{cifra}
-</svg>"""
-
-
-def bez_znacek(html: str) -> str:
-    text = ' '.join(re.sub(r'<[^>]+>', ' ', html).split())
-    # Po značkách zůstává mezera i tam, kde následuje interpunkce
-    return re.sub(r'\s+([.,;:!?])', r'\1', text)
 
 
 STYL = """
@@ -115,13 +67,6 @@ h1, h2, h3 {
 }
 
 p { margin: 0 0 2.6mm; }
-
-.znak-cislo {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 800;
-  font-size: 86px;
-  fill: #191413;
-}
 
 .nadtitulek {
   display: flex;
@@ -244,14 +189,26 @@ p { margin: 0 0 2.6mm; }
 .program { columns: 2; column-gap: 6mm; margin-top: 3mm; }
 .program__sekce {
   break-inside: avoid;
-  padding-bottom: 2mm;
-  margin-bottom: 2mm;
+  padding-bottom: 1.4mm;
+  margin-bottom: 1.4mm;
   border-bottom: 0.25mm solid #e6dccb;
 }
 .program__nadpis {
+  display: flex;
+  align-items: center;
+  gap: 1.6mm;
   font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 800; font-size: 8.8pt; color: #c23a22;
   margin-bottom: 0.8mm; line-height: 1.12;
+}
+.program__nadpis svg { flex: none; }
+/* „Chceme" stojí jednou nad celým programem. Nad každou sekcí zvlášť to
+   bylo čtrnáctkrát totéž slovo a strana se kvůli němu musela mačkat. */
+.program__chceme {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; font-size: 11pt; color: #8f2614;
+  letter-spacing: -0.02em;
+  margin: 3mm 0 0;
 }
 .program__body { margin: 0; padding-left: 3.4mm; }
 .program__body li { font-size: 7.5pt; line-height: 1.28; margin-bottom: 0.5mm; }
@@ -317,16 +274,18 @@ def strana_obalka(web, kandidati, uvod) -> str:
 
 def dlazdice_vyzvy(web) -> str:
     """Vyplní volné okénko v mřížce — kandidátů je 23, mřížka má 24 polí."""
-    qr = (OBRAZKY / 'qr-volbats.svg').read_text(encoding='utf-8')
+    kod = qr.svg('https://volbats.cz/', 'Q', pozadi=None)
     return f"""<div class="vyzva">
   {znak(20, web['cislo'], 'vyzva')}
   <div class="vyzva__text">Volte číslo {web['cislo']}</div>
-  <div class="vyzva__qr">{qr}</div>
+  <div class="vyzva__qr">{kod}</div>
   <div class="vyzva__web">volbats.cz</div>
 </div>"""
 
 
 def strana_kandidatu(web, kandidati, id_prechodu, vyzva=False) -> str:
+    """Strana s portréty. V záhlaví je kompaktní značka — přesně jak to má
+    leták z roku 2022, kde plná sazba s číslem zůstala jen na obálce."""
     dlazdice = ''
     for k in kandidati:
         foto = OBRAZKY / f"{k['foto']}-{SIRKA_PORTRETU}.webp"
@@ -339,7 +298,7 @@ def strana_kandidatu(web, kandidati, id_prechodu, vyzva=False) -> str:
   <div class="kandidat__role">{k['info']}</div>
 </div>"""
     return f"""<div class="strana">
-  {hlavicka(web, id_prechodu)}
+  {logo(web, 34)}
   <div class="nadtitulek" style="margin-top:4mm">Kandidátní listina</div>
   <h2 style="font-size:21pt">Naši kandidáti</h2>
   <div class="mrizka">{dlazdice}{dlazdice_vyzvy(web) if vyzva else ''}</div>
@@ -355,18 +314,19 @@ def strana_programu(web, program) -> str:
     při přetečení se s písmem nebo s počtem odrážek musí hnout.
     """
     polozky = ''
-    for sekce in program['sekce']:
+    for i, sekce in enumerate(program['sekce']):
         odrazky = ''.join(f'<li>{b}</li>' for b in sekce['body'])
-        ne = ' program__sekce--ne' if sekce.get('nechceme') else ''
-        polozky += f"""<div class="program__sekce{ne}">
-  <div class="program__nadpis">{sekce['nadpis']}</div>
+        ne = sekce.get('nechceme')
+        polozky += f"""<div class="program__sekce{' program__sekce--ne' if ne else ''}">
+  <div class="program__nadpis">{ikona(sekce['slug'], 4.4, f'ik{i}')}{sekce['nadpis']}</div>
   <ul class="program__body">{odrazky}</ul>
 </div>"""
     return f"""<div class="strana">
-  {hlavicka(web, 'program')}
+  {logo(web, 34)}
   <div class="nadtitulek" style="margin-top:4mm">Co chceme prosadit</div>
   <h2 style="font-size:22pt">Náš program</h2>
   <p style="font-size:8.2pt;line-height:1.38;margin-top:2.5mm">{program['uvod']}</p>
+  <p class="program__chceme">Chceme:</p>
   <div class="program">{polozky}</div>
   <div class="paticka-strany">
     <span>Celý program na volbats.cz</span>
@@ -378,91 +338,28 @@ def strana_programu(web, program) -> str:
 def main():
     cil = Path(sys.argv[1]) if len(sys.argv) > 1 else KOREN / 'letak.pdf'
     web = nacti_web()
-    kandidati = json.loads((DATA / 'kandidati.json').read_text(encoding='utf-8'))
-    program = json.loads((DATA / 'program.json').read_text(encoding='utf-8'))
-    stranky = json.loads((DATA / 'stranky.json').read_text(encoding='utf-8'))
+    kandidati = nacti('kandidati.json')
+    program = nacti('program.json')
+    stranky = nacti('stranky.json')
 
     uvod = bez_znacek(stranky['home']['html'].split('</p>')[0])
 
     # 23 lidí na dvě strany po dvanácti a jedenácti
     prvni, druha = kandidati[:12], kandidati[12:]
 
-    fonty = '\n'.join([
-        font_face('Bricolage Grotesque', 800,
-                  ['bricolage-grotesque-800-latin.woff2',
-                   'bricolage-grotesque-800-latin-ext.woff2']),
-        font_face('Bricolage Grotesque', 600,
-                  ['bricolage-grotesque-600-latin.woff2',
-                   'bricolage-grotesque-600-latin-ext.woff2']),
-        font_face('IBM Plex Sans', 400,
-                  ['ibm-plex-sans-400-latin.woff2', 'ibm-plex-sans-400-latin-ext.woff2']),
-        font_face('IBM Plex Sans', 600,
-                  ['ibm-plex-sans-600-latin.woff2', 'ibm-plex-sans-600-latin-ext.woff2']),
-    ])
-
     html = f"""<!doctype html>
 <html lang="cs"><head><meta charset="utf-8">
 <title>Volba pro město Trhové Sviny — leták</title>
-<style>{fonty}{STYL}</style></head><body>
+<style>{fonty()}{STYL_ZNACKY}{STYL}</style></head><body>
 {strana_obalka(web, kandidati, uvod)}
 {strana_kandidatu(web, prvni, 'kand1')}
 {strana_kandidatu(web, druha, 'kand2', vyzva=True)}
 {strana_programu(web, program)}
 </body></html>"""
 
-    zdroj = cil.with_suffix('.html')
-    zdroj.write_text(html, encoding='utf-8')
-    print(f'{zdroj.name}: {len(html) / 1024 / 1024:.1f} MB')
-
-    # Kontrola, že se obsah na stránky vejde — přetečení by se v PDF projevilo
-    # useknutým řádkem, což je na tiskovině vidět až pozdě.
-    kod = ('module.exports=async({page})=>{await page.setContent(HTML,{waitUntil:"networkidle0"});'
-           'const r=await page.evaluate(()=>[...document.querySelectorAll(".strana")]'
-           '.map(s=>({v:Math.round(s.scrollHeight),limit:Math.round(s.clientHeight)})));'
-           'return{data:r,type:"application/json"}}')
-    mereni = subprocess.run(
-        ['curl', '-sS', '-m', '180', '-X', 'POST', 'http://localhost:3000/function',
-         '-H', 'Content-Type: application/json', '--data-binary', '@-'],
-        input=json.dumps({'code': kod.replace('HTML', json.dumps(html)), 'context': {}}),
-        text=True, capture_output=True)
-    try:
-        for i, s in enumerate(json.loads(mereni.stdout), 1):
-            stav = 'PŘETÉKÁ' if s['v'] > s['limit'] + 1 else 'ok'
-            print(f"  strana {i}: {s['v']} / {s['limit']} px  {stav}")
-    except Exception:
-        print('  měření se nepodařilo:', mereni.stdout[:200])
-
-    odpoved = subprocess.run(
-        ['curl', '-sS', '-m', '180', '-X', 'POST', BROWSERLESS,
-         '-H', 'Content-Type: application/json', '--data-binary', '@-',
-         '-o', str(cil), '-w', '%{http_code}'],
-        input=json.dumps({'html': html,
-                          'options': {'format': 'A4', 'printBackground': True,
-                                      'preferCSSPageSize': True}}),
-        text=True, capture_output=True)
-    if odpoved.stdout.strip() != '200':
-        sys.exit(f'browserless vrátil {odpoved.stdout}: {odpoved.stderr[:300]}')
-    pred = cil.stat().st_size
-
-    # Chrome vkládá obrázky v plném rozlišení, takže PDF vyjde přes 20 MB.
-    # Ghostscript je převzorkuje na 300 dpi — pro tisk plně dostačující
-    # a soubor se vejde do e-mailu.
-    if shutil.which('gs'):
-        docasny = cil.with_suffix('.gs.pdf')
-        subprocess.run([
-            'gs', '-q', '-dNOPAUSE', '-dBATCH', '-sDEVICE=pdfwrite',
-            '-dCompatibilityLevel=1.5',
-            '-dDownsampleColorImages=true', '-dColorImageResolution=300',
-            '-dColorImageDownsampleType=/Bicubic',
-            '-dAutoFilterColorImages=false', '-dColorImageFilter=/DCTEncode',
-            '-dDownsampleGrayImages=true', '-dGrayImageResolution=300',
-            '-dEmbedAllFonts=true', '-dSubsetFonts=true',
-            f'-sOutputFile={docasny}', str(cil)], check=True)
-        docasny.replace(cil)
-        print(f'{cil.name}: {pred / 1024 / 1024:.1f} MB -> '
-              f'{cil.stat().st_size / 1024:.0f} kB (obrázky na 300 dpi)')
-    else:
-        print(f'{cil.name}: {pred / 1024 / 1024:.1f} MB (bez ghostscriptu nekomprimováno)')
+    print(f'{cil.stem}.html: {len(html) / 1024 / 1024:.1f} MB')
+    zmer(html)
+    do_pdf(html, cil)
 
 
 if __name__ == '__main__':

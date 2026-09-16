@@ -6,11 +6,13 @@ se na web dát nedají. Skript z každé udělá několik velikostí pro srcset,
 si prohlížeč stáhl tu, kterou opravdu zobrazí.
 
     python3 tools/fotky.py <adresář s portréty>
-    python3 tools/fotky.py --spolecna <soubor>
+    python3 tools/fotky.py --spolecna <soubor> [horní hrana] [spodní hrana]
 
 Portréty se čekají pojmenované číslem kandidáta (1.jpg, 2.jpg, …) a výstup
 jde do src/obrazky/ jako kandidat-<číslo>-<šířka>.webp. Společná fotka se
-neořezává — ukazuje se celá — a ukládá se jako spolecna-<šířka>.webp.
+ukládá jako spolecna-<šířka>.webp; hrany ořezu se zadávají v pixelech
+originálu, protože na úvodní stránce sedí v horní části fotky logo a dole
+nemá zbýt zbytečný pás dlažby.
 """
 import sys
 from pathlib import Path
@@ -45,11 +47,13 @@ def uprav(zdroj: Path) -> list[str]:
         vytvorene.append(jmeno)
     return vytvorene
 
-def uprav_spolecnou(zdroj: Path) -> list[str]:
-    """Společná fotka se neořezává, jen zmenšuje — má být vidět celá."""
+def uprav_spolecnou(zdroj: Path, nahore: int = 0, dole: int | None = None) -> list[str]:
+    """Společná fotka se ořízne na zadané hrany a zmenší do srcsetu."""
     im = ImageOps.exif_transpose(Image.open(zdroj))
     if im.mode != 'RGB':
         im = im.convert('RGB')
+    if nahore or dole:
+        im = im.crop((0, nahore, im.width, min(dole or im.height, im.height)))
 
     vytvorene = []
     for sirka in SIRKY_SPOLECNA:
@@ -64,10 +68,12 @@ def uprav_spolecnou(zdroj: Path) -> list[str]:
 
 
 def main():
-    if len(sys.argv) == 3 and sys.argv[1] == '--spolecna':
+    if len(sys.argv) in (3, 4, 5) and sys.argv[1] == '--spolecna':
         zdroj = Path(sys.argv[2])
+        nahore = int(sys.argv[3]) if len(sys.argv) > 3 else 0
+        dole = int(sys.argv[4]) if len(sys.argv) > 4 else None
         celkem = 0
-        for jmeno in uprav_spolecnou(zdroj):
+        for jmeno in uprav_spolecnou(zdroj, nahore, dole):
             velikost = (CIL / jmeno).stat().st_size
             celkem += velikost
             print(f'{jmeno:24} {velikost // 1024:4} kB')

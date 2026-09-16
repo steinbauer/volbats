@@ -1,8 +1,9 @@
 // Šablona pro volby 2026 — směr A („editorial").
 //
-// Bílá plocha, výrazná typografie, gradient jen jako akcent: vlasové linky,
-// dlaždice s číslem kandidáta, pruh nad patičkou. Srdce z loga nese volební
-// číslo, takže není jen ozdoba.
+// Teplá krémová plocha, výrazná typografie, gradient jako akcent: vlasové
+// linky, čísla kandidátů, pruh nad patičkou. Odstíny plochy jsou tytéž jako
+// na letáku (#fdf7e4 → #fdeee7), aby web a tiskovina vypadaly jako jedna věc;
+// čistě bílá zůstala jen pro obsahové plochy, které mají z krémové vystoupit.
 //
 // Firemní barvy zůstávají z původní šablony volbats2022; mění se všechno
 // ostatní. Předchozí podobu (Bootstrap 4 převedený na 5) drží historie gitu.
@@ -19,11 +20,13 @@ $cervena-tmava: #8f2614;
 $prechod: linear-gradient(0.25turn, $zluta, $oranzova);
 
 // Plocha a text
-$plocha: #ffffff;
+$plocha: #fdf7e4;       // krémová z letáku, žlutý konec
+$plocha-2: #fdeee7;     // a oranžový konec
+$papir: #ffffff;        // obsahové plochy, které mají z krémové vystoupit
 $inkoust: #191413;
 $text: #2c2521;
 $text-tlumeny: #6b5f55;
-$linka: #e4e2df;
+$linka: #e6dfcd;
 $tmava-plocha: #191413;
 
 $pismo: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
@@ -32,12 +35,12 @@ $pismo-nadpis: 'Bricolage Grotesque', 'Trebuchet MS', system-ui, sans-serif;
 @use 'bootstrap/scss/bootstrap' as bs with (
   $font-family-sans-serif: ('IBM Plex Sans', 'Segoe UI', system-ui, sans-serif),
   $body-color: #2c2521,
-  $body-bg: #ffffff,
+  $body-bg: #fdf7e4,
   $link-color: #c23a22,
   $link-hover-color: #8f2614,
   $headings-font-weight: 800,
   $enable-shadows: false,
-  $border-color: #e4e2df,
+  $border-color: #e6dfcd,
   $grid-gutter-width: 2rem
 );
 
@@ -46,6 +49,16 @@ body {
   font-size: 17px;
   line-height: 1.62;
   -webkit-font-smoothing: antialiased;
+  // Přechod jde přes celé okno, ne přes stránku: `fixed` ho ukotví
+  // k výřezu, takže se při rolování nepřebarvuje.
+  background: linear-gradient(0.25turn, $plocha, $plocha-2) fixed;
+}
+
+// Obsahová plocha na papíře — text, kterému krémová bere kontrast
+.papir {
+  background: $papir;
+  border: 1px solid $linka;
+  padding: clamp(1.4rem, 3vw, 2.6rem);
 }
 
 h1, h2, h3, h4 {
@@ -124,58 +137,165 @@ a:hover { text-decoration: underline; }
 }
 
 // --- hlavička -------------------------------------------------------------
+// Lišta se drží nahoře. Bez toho by scvrkávání loga na úvodní stránce nemělo
+// smysl — velké logo by prostě odjelo pryč.
+//
+// Výška lišty je stálá i při scvrknutí loga. Kdyby se měnila, obsah pod ní
+// poskočí, scrollY se vrátí přes hranici a logo začne poskakovat sem a tam.
+:root {
+  --logo-vyska: 56px;
+  --hlavicka-mezera: 1rem;
+  --hlavicka-vyska: calc(var(--logo-vyska) + 2 * var(--hlavicka-mezera) + 1px);
+}
+
 .hlavicka {
-  border-bottom: 1px solid $linka;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  // Velikost velkého loga; jediná hodnota, kterou se scvrkávání řídí
+  --logo-velke: 76px;
+
+  // Podklad je na pseudoprvku, ne na liště: přechod nejde plynule přebarvit,
+  // ale průhlednost pseudoprvku ano.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0.25turn, $plocha, $plocha-2);
+    border-bottom: 1px solid $linka;
+    transition: opacity 0.25s ease-in-out;
+  }
 
   .obal {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    padding-block: 1.4rem;
-    // Kotva pro rozbalené podmenu — viz .podmenu
+    padding-block: var(--hlavicka-mezera);
+    // Kotva pro rozbalené podmenu (viz .podmenu) a vrstva nad podkladem
     position: relative;
+    z-index: 1;
   }
 }
 
+// Úvodní stránka před odrolováním: lišta je průhledná a fotka pod ní prosvítá.
+// Zneprůhlední se, jakmile návštěvník odroluje.
+.hlavicka--velke-logo {
+  --logo-velke: #{'clamp(132px, 24vw, 244px)'};
+
+  &::before { opacity: 0; }
+}
+
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  color: $inkoust;
+  position: relative;
+  display: block;
   flex: none;
+  width: 232px;
+  height: var(--logo-vyska);
+  color: $inkoust;
 
   &:hover { color: $inkoust; text-decoration: none; }
 }
 
+// Obě podoby loga leží na sobě a přepínají se průhledností. Velká z lišty
+// přetéká dolů do fotky, proto na její výšku nemá vliv.
+//
+// Průhlednost doprovází visibility, aby schovaná podoba nechytala kliknutí
+// ani nezůstala pro čtečku; přechod na visibility drží podobu viditelnou,
+// dokud se nedomíchá.
+.logo__velke,
+.logo__radkove {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.24s ease-in-out, visibility 0.24s;
+}
+
+.logo__velke {
+  opacity: 0;
+  visibility: hidden;
+
+  // Velikost řídí jediná proměnná a mění se přes šířku, ne přes transform.
+  // SVG se tak škáluje i s nápisem uvnitř; při transformu se stávalo, že se
+  // text vykreslil ve své vlastní velikosti, zatímco srdce už bylo malé.
+  // aspect-ratio drží výšku danou i ve chvíli, kdy se šířka zrovna přepočítává.
+  svg {
+    display: block;
+    width: var(--logo-velke);
+    aspect-ratio: 1000 / 867;
+    height: auto;
+    transition: width 0.28s ease-in-out;
+  }
+}
+
+.logo__radkove {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.hlavicka--velke-logo {
+  .logo__velke { opacity: 1; visibility: visible; }
+  .logo__radkove { opacity: 0; visibility: hidden; }
+}
+
 .logo__znak {
-  width: 46px;
-  height: 46px;
+  width: 52px;
+  height: auto;
   flex: none;
 }
 
-// Volební číslo uvnitř srdce v logu. Souřadnice i velikost jsou v jednotkách
-// viewBoxu 202×199, takže se škálují spolu se znakem.
+// Nápis uvnitř srdce. Souřadnice i velikosti jsou v jednotkách viewBoxu
+// 1000×867, takže se škálují spolu se znakem.
+.logo-znak__nazev,
+.logo-znak__mesto {
+  font-family: $pismo-nadpis;
+  font-weight: 800;
+  font-size: 92px;
+  letter-spacing: -0.02em;
+}
+
+.logo-znak__nazev { fill: $inkoust; }
+.logo-znak__mesto { fill: #9a7411; }   // tlumené zlato z letáku, čitelné na krémové
+
+.logo-znak__claim {
+  font-family: $pismo;
+  font-style: italic;
+  font-size: 48px;
+  fill: $text-tlumeny;
+  text-transform: lowercase;
+}
+
+// Volební číslo uvnitř srdce.
 .znak__cislo {
   font-family: $pismo-nadpis;
   font-weight: 800;
-  font-size: 86px;
+  font-size: 430px;
   fill: $inkoust;
 }
 
 .logo__nazev {
   font-family: $pismo-nadpis;
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: 1.16rem;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.12;
 }
 
 .logo__mesto {
   font-size: 0.87rem;
   color: $text-tlumeny;
   letter-spacing: 0.04em;
-  line-height: 1.1;
+  line-height: 1.15;
+}
+
+.logo__claim {
+  font-size: 0.76rem;
+  font-style: italic;
+  color: $text-tlumeny;
+  line-height: 1.2;
+  text-transform: lowercase;
 }
 
 .hlavicka__vpravo {
@@ -280,8 +400,13 @@ a:hover { text-decoration: underline; }
 }
 
 @include bs.media-breakpoint-down(lg) {
+  // Zalomení tu musí zůstat: drží druhý řádek pro rozbalené menu. Bez něj by
+  // se .hlavicka__vpravo (šířka 100 %) vmáčkla do řádku s logem a otevřené
+  // menu by se smrsklo na nulu.
   .hlavicka .obal { flex-wrap: wrap; }
-  .menu-prepinac { display: inline-flex; }
+
+  // Kdyby se přece jen zalomilo, tlačítko patří k pravému kraji, ne pod logo
+  .menu-prepinac { display: inline-flex; margin-left: auto; }
 
   // Termín i menu jdou pod logo; column-reverse drží termín nahoře
   .hlavicka__vpravo {
@@ -292,7 +417,9 @@ a:hover { text-decoration: underline; }
     gap: 0;
   }
 
-  .termin { align-self: flex-start; margin-block: 0.9rem; }
+  // Termín by z lišty udělal druhý řádek a výška lišty musí být stálá —
+  // datum je v pruhu s volebním číslem i v patičce.
+  .termin { display: none; }
 
   .menu {
     width: 100%;
@@ -313,60 +440,88 @@ a:hover { text-decoration: underline; }
   .podmenu { display: none; }
 }
 
-// --- úvodní blok ----------------------------------------------------------
-.uvod {
-  display: grid;
-  grid-template-columns: 7fr 5fr;
-  gap: 2rem;
-  align-items: center;
-  padding-block: clamp(2.5rem, 6vw, 4.9rem) clamp(2rem, 4vw, 3.5rem);
+// Vlastní hranice, ne bootstrapí: řádkové logo má 232 px a s mezerou
+// a tlačítkem Menu se přestane vejít do řádku zrovna kolem 384 px. Pod tím
+// se logo o kousek stáhne, ať tlačítko zůstane vedle něj.
+@media (max-width: 419.98px) {
+  .hlavicka .obal { gap: 1rem; }
 
-  @include bs.media-breakpoint-down(md) {
-    grid-template-columns: 1fr;
+  .logo { width: 185px; }
+  .logo__znak { width: 42px; }
+  .logo__radkove { gap: 0.55rem; }
+  .logo__nazev { font-size: 0.95rem; }
+  .logo__mesto { font-size: 0.78rem; }
+  .logo__claim { font-size: 0.66rem; }
+}
+
+// --- úvodní fotka ---------------------------------------------------------
+// Fotka jde přes celou šířku okna a začíná hned pod lištou, do které z ní
+// shora zasahuje logo. Horní okraj se přelévá do plochy stránky: logo tak
+// nesedí v barevném zmatku fasád a fotka se opticky zasouvá pod menu.
+.uvodni-fotka {
+  position: relative;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  // Fotka začíná úplně nahoře a lišta na ní leží — proto se vytáhne o její
+  // výšku vzhůru. Na užším displeji ne: tam by z fotky pod lištou zbyl proužek.
+  @include bs.media-breakpoint-up(lg) {
+    margin-top: calc(-1 * var(--hlavicka-vyska));
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 42%;
+    background: linear-gradient(0.25turn, $plocha, $plocha-2);
+    // Maska nechá přechod plochy nahoře a dole ho vytratí do fotky. Bez ní
+    // by to musel být jednobarevný přechod, který by na pravém kraji
+    // nenavazoval na plochu stránky.
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.82) 30%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.82) 30%, transparent 100%);
+    pointer-events: none;
   }
 }
 
+// --- úvodní blok ----------------------------------------------------------
+.uvod {
+  padding-block: clamp(0.5rem, 2vw, 1.5rem) clamp(1.5rem, 3vw, 2.5rem);
+}
+
+// Nadpis ani perex nemají vlastní strop šířky: na širokém displeji se mají
+// vejít na jeden řádek a zalomit se až tehdy, když je okno opravdu úzké.
 .uvod__perex {
   font-size: clamp(1.05rem, 2vw, 1.31rem);
   line-height: 1.55;
   color: #40372f;
-  max-width: 30em;
-  margin-bottom: 2.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
 }
 
-.uvod__akce {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-}
-
-// Srdce s volebním číslem
-.cislo-srdce {
-  position: relative;
-  width: min(340px, 78vw);
-  aspect-ratio: 202 / 199;
-  margin-inline: auto;
+// --- volte číslo ----------------------------------------------------------
+// Číslo má na letáku vlastní srdce vedle značky; tady drží stejnou roli —
+// pruh mezi úvodním textem a programem, aby kvůli němu nikdo nemusel hledat.
+.volte {
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-
-  // Vloženo až za základní deklarace: Sass vysazuje @media tam, kde ho
-  // napíšeme, a stejně specifické pravidlo níž by ho jinak přebilo.
-  // Na mobilu srdce zabíralo půl obrazovky, než se návštěvník dostal k obsahu.
-  @include bs.media-breakpoint-down(md) {
-    display: none;
-  }
+  gap: clamp(0.9rem, 2.5vw, 2rem);
+  border-block: 1.5px solid $inkoust;
+  padding-block: 1.1rem;
+  margin-bottom: clamp(1rem, 3vw, 2rem);
 }
 
-.cislo-srdce__text {
-  position: relative;
-  text-align: center;
-  margin-top: -10%;
+.volte__znak {
+  width: clamp(58px, 8vw, 84px);
+  height: auto;
+  flex: none;
 }
 
-.cislo-srdce__popisek {
+.volte__popisek {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -374,51 +529,46 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
 }
 
-.cislo-srdce__cislo {
+.volte__cislo {
   font-family: $pismo-nadpis;
   font-weight: 800;
-  font-size: clamp(4.5rem, 11vw, 7.9rem);
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
   line-height: 1;
-  color: $inkoust;
   letter-spacing: -0.05em;
+  color: $inkoust;
+}
+
+.volte__termin {
+  margin-left: auto;
+  text-align: right;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $text-tlumeny;
+
+  strong {
+    display: block;
+    font-family: $pismo-nadpis;
+    font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: $inkoust;
+  }
 }
 
 @include bs.media-breakpoint-down(md) {
-  // Termín voleb na mobilu jen odsouval obsah; datum je i v patičce
-  // a v programu, tady se bez něj obejdeme.
+  // Termín voleb je v liště na mobilu jen odsouval obsah; datum je i v pruhu
+  // s volebním číslem a v patičce.
   .termin { display: none; }
 
-  // Poloviční odsazení, ať je obsah vidět dřív
-  .uvod {
-    padding-block: 1.25rem 1rem;
-    gap: 1.25rem;
-  }
-
-  // Obě tlačítka se musí vejít na jeden řádek i na 360px širokém displeji
-  .uvod__akce {
-    gap: 0.5rem;
-    flex-wrap: nowrap;
-  }
+  .volte { flex-wrap: wrap; }
+  .volte__termin { margin-left: 0; text-align: left; width: 100%; }
 
   .tlacitko {
     min-height: 46px;
     padding: 0 0.9rem;
     font-size: 0.87rem;
     white-space: nowrap;
-  }
-}
-
-// --- společná fotka -------------------------------------------------------
-.spolecna-fotka {
-  margin-bottom: clamp(2.5rem, 6vw, 4.75rem);
-
-  // Fotka se ukazuje celá. Dřív měla pevnou výšku a object-fit: cover, takže
-  // si prohlížeč podle šířky okna ukrajoval z krajů — a na úzkém displeji
-  // z ní zbyl proužek prostředka. Ořez patří do obrázku na disku, ne sem.
-  img {
-    display: block;
-    width: 100%;
-    height: auto;
   }
 }
 
@@ -442,6 +592,9 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
 }
 
+// Na tmavém pásu by ztmavená červená zmizela
+.sekce__odkaz--tmave { color: $zluta; }
+
 // --- program --------------------------------------------------------------
 // Rozcestník nahoře na /program/. Štítky sekcí v řádcích, ať je na první
 // pohled vidět, co všechno program pokrývá, a dá se na to skočit.
@@ -452,9 +605,13 @@ a:hover { text-decoration: underline; }
   margin: 2.5rem 0 3.5rem;
 
   a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: $papir;
     border: 1px solid $linka;
     border-radius: 2rem;
-    padding: 0.4rem 0.95rem;
+    padding: 0.35rem 0.95rem 0.35rem 0.55rem;
     font-size: 0.93rem;
     color: $inkoust;
 
@@ -462,13 +619,30 @@ a:hover { text-decoration: underline; }
   }
 }
 
+.program__obsah-ikona {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+// Sekce programu leží na jednom papíře; první nepotřebuje linku nahoře,
+// tu dělá okraj papíru.
+.program__sekce-obal {
+  margin-bottom: 1rem;
+
+  > .program-sekce:first-child { border-top: 0; padding-top: 0; }
+  > .program-sekce:last-child { padding-bottom: 0; }
+}
+
 .program-sekce {
   padding-block: 2rem;
   border-top: 1px solid $linka;
+  // Lišta je přilepená nahoře, takže skok na kotvu by cíl schoval pod ni
+  scroll-margin-top: 7rem;
 
   h2 {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 0.8rem;
     font-size: 1.7rem;
     margin-bottom: 0.9rem;
@@ -477,10 +651,12 @@ a:hover { text-decoration: underline; }
   }
 }
 
-.program-sekce__cislo {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: $cervena;
+.program-sekce__ikona {
+  width: 46px;
+  height: 46px;
+  flex: none;
+
+  @include bs.media-breakpoint-down(sm) { width: 36px; height: 36px; }
 }
 
 .program-sekce__uvod {
@@ -536,43 +712,52 @@ a:hover { text-decoration: underline; }
   margin-bottom: 2.5rem;
 }
 
+// Mřížku dělají linky na dlaždicích, ne mezery v podkladu: témat je patnáct
+// a poslední políčko v řádku tak zůstává prázdné, aniž by z něj svítil čtverec
+// jiné barvy.
 .dlazdice-programu {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  background: #332a24;
+  border-top: 1px solid #3a302a;
+  border-left: 1px solid #3a302a;
 
   @include bs.media-breakpoint-down(lg) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   @include bs.media-breakpoint-down(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   @include bs.media-breakpoint-down(sm) { grid-template-columns: 1fr; }
 
   a {
-    background: $tmava-plocha;
-    padding: 1.6rem 1.4rem 1.9rem;
+    border-right: 1px solid #3a302a;
+    border-bottom: 1px solid #3a302a;
+    padding: 1.5rem 1rem 1.7rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    min-height: 130px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.7rem;
+    min-height: 150px;
     color: #f6f1e9;
 
     &:hover { background: #221b17; text-decoration: none; }
   }
 }
 
-.dlazdice-programu__cislo {
+// Poslední dlaždice vede na celý program, takže mřížka nekončí prázdnou dírou
+.dlazdice-programu__vic {
   font-family: $pismo-nadpis;
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 800;
   color: $zluta;
+}
+
+.dlazdice-programu__ikona {
+  width: 48px;
+  height: 48px;
 }
 
 .dlazdice-programu__nazev {
   font-size: 1.05rem;
   line-height: 1.32;
 }
-
-// Odstavce na šířku, která se dobře čte, i mimo blok .uvod
-.uzky { max-width: 38em; }
 
 // --- kandidáti ------------------------------------------------------------
 .mrizka-kandidatu {
@@ -590,6 +775,13 @@ a:hover { text-decoration: underline; }
     @include bs.media-breakpoint-down(lg) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     @include bs.media-breakpoint-down(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
+}
+
+// Dlaždice kandidáta stojí na papíře, aby z krémové plochy vystoupila
+.kandidat {
+  background: $papir;
+  border: 1px solid $linka;
+  padding-bottom: 1rem;
 }
 
 .kandidat__foto {
@@ -637,6 +829,7 @@ a:hover { text-decoration: underline; }
   font-size: 1.05rem;
   line-height: 1.25;
   margin-bottom: 0.35rem;
+  padding-inline: 0.9rem;
 
   a { color: $inkoust; }
   a:hover { color: $cervena; }
@@ -646,6 +839,7 @@ a:hover { text-decoration: underline; }
   font-size: 0.92rem;
   line-height: 1.45;
   color: $text-tlumeny;
+  padding-inline: 0.9rem;
 }
 
 // --- medailonek -----------------------------------------------------------
@@ -670,6 +864,14 @@ a:hover { text-decoration: underline; }
   }
 }
 
+.medailonek__foto {
+  background: $papir;
+  border: 1px solid $linka;
+  padding-bottom: 0.4rem;
+
+  .udaje { margin-inline: 1rem; }
+}
+
 .medailonek__foto .kandidat__cislo {
   width: 70px;
   height: 70px;
@@ -692,9 +894,8 @@ a:hover { text-decoration: underline; }
   dd { margin: 0; font-size: 0.95rem; text-align: right; }
 }
 
-// Zpět na kandidátku + další kandidát. Vlastní třída, ne .uvod__akce:
-// tlačítka na úvodní stránce musí na mobilu zůstat vedle sebe, kdežto tady
-// se jméno kandidáta do řádku nevejde a roztahovalo by stránku.
+// Zpět na kandidátku + další kandidát. Vlastní třída kvůli zalomení: jméno
+// kandidáta se do řádku nevejde a na mobilu by roztahovalo stránku.
 .medailonek__navigace {
   display: flex;
   flex-wrap: wrap;
@@ -755,12 +956,15 @@ a:hover { text-decoration: underline; }
 // --- galerie na úvodní stránce -------------------------------------------
 .galerie {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 15px;
 
-  @include bs.media-breakpoint-down(lg) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  @include bs.media-breakpoint-down(md) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  @include bs.media-breakpoint-down(sm) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @include bs.media-breakpoint-down(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+  @include bs.media-breakpoint-down(md) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @include bs.media-breakpoint-down(sm) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   a {
     display: block;
@@ -779,6 +983,10 @@ a:hover { text-decoration: underline; }
   }
 
   a:hover img { transform: scale(1.08); }
+}
+
+.galerie__akce {
+  margin: clamp(1.5rem, 3vw, 2.2rem) 0 0;
 }
 
 // --- patička --------------------------------------------------------------

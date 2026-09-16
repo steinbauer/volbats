@@ -14,7 +14,7 @@ export default function Kandidati() {
       <div className="obal">
         <section className="sekce">
           <h1>{stranky.kandidati.nadpis}</h1>
-          <div className="text mt-4 mb-5">
+          <div className="text papir mt-4 mb-5">
             <Prose html={stranky.kandidati.html} />
           </div>
 

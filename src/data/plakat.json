@@ -1,0 +1,20 @@
+{
+  "nadpis": "Proč zrovna my",
+  "temata": [
+    {
+      "ikona": "ucelne-hospodareni",
+      "nadpis": "Dotace místo slibů",
+      "text": "Držíme rozdělané projekty připravené. Když na některý přijde dotace, stavíme — a město platí zlomek ceny."
+    },
+    {
+      "ikona": "zdravotnictvi",
+      "nadpis": "Škola, doktor, voda",
+      "text": "Modernizace základní školy, lékaři na poliklinice a pohotovost, opravy vodovodů a kanalizací."
+    },
+    {
+      "ikona": "nechceme",
+      "nadpis": "Bez skokového zdražování",
+      "text": "Nechceme další skoky ve vodném a stočném, v poplatku za odpad ani v ceně tepla."
+    }
+  ]
+}
