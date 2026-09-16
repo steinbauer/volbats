@@ -4,13 +4,14 @@ import Prose from '../components/Prose'
 import Galerie from '../components/Galerie'
 import IkonaSekce from '../components/IkonaSekce'
 import Znak from '../components/Znak'
-import { obrazek } from '../obrazky'
+import { obrazek, sirky } from '../obrazky'
 import { web } from '../data/web'
 import stranky from '../data/stranky.json'
 import program from '../data/program.json'
 
-// Šířky, ve kterých tools/fotky.py ukládá společnou fotku
-const SIRKY_SPOLECNA = [800, 1400, 2000, 2600]
+// Šířky, ve kterých společná fotka opravdu je — podle toho, jak velkou
+// předlohu jsme dostali
+const SIRKY_SPOLECNA = sirky('spolecna')
 
 // Úvodní odstavec putuje nad fotku jako perex, zbytek zůstává v textovém
 // bloku níž — ať se stejná věta neopakuje dvakrát.
@@ -37,7 +38,7 @@ export default function Home() {
           v barevném zmatku fasád. */}
       <div className="uvodni-fotka">
         <img
-          src={obrazek('spolecna-1400.webp')}
+          src={obrazek(`spolecna-${SIRKY_SPOLECNA.at(-1)}.webp`)}
           srcSet={SIRKY_SPOLECNA.map((w) => `${obrazek(`spolecna-${w}.webp`)} ${w}w`).join(', ')}
           sizes="100vw"
           alt={`Kandidáti sdružení ${web.nazev} ${web.mesto}`}

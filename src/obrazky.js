@@ -25,6 +25,22 @@ export function obrazek(jmeno) {
 }
 
 /**
+ * Šířky, ve kterých je fotka opravdu na disku — vzestupně.
+ *
+ * Nevypisují se ručně: `tools/fotky.py` vyrobí jen ty varianty, na které
+ * předloha stačí, a větší po sobě uklidí. Pevný seznam by po výměně fotky
+ * za menší předlohu sázel do srcsetu adresy, které neexistují.
+ */
+export function sirky(zaklad) {
+  const vzor = new RegExp(`^${zaklad}-(\\d+)\\.webp$`)
+  return Object.keys(mapa)
+    .map((jmeno) => vzor.exec(jmeno)?.[1])
+    .filter(Boolean)
+    .map(Number)
+    .sort((a, b) => a - b)
+}
+
+/**
  * Přepíše cesty v HTML přeneseném ze starého webu (`src="obrazky/foto.jpg"`)
  * na hashované URL.
  */

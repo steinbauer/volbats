@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import qr
 from tiskoviny import (CERVENA, INKOUST, KOREN, OBRAZKY, ORANZOVA, PLOCHA, PRECHOD,
                        STYL_ZNACKY, ZLUTA, dataurl, do_pdf, fonty, ikona, logo,
-                       nacti, nacti_web, znak, zmer)
+                       nacti, nacti_web, spolecna, znak, zmer)
 
 ADRESA = 'https://volbats.cz/'
 SIRKA_PORTRETU = 400   # na plakátu vychází portrét kolem 22 mm
@@ -208,7 +208,7 @@ def plakat_temata(web, kandidati, plakat) -> str:
     <div class="tema__text">{t['text']}</div>
   </div>
 </div>"""
-    fotka = OBRAZKY / 'spolecna-2000.webp'
+    fotka = spolecna()
     return f"""<div class="strana">
   {zahlavi(web, plakat['nadpis'])}
   <div class="temata">{temata}</div>
@@ -241,7 +241,7 @@ def plakat_lide(web, kandidati, plakat) -> str:
 
 def plakat_fotka(web, kandidati, plakat) -> str:
     """Společná fotka přes celou plochu a claim."""
-    fotka = OBRAZKY / 'spolecna-2000.webp'
+    fotka = spolecna()
     return f"""<div class="strana">
   {zahlavi(web, 'Komunální volby')}
   <h1 style="font-size:27pt;margin-top:5mm">Záleží nám<br>na našem městě.</h1>

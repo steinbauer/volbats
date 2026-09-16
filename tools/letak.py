@@ -17,7 +17,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import qr
 from tiskoviny import (KOREN, OBRAZKY, STYL_ZNACKY, bez_znacek, dataurl, do_pdf,
-                       fonty, ikona, logo, nacti, nacti_web, znak, zmer)
+                       fonty, ikona, logo, nacti, nacti_web, spolecna, znak, zmer)
 
 # Fotky kandidátů na letáku vycházejí kolem 35 mm, u tisku 300 dpi to je
 # zhruba 415 px — osmistovka má rezervu a zároveň nenafoukne PDF.
@@ -238,7 +238,7 @@ def hlavicka(web: dict, id_prechodu: str) -> str:
 
 
 def strana_obalka(web, kandidati, uvod) -> str:
-    spolecna = OBRAZKY / 'spolecna-2600.webp'
+    fotka = spolecna()
     # Části obce bez skloňování — na obálce to funguje jako popiska.
     # Trhové Sviny patří na začátek, zbytek abecedně.
     casti = sorted({k['cast'] for k in kandidati})
@@ -247,7 +247,7 @@ def strana_obalka(web, kandidati, uvod) -> str:
   {hlavicka(web, 'obalka')}
   <h1 class="obalka__nadpis">Záleží nám<br>na našem městě.</h1>
   <p class="obalka__perex">{uvod}</p>
-  <div class="obalka__foto"><img src="{dataurl(spolecna, 'image/webp')}" alt=""></div>
+  <div class="obalka__foto"><img src="{dataurl(fotka, 'image/webp')}" alt=""></div>
 
   <div class="obalka__dole">
     <div>

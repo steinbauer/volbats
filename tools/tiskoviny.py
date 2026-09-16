@@ -141,6 +141,19 @@ def ikona(slug: str, velikost_mm: float, id_prechodu: str) -> str:
   </linearGradient></defs>{cesty}</svg>'''
 
 
+def spolecna() -> Path:
+    """Největší dostupná společná fotka.
+
+    Na jméno se nespoléhá: podle toho, jak velkou předlohu fotograf dodal,
+    nemusí ta největší varianta vůbec vzniknout (viz tools/fotky.py).
+    """
+    varianty = sorted(OBRAZKY.glob('spolecna-*.webp'),
+                      key=lambda c: int(c.stem.rsplit('-', 1)[1]))
+    if not varianty:
+        raise SystemExit('v src/obrazky/ není žádná spolecna-*.webp')
+    return varianty[-1]
+
+
 def bez_znacek(html: str) -> str:
     text = ' '.join(re.sub(r'<[^>]+>', ' ', html).split())
     # Po značkách zůstává mezera i tam, kde následuje interpunkce

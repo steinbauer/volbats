@@ -57,10 +57,14 @@ def uprav_spolecnou(zdroj: Path, nahore: int = 0, dole: int | None = None) -> li
 
     vytvorene = []
     for sirka in SIRKY_SPOLECNA:
+        jmeno = f'spolecna-{sirka}.webp'
         if sirka > im.width:
+            # Na tuhle šířku předloha nestačí. Zvětšovat nemá smysl, ale
+            # nechat tu ležet variantu z minulé předlohy taky ne — srcset by
+            # míchal dvě různé fotky podle toho, jak široké má kdo okno.
+            (CIL / jmeno).unlink(missing_ok=True)
             continue
         vyska = round(im.height * sirka / im.width)
-        jmeno = f'spolecna-{sirka}.webp'
         im.resize((sirka, vyska), Image.LANCZOS).save(
             CIL / jmeno, 'WEBP', quality=KVALITA, method=6)
         vytvorene.append(jmeno)
