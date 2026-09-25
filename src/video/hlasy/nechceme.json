@@ -1,0 +1,47 @@
+{
+  "nazev": "Nechceme",
+  "zvuk": "hlasy/nechceme.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 24.42,
+  "zabery": [
+    {
+      "obraz": "lucni-nadrz.jpg",
+      "do": 5.952
+    },
+    {
+      "obraz": "sberny-dvur.jpg",
+      "do": 12.092
+    },
+    {
+      "obraz": "teplarna.jpg",
+      "do": 17.488
+    },
+    {
+      "obraz": "kastna-a-radnice.jpg",
+      "do": 24.42
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 5.952,
+      "text": "Nechceme další skokové zdražování vodného a stočného."
+    },
+    {
+      "od": 6.332,
+      "do": 12.092,
+      "text": "Nechceme zvyšovat poplatky za svoz komunálního odpadu."
+    },
+    {
+      "od": 12.472,
+      "do": 17.488,
+      "text": "Nechceme zvyšovat ceny tepla z tepelného hospodářství."
+    },
+    {
+      "od": 17.868,
+      "do": 24.42,
+      "text": "Trhové Sviny mají být město, kde se dá dobře žít a zároveň vyjít s penězi."
+    }
+  ]
+}

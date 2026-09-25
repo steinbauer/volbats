@@ -1,0 +1,48 @@
+{
+  "nazev": "Záleží nám na kultuře",
+  "zvuk": "hlasy/kultura.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 21.972,
+  "zabery": [
+    {
+      "obraz": "valdauf.png",
+      "do": 10.028
+    },
+    {
+      "obraz": "kastna-a-radnice.jpg",
+      "do": 15.328
+    },
+    {
+      "obraz": "kostel2.png",
+      "do": 21.972
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 2.448,
+      "text": "Záleží nám na kultuře."
+    },
+    {
+      "od": 2.828,
+      "do": 5.793,
+      "text": "Chceme podporovat nejen velké akce,"
+    },
+    {
+      "od": 5.793,
+      "do": 10.028,
+      "text": "ale nabídnout pestrý program pro všechny generace."
+    },
+    {
+      "od": 10.408,
+      "do": 15.328,
+      "text": "Chceme víc prezentovat místní umělce všech oborů."
+    },
+    {
+      "od": 15.708,
+      "do": 21.972,
+      "text": "A chceme otevřít areál fary tak, aby se tam daly pořádat koncerty."
+    }
+  ]
+}

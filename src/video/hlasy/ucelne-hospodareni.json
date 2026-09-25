@@ -1,0 +1,57 @@
+{
+  "nazev": "Záleží nám na účelném hospodaření",
+  "zvuk": "hlasy/ucelne-hospodareni.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 26.124,
+  "zabery": [
+    {
+      "obraz": "nova-radnice.jpg",
+      "do": 4.512
+    },
+    {
+      "obraz": "letecka.jpg",
+      "do": 12.548
+    },
+    {
+      "obraz": "teplarna.jpg",
+      "do": 21.184
+    },
+    {
+      "obraz": "nova-radnice.jpg",
+      "do": 26.124
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 4.512,
+      "text": "Záleží nám na účelném hospodaření."
+    },
+    {
+      "od": 4.892,
+      "do": 7.85,
+      "text": "Chceme navýšit výdaje na investice"
+    },
+    {
+      "od": 7.85,
+      "do": 12.548,
+      "text": "a získávat co nejvíc peněz ze všech dostupných zdrojů."
+    },
+    {
+      "od": 12.928,
+      "do": 18.198,
+      "text": "Chceme prověřit dotační investice do tepelného hospodářství,"
+    },
+    {
+      "od": 18.198,
+      "do": 21.184,
+      "text": "třeba využití komunitní elektřiny."
+    },
+    {
+      "od": 21.564,
+      "do": 26.124,
+      "text": "A chceme snížit náklady na provoz úřadu."
+    }
+  ]
+}

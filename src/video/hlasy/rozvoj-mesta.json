@@ -1,0 +1,57 @@
+{
+  "nazev": "Záleží nám na rozvoji města",
+  "zvuk": "hlasy/rozvoj-mesta.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 27.876,
+  "zabery": [
+    {
+      "obraz": "trocnovska.jpg",
+      "do": 3.12
+    },
+    {
+      "obraz": "budovatelska.jpg",
+      "do": 13.964
+    },
+    {
+      "obraz": "pekarenska.jpg",
+      "do": 21.544
+    },
+    {
+      "obraz": "hrbitov.jpg",
+      "do": 27.876
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 3.12,
+      "text": "Záleží nám na rozvoji města."
+    },
+    {
+      "od": 3.5,
+      "do": 8.344,
+      "text": "Chceme opravovat chodníky a veřejná prostranství —"
+    },
+    {
+      "od": 8.344,
+      "do": 13.964,
+      "text": "Dělnickou, Štefánikovu, Sokolskou i sídliště Budovatelská."
+    },
+    {
+      "od": 14.344,
+      "do": 17.903,
+      "text": "Chceme připravit projekt na Žižkovo náměstí"
+    },
+    {
+      "od": 17.903,
+      "do": 21.544,
+      "text": "a vrátit se k opravám vodovodů a kanalizací."
+    },
+    {
+      "od": 21.924,
+      "do": 27.876,
+      "text": "Na hřbitově chceme vyměnit interiér kaple a postavit kolumbárium."
+    }
+  ]
+}

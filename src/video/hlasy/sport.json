@@ -1,0 +1,39 @@
+{
+  "nazev": "Záleží nám na sportu",
+  "zvuk": "hlasy/sport.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 17.536,
+  "zabery": [
+    {
+      "obraz": "letecka.jpg",
+      "do": 10.94
+    },
+    {
+      "obraz": "velky-rybnik.jpg",
+      "do": 17.536
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 3.0,
+      "text": "Záleží nám na sportu."
+    },
+    {
+      "od": 3.38,
+      "do": 6.76,
+      "text": "Chceme podpořit co nejvíc druhů sportů"
+    },
+    {
+      "od": 6.76,
+      "do": 10.94,
+      "text": "a investovat do softbalového hřiště na Rejtech."
+    },
+    {
+      "od": 11.32,
+      "do": 17.536,
+      "text": "A chceme nabídnout prostor i těm, kdo sportují sami, mimo oddíly."
+    }
+  ]
+}

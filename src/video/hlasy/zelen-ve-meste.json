@@ -1,0 +1,47 @@
+{
+  "nazev": "Záleží nám na zeleni ve městě",
+  "zvuk": "hlasy/zelen-ve-meste.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 21.828,
+  "zabery": [
+    {
+      "obraz": "park1.jpg",
+      "do": 3.816
+    },
+    {
+      "obraz": "park2.jpg",
+      "do": 10.196
+    },
+    {
+      "obraz": "kastna-a-radnice.jpg",
+      "do": 15.928
+    },
+    {
+      "obraz": "trojice.jpg",
+      "do": 21.828
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 3.816,
+      "text": "Záleží nám na zeleni ve městě."
+    },
+    {
+      "od": 4.196,
+      "do": 10.196,
+      "text": "Chceme optimalizovat seč trávníků a víc pečovat o stávající stromy."
+    },
+    {
+      "od": 10.576,
+      "do": 15.928,
+      "text": "Chceme přehodnotit výsadbu letniček a nahradit je trvalkami."
+    },
+    {
+      "od": 16.308,
+      "do": 21.828,
+      "text": "A chceme oživit Weyszerův park u cesty na Svatou Trojici."
+    }
+  ]
+}

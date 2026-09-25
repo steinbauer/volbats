@@ -1,0 +1,48 @@
+{
+  "nazev": "Záleží nám na cestovním ruchu",
+  "zvuk": "hlasy/cestovni-ruch.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 19.932,
+  "zabery": [
+    {
+      "obraz": "hamr.jpg",
+      "do": 7.412
+    },
+    {
+      "obraz": "kostel.jpg",
+      "do": 11.752
+    },
+    {
+      "obraz": "cesta-trhovosvinenskem.jpg",
+      "do": 19.932
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 3.312,
+      "text": "Záleží nám na cestovním ruchu."
+    },
+    {
+      "od": 3.692,
+      "do": 7.412,
+      "text": "Chceme investovat do oprav Buškova hamru."
+    },
+    {
+      "od": 7.792,
+      "do": 11.752,
+      "text": "Chceme podpořit opravy církevních staveb."
+    },
+    {
+      "od": 12.132,
+      "do": 14.443,
+      "text": "A chceme znovu prověřit,"
+    },
+    {
+      "od": 14.443,
+      "do": 19.932,
+      "text": "jestli jsou realizovatelné cyklostezky, třeba do Borovan."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "nazev": "Záleží nám na místních částech",
+  "zvuk": "hlasy/mistni-casti.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 25.38,
+  "zabery": [
+    {
+      "obraz": "brezi.jpg",
+      "do": 3.768
+    },
+    {
+      "obraz": "lucni-nadrz.jpg",
+      "do": 10.604
+    },
+    {
+      "obraz": "trojice.jpg",
+      "do": 18.232
+    },
+    {
+      "obraz": "upily.jpg",
+      "do": 25.38
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 3.768,
+      "text": "Záleží nám na místních částech."
+    },
+    {
+      "od": 4.148,
+      "do": 10.604,
+      "text": "Chceme reagovat na sucho a řešit výstavbu i opravy vodohospodářských sítí."
+    },
+    {
+      "od": 10.984,
+      "do": 14.474,
+      "text": "Chceme kultivovat návsi, třeba v Todni,"
+    },
+    {
+      "od": 14.474,
+      "do": 18.232,
+      "text": "a stavět chodníky, třeba na Svaté Trojici."
+    },
+    {
+      "od": 18.612,
+      "do": 25.38,
+      "text": "A chceme dál podporovat práci osadních výborů a spolkový život."
+    }
+  ]
+}

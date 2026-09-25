@@ -1,0 +1,52 @@
+{
+  "nazev": "Záleží nám na lepším fungování úřadu",
+  "zvuk": "hlasy/fungovani-uradu.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 23.388,
+  "zabery": [
+    {
+      "obraz": "nova-radnice.jpg",
+      "do": 4.608
+    },
+    {
+      "obraz": "kastna-a-radnice.jpg",
+      "do": 10.556
+    },
+    {
+      "obraz": "lideb.png",
+      "do": 15.448
+    },
+    {
+      "obraz": "nova-radnice.jpg",
+      "do": 23.388
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 4.608,
+      "text": "Záleží nám na lepším fungování úřadu."
+    },
+    {
+      "od": 4.988,
+      "do": 10.556,
+      "text": "Chceme zlepšit komunikaci samosprávy i státní správy s občany."
+    },
+    {
+      "od": 10.936,
+      "do": 15.448,
+      "text": "Chceme se důsledně zabývat vašimi podněty."
+    },
+    {
+      "od": 15.828,
+      "do": 19.82,
+      "text": "A chceme přímý přenos z jednání zastupitelstva,"
+    },
+    {
+      "od": 19.82,
+      "do": 23.388,
+      "text": "aby bylo vidět, jak se ve městě rozhoduje."
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "_": "Scénáře videí k tématům programu. Text je to, co hlas namluví, a zároveň to, co se ukáže jako titulek — proto je rozdělený po větách. Každá věta má svůj obrázek; sousední věty se stejným obrázkem drží jeden záběr. Časování se nevypisuje ručně: bere se z časových značek, které vrátí hlasová služba, viz tools/hlas.py.",
+  "hlas": "iEDNGgJB5s5IueXbbhCS",
+  "_hlas": "Jana — pražský přízvuk, střední věk, klidný informativní přednes. Vybráno jako nejbližší k hlasu z prvního videa o seniorech.",
+  "hlas_openai": "coral",
+  "_hlas_openai": "Záloha, když je ElevenLabs nedostupný. Z nabídky OpenAI drží coral českou výslovnost nejlíp — ověřeno tak, že se hotová nahrávka přepsala whisperem a porovnala s předlohou.",
+  "temata": {
+    "rozvoj-mesta": {
+      "nazev": "Záleží nám na rozvoji města",
+      "vety": [
+        {
+          "text": "Záleží nám na rozvoji města.",
+          "obraz": "trocnovska.jpg"
+        },
+        {
+          "text": "Chceme opravovat chodníky a veřejná prostranství — Dělnickou, Štefánikovu, Sokolskou i sídliště Budovatelská.",
+          "obraz": "budovatelska.jpg"
+        },
+        {
+          "text": "Chceme připravit projekt na Žižkovo náměstí a vrátit se k opravám vodovodů a kanalizací.",
+          "obraz": "pekarenska.jpg"
+        },
+        {
+          "text": "Na hřbitově chceme vyměnit interiér kaple a postavit kolumbárium.",
+          "obraz": "hrbitov.jpg"
+        }
+      ]
+    },
+    "deti": {
+      "nazev": "Záleží nám na dětech",
+      "vety": [
+        {
+          "text": "Záleží nám na dětech.",
+          "obraz": "zakladka.jpg"
+        },
+        {
+          "text": "Chceme pokračovat v modernizaci základní školy a odstranit havarijní stav v praktické škole.",
+          "obraz": "zakladka.jpg"
+        },
+        {
+          "text": "Chceme workoutové hřiště u školy a důstojné místo pro Rákosníčkovo hřiště.",
+          "obraz": "skolka.jpg"
+        },
+        {
+          "text": "A chceme prověřit, jestli by na bývalé skládce Na Spořilově mohl vzniknout cyklistický park.",
+          "obraz": "letecka.jpg"
+        }
+      ]
+    },
+    "doprava": {
+      "nazev": "Záleží nám na řešení dopravy",
+      "vety": [
+        {
+          "text": "Záleží nám na řešení dopravy.",
+          "obraz": "pekarenska.jpg"
+        },
+        {
+          "text": "Chceme intenzivně jednat s Jihočeským krajem o dopravě ve městě, hlavně kvůli plánovanému obchvatu a křižovatce u Žižkova náměstí.",
+          "obraz": "trocnovska.jpg"
+        },
+        {
+          "text": "A chceme uvolnit prostor za radnicí, aby tam mohlo vzniknout velkokapacitní parkoviště.",
+          "obraz": "kastna-a-radnice.jpg"
+        }
+      ]
+    },
+    "bezpecnost": {
+      "nazev": "Záleží nám na bezpečnosti",
+      "vety": [
+        {
+          "text": "Záleží nám na bezpečnosti.",
+          "obraz": "nova-radnice.jpg"
+        },
+        {
+          "text": "Chceme, aby městská policie fungovala co nejefektivněji.",
+          "obraz": "nova-radnice.jpg"
+        },
+        {
+          "text": "Prioritou je, aby strážníky bylo vidět v našem městě i v místních částech.",
+          "obraz": "brezi.jpg"
+        }
+      ]
+    },
+    "zdravotnictvi": {
+      "nazev": "Záleží nám na zdravotnictví",
+      "vety": [
+        {
+          "text": "Záleží nám na zdravotnictví.",
+          "obraz": "poliklinika.jpg"
+        },
+        {
+          "text": "Chceme pokračovat v investicích do oprav polikliniky.",
+          "obraz": "poliklinika.jpg"
+        },
+        {
+          "text": "Chceme jednat s krajem o zachování lékařské pohotovosti a o návratu návštěv lékaře u pacientů.",
+          "obraz": "nova-radnice.jpg"
+        },
+        {
+          "text": "A v podkroví polikliniky chceme udělat byty pro zdravotní personál, aby tu lékaři měli kde bydlet.",
+          "obraz": "poliklinika.jpg"
+        }
+      ]
+    },
+    "kultura": {
+      "nazev": "Záleží nám na kultuře",
+      "vety": [
+        {
+          "text": "Záleží nám na kultuře.",
+          "obraz": "valdauf.png"
+        },
+        {
+          "text": "Chceme podporovat nejen velké akce, ale nabídnout pestrý program pro všechny generace.",
+          "obraz": "valdauf.png"
+        },
+        {
+          "text": "Chceme víc prezentovat místní umělce všech oborů.",
+          "obraz": "kastna-a-radnice.jpg"
+        },
+        {
+          "text": "A chceme otevřít areál fary tak, aby se tam daly pořádat koncerty.",
+          "obraz": "kostel2.png"
+        }
+      ]
+    },
+    "sport": {
+      "nazev": "Záleží nám na sportu",
+      "vety": [
+        {
+          "text": "Záleží nám na sportu.",
+          "obraz": "letecka.jpg"
+        },
+        {
+          "text": "Chceme podpořit co nejvíc druhů sportů a investovat do softbalového hřiště na Rejtech.",
+          "obraz": "letecka.jpg"
+        },
+        {
+          "text": "A chceme nabídnout prostor i těm, kdo sportují sami, mimo oddíly.",
+          "obraz": "velky-rybnik.jpg"
+        }
+      ]
+    },
+    "cestovni-ruch": {
+      "nazev": "Záleží nám na cestovním ruchu",
+      "vety": [
+        {
+          "text": "Záleží nám na cestovním ruchu.",
+          "obraz": "hamr.jpg"
+        },
+        {
+          "text": "Chceme investovat do oprav Buškova hamru.",
+          "obraz": "hamr.jpg"
+        },
+        {
+          "text": "Chceme podpořit opravy církevních staveb.",
+          "obraz": "kostel.jpg"
+        },
+        {
+          "text": "A chceme znovu prověřit, jestli jsou realizovatelné cyklostezky, třeba do Borovan.",
+          "obraz": "cesta-trhovosvinenskem.jpg"
+        }
+      ]
+    },
+    "zivotni-prostredi": {
+      "nazev": "Záleží nám na životním prostředí",
+      "vety": [
+        {
+          "text": "Záleží nám na životním prostředí.",
+          "obraz": "lucni-nadrz.jpg"
+        },
+        {
+          "text": "Chceme, aby se město jasně vyjádřilo proti otevření lomu na živec u Třebíčka i proti nelegální těžbě vltavínů.",
+          "obraz": "levacek.jpg"
+        },
+        {
+          "text": "Chceme lépe řešit svoz odpadu, snížit jeho náklady a kultivovat stání na tříděný odpad.",
+          "obraz": "sberny-dvur.jpg"
+        },
+        {
+          "text": "A chceme bránit kůrovcovým kalamitám výsadbou smíšených lesů.",
+          "obraz": "cesta-trhovosvinenskem.jpg"
+        }
+      ]
+    },
+    "zelen-ve-meste": {
+      "nazev": "Záleží nám na zeleni ve městě",
+      "vety": [
+        {
+          "text": "Záleží nám na zeleni ve městě.",
+          "obraz": "park1.jpg"
+        },
+        {
+          "text": "Chceme optimalizovat seč trávníků a víc pečovat o stávající stromy.",
+          "obraz": "park2.jpg"
+        },
+        {
+          "text": "Chceme přehodnotit výsadbu letniček a nahradit je trvalkami.",
+          "obraz": "kastna-a-radnice.jpg"
+        },
+        {
+          "text": "A chceme oživit Weyszerův park u cesty na Svatou Trojici.",
+          "obraz": "trojice.jpg"
+        }
+      ]
+    },
+    "mistni-casti": {
+      "nazev": "Záleží nám na místních částech",
+      "vety": [
+        {
+          "text": "Záleží nám na místních částech.",
+          "obraz": "brezi.jpg"
+        },
+        {
+          "text": "Chceme reagovat na sucho a řešit výstavbu i opravy vodohospodářských sítí.",
+          "obraz": "lucni-nadrz.jpg"
+        },
+        {
+          "text": "Chceme kultivovat návsi, třeba v Todni, a stavět chodníky, třeba na Svaté Trojici.",
+          "obraz": "trojice.jpg"
+        },
+        {
+          "text": "A chceme dál podporovat práci osadních výborů a spolkový život.",
+          "obraz": "upily.jpg"
+        }
+      ]
+    },
+    "ucelne-hospodareni": {
+      "nazev": "Záleží nám na účelném hospodaření",
+      "vety": [
+        {
+          "text": "Záleží nám na účelném hospodaření.",
+          "obraz": "nova-radnice.jpg"
+        },
+        {
+          "text": "Chceme navýšit výdaje na investice a získávat co nejvíc peněz ze všech dostupných zdrojů.",
+          "obraz": "letecka.jpg"
+        },
+        {
+          "text": "Chceme prověřit dotační investice do tepelného hospodářství, třeba využití komunitní elektřiny.",
+          "obraz": "teplarna.jpg"
+        },
+        {
+          "text": "A chceme snížit náklady na provoz úřadu.",
+          "obraz": "nova-radnice.jpg"
+        }
+      ]
+    },
+    "fungovani-uradu": {
+      "nazev": "Záleží nám na lepším fungování úřadu",
+      "vety": [
+        {
+          "text": "Záleží nám na lepším fungování úřadu.",
+          "obraz": "nova-radnice.jpg"
+        },
+        {
+          "text": "Chceme zlepšit komunikaci samosprávy i státní správy s občany.",
+          "obraz": "kastna-a-radnice.jpg"
+        },
+        {
+          "text": "Chceme se důsledně zabývat vašimi podněty.",
+          "obraz": "lideb.png"
+        },
+        {
+          "text": "A chceme přímý přenos z jednání zastupitelstva, aby bylo vidět, jak se ve městě rozhoduje.",
+          "obraz": "nova-radnice.jpg"
+        }
+      ]
+    },
+    "nechceme": {
+      "nazev": "Nechceme",
+      "vety": [
+        {
+          "text": "Nechceme další skokové zdražování vodného a stočného.",
+          "obraz": "lucni-nadrz.jpg"
+        },
+        {
+          "text": "Nechceme zvyšovat poplatky za svoz komunálního odpadu.",
+          "obraz": "sberny-dvur.jpg"
+        },
+        {
+          "text": "Nechceme zvyšovat ceny tepla z tepelného hospodářství.",
+          "obraz": "teplarna.jpg"
+        },
+        {
+          "text": "Trhové Sviny mají být město, kde se dá dobře žít a zároveň vyjít s penězi.",
+          "obraz": "kastna-a-radnice.jpg"
+        }
+      ]
+    },
+    "seniori": {
+      "nazev": "Záleží nám na seniorech",
+      "_": "Původní hlas od klienta je v src/video/hlas-seniori.m4a, ruční časování ve video.json.",
+      "vety": [
+        {
+          "text": "Záleží nám na seniorech.",
+          "obraz": "dum-akvarel.jpg"
+        },
+        {
+          "text": "Chceme v domě s pečovatelskou službou předávat pouze zrekonstruované byty, a to v co nejkratším čase.",
+          "obraz": "dum-akvarel.jpg"
+        },
+        {
+          "text": "Chceme tento dům napojit na městský teplovod a rozšířit zde parkoviště.",
+          "obraz": "dum-parkoviste.png"
+        },
+        {
+          "text": "Chceme větší zapojení seniorů do společenského života.",
+          "obraz": "seniorky.png"
+        },
+        {
+          "text": "Proto chceme podporovat centrum komunitních aktivit, které jsme ve městě založili.",
+          "obraz": "setkani.png"
+        }
+      ]
+    }
+  }
+}

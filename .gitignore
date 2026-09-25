@@ -12,11 +12,14 @@ compose.override.yaml
 
 .DS_Store
 
-# Tiskoviny se generují z dat, viz make letak / plakaty / qr
+# Tiskoviny a karty na sítě se generují z dat,
+# viz make letak / plakaty / qr / socialni / video
 letak.pdf
 letak.html
 plakaty/
 qr/
+socialni/
+/video/
 
 # Python bytecode
 __pycache__/

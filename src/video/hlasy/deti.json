@@ -1,0 +1,53 @@
+{
+  "nazev": "Záleží nám na dětech",
+  "zvuk": "hlasy/deti.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 26.292,
+  "zabery": [
+    {
+      "obraz": "zakladka.jpg",
+      "do": 10.508
+    },
+    {
+      "obraz": "skolka.jpg",
+      "do": 18.208
+    },
+    {
+      "obraz": "letecka.jpg",
+      "do": 26.292
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 2.664,
+      "text": "Záleží nám na dětech."
+    },
+    {
+      "od": 3.044,
+      "do": 6.817,
+      "text": "Chceme pokračovat v modernizaci základní školy"
+    },
+    {
+      "od": 6.817,
+      "do": 10.508,
+      "text": "a odstranit havarijní stav v praktické škole."
+    },
+    {
+      "od": 10.888,
+      "do": 18.208,
+      "text": "Chceme workoutové hřiště u školy a důstojné místo pro Rákosníčkovo hřiště."
+    },
+    {
+      "od": 18.588,
+      "do": 20.112,
+      "text": "A chceme prověřit,"
+    },
+    {
+      "od": 20.112,
+      "do": 26.292,
+      "text": "jestli by na bývalé skládce Na Spořilově mohl vzniknout cyklistický park."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "nazev": "Záleží nám na zdravotnictví",
+  "zvuk": "hlasy/zdravotnictvi.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 26.484,
+  "zabery": [
+    {
+      "obraz": "poliklinika.jpg",
+      "do": 8.804
+    },
+    {
+      "obraz": "nova-radnice.jpg",
+      "do": 18.496
+    },
+    {
+      "obraz": "poliklinika.jpg",
+      "do": 26.484
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 3.36,
+      "text": "Záleží nám na zdravotnictví."
+    },
+    {
+      "od": 3.74,
+      "do": 8.804,
+      "text": "Chceme pokračovat v investicích do oprav polikliniky."
+    },
+    {
+      "od": 9.184,
+      "do": 14.691,
+      "text": "Chceme jednat s krajem o zachování lékařské pohotovosti"
+    },
+    {
+      "od": 14.691,
+      "do": 18.496,
+      "text": "a o návratu návštěv lékaře u pacientů."
+    },
+    {
+      "od": 18.876,
+      "do": 24.131,
+      "text": "A v podkroví polikliniky chceme udělat byty pro zdravotní personál,"
+    },
+    {
+      "od": 24.131,
+      "do": 26.484,
+      "text": "aby tu lékaři měli kde bydlet."
+    }
+  ]
+}

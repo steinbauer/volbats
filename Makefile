@@ -6,6 +6,9 @@
 #   make letak      vyrobí volební leták jako PDF
 #   make plakaty    vyrobí tři varianty plakátu A5
 #   make qr         vyrobí kartičky s QR kódy a kódy samotné
+#   make socialni   vyrobí karty na Instagram a Facebook
+#   make video      složí video k jednomu tématu (make video TEMA=doprava)
+#   make videa      namluví a složí videa ke všem tématům programu
 #   make ikony      přegeneruje ikony sekcí programu
 #   make stop-dev   zastaví kontejner
 
@@ -18,7 +21,7 @@ URL          = https://$(BRANCH_NAME).volbats.kamil.lab.home/
 # přeskočil devDependencies, tedy i samotné Vite.
 NPM = NODE_ENV=development npm
 
-.PHONY: url dev build install run-dev stop-dev restart-dev status logs letak plakaty qr ikony clean
+.PHONY: url dev build install run-dev stop-dev restart-dev status logs letak plakaty qr socialni video videa ikony clean
 
 ## Vypíše adresu a zajistí, že běží aktuální build
 url: build run-dev
@@ -71,9 +74,24 @@ plakaty:
 qr:
 	@python3 tools/qr-karticky.py
 
+## Karty na Instagram a Facebook do socialni/ (taky přes browserless)
+socialni:
+	@python3 tools/socialni.py
+
+## Video 4:5 z hlasu, obrázků a titulků do video/ (taky přes browserless)
+TEMA ?= seniori
+video:
+	@python3 tools/video.py $(TEMA)
+
+## Všechna témata programu: hlas z textu a z něj video.
+## Mluvení je placené, takže se přeskakuje, co už hlas má — viz tools/hlas.py.
+videa:
+	@python3 tools/hlas.py --sluzba openai
+	@python3 tools/video.py $$(python3 -c "import json;print(' '.join(json.load(open('src/data/video-temata.json'))['temata']))")
+
 ## Ikony sekcí programu do src/data/ikony.json
 ikony:
 	@python3 tools/ikony.py
 
 clean:
-	@rm -rf dist dist-ssr letak.pdf letak.html plakaty qr
+	@rm -rf dist dist-ssr letak.pdf letak.html plakaty qr socialni video

@@ -1,0 +1,87 @@
+{
+  "_": "Scénář videa: co se kdy ukazuje a co se kdy říká. Titulky odpovídají namluvenému hlasu (přepsáno ze zvuku, dvě slova opravena podle program.json — „nejkratším“ a „parkoviště“). Časy jsou vteřiny od začátku zvuku; hranice záběrů sedí na věty, ať střih nepřeruší myšlenku. Klíč „podklad“: „splynout“ smíchá bílé pozadí předlohy s krémovou plochou, aby logo neleželo na bílém čtverci.",
+  "seniori": {
+    "nazev": "Záleží nám na seniorech",
+    "zvuk": "hlas-seniori.m4a",
+    "prechod": 0.6,
+    "zabery": [
+      {
+        "obraz": "dum-akvarel.jpg",
+        "do": 9.2,
+        "pohyb": "zoom",
+        "vypln": "cover"
+      },
+      {
+        "obraz": "dum-parkoviste.png",
+        "do": 16.0,
+        "pohyb": "zoom",
+        "vypln": "cover"
+      },
+      {
+        "obraz": "seniorky.png",
+        "do": 20.2,
+        "pohyb": "zoom",
+        "vypln": "cover"
+      },
+      {
+        "obraz": "setkani.png",
+        "do": 23.4,
+        "pohyb": "zoom",
+        "vypln": "cover"
+      },
+      {
+        "obraz": "cka-logo.jpg",
+        "do": 26.6,
+        "pohyb": "klid",
+        "vypln": "contain",
+        "podklad": "splynout"
+      },
+      {
+        "koncovka": true,
+        "do": 31.0
+      }
+    ],
+    "titulky": [
+      {
+        "od": 0.9,
+        "do": 3.0,
+        "text": "Záleží nám na seniorech."
+      },
+      {
+        "od": 3.0,
+        "do": 9.2,
+        "text": "Chceme v domě s pečovatelskou službou předávat pouze zrekonstruované byty,"
+      },
+      {
+        "od": 9.2,
+        "do": 11.0,
+        "text": "a to v co nejkratším čase."
+      },
+      {
+        "od": 11.0,
+        "do": 14.0,
+        "text": "Chceme tento dům napojit na městský teplovod"
+      },
+      {
+        "od": 14.0,
+        "do": 16.0,
+        "text": "a rozšířit zde parkoviště."
+      },
+      {
+        "od": 16.0,
+        "do": 20.2,
+        "text": "Chceme větší zapojení seniorů do společenského života."
+      },
+      {
+        "od": 20.2,
+        "do": 23.5,
+        "text": "Proto chceme podporovat centrum komunitních aktivit,"
+      },
+      {
+        "od": 23.5,
+        "do": 26.4,
+        "text": "které jsme ve městě založili."
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "nazev": "Záleží nám na bezpečnosti",
+  "zvuk": "hlasy/bezpecnost.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 15.136,
+  "zabery": [
+    {
+      "obraz": "nova-radnice.jpg",
+      "do": 7.892
+    },
+    {
+      "obraz": "brezi.jpg",
+      "do": 15.136
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 3.0,
+      "text": "Záleží nám na bezpečnosti."
+    },
+    {
+      "od": 3.38,
+      "do": 7.892,
+      "text": "Chceme, aby městská policie fungovala co nejefektivněji."
+    },
+    {
+      "od": 8.272,
+      "do": 15.136,
+      "text": "Prioritou je, aby strážníky bylo vidět v našem městě i v místních částech."
+    }
+  ]
+}

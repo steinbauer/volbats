@@ -1,0 +1,48 @@
+{
+  "nazev": "Záleží nám na řešení dopravy",
+  "zvuk": "hlasy/doprava.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 23.8,
+  "zabery": [
+    {
+      "obraz": "pekarenska.jpg",
+      "do": 3.168
+    },
+    {
+      "obraz": "trocnovska.jpg",
+      "do": 14.852
+    },
+    {
+      "obraz": "kastna-a-radnice.jpg",
+      "do": 23.8
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 3.168,
+      "text": "Záleží nám na řešení dopravy."
+    },
+    {
+      "od": 3.548,
+      "do": 9.156,
+      "text": "Chceme intenzivně jednat s Jihočeským krajem o dopravě ve městě,"
+    },
+    {
+      "od": 9.156,
+      "do": 14.852,
+      "text": "hlavně kvůli plánovanému obchvatu a křižovatce u Žižkova náměstí."
+    },
+    {
+      "od": 15.232,
+      "do": 18.819,
+      "text": "A chceme uvolnit prostor za radnicí,"
+    },
+    {
+      "od": 18.819,
+      "do": 23.8,
+      "text": "aby tam mohlo vzniknout velkokapacitní parkoviště."
+    }
+  ]
+}

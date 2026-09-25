@@ -1,0 +1,201 @@
+{
+  "_": "Texty pro karty na Instagram a Facebook. Hesla jsou oddělená od sazby stejně jako v plakat.json, ať se dají přepsat bez sahání do tools/socialni.py. Sloveso drží opoziční tón: co umíme a co chceme, ne co jsme udělali. Klíč \"titul\" nechá na kartě akademický titul — u těch, kde titul nese informaci (MUDr., Ing. arch.), ne jen zdvořilost.",
+  "kandidati": {
+    "1": {
+      "heslo": "Umí sehnat dotaci",
+      "text": "Kanalizace na Rejtech, multifunkční hřiště, školní jídelna. Ví, kde o peníze žádat a jak je uhlídat."
+    },
+    "2": {
+      "heslo": "Veřejný prostor",
+      "text": "Kostelní ulice a schody u kostela jsou jeho práce. Česká cena za architekturu 2022."
+    },
+    "3": {
+      "heslo": "Aby zůstala pohotovost",
+      "text": "Bývalý řidič a záchranář. Dostupnost lékařské péče ve Svinech sleduje čtyři volební období."
+    },
+    "4": {
+      "heslo": "Děti od telefonů ven",
+      "text": "Trénuje softbalovou mládež. Pět jeho hráčů dnes reprezentuje Českou republiku."
+    },
+    "5": {
+      "heslo": "Zeleň, která přežije sucho",
+      "text": "Navrhuje zahrady nenáročné na vodu i péči. Ví, co ve městě vysadit, aby to za dva roky neuschlo."
+    },
+    "6": {
+      "heslo": "Kontrola, kam jdou peníze",
+      "text": "Byl v kontrolním výboru města. Umí zjistit, jestli se udělalo to, co se zaplatilo."
+    },
+    "7": {
+      "heslo": "Škola zevnitř",
+      "text": "Osmým rokem ředitelkou školy pro děti se všemi stupni postižení. Havarijní stav nezná z papíru."
+    },
+    "8": {
+      "heslo": "Teplo a voda v číslech",
+      "text": "Dvacet let počítá rozúčtování tepla a vody. Na to, proč cena roste, se ho vyplatí zeptat."
+    },
+    "9": {
+      "heslo": "Dotahovat do konce",
+      "text": "Manažerka kvality ve výrobě zdravotnických prostředků. Dvacet let vede projekty a nese za ně odpovědnost."
+    },
+    "10": {
+      "heslo": "Evropské dotace",
+      "text": "Sedmnáct let u evropských peněz. Založila mateřské centrum, které ve městě funguje dodnes."
+    },
+    "11": {
+      "heslo": "Ověřit, pak podepsat",
+      "text": "Zkušební inženýr. Zvyklý věci změřit dřív, než se o nich rozhodne.",
+      "overit": true
+    },
+    "12": {
+      "heslo": "Projekty a termíny",
+      "text": "Projektová manažerka. Umí uhlídat, co se má stihnout do kdy a za kolik.",
+      "overit": true
+    },
+    "13": {
+      "heslo": "Provoz a lidi",
+      "text": "Provozní mistr. Denně řeší, aby věci fungovaly a lidé se domluvili.",
+      "overit": true
+    },
+    "14": {
+      "heslo": "Zkušenost učitelky",
+      "text": "Celý život ve školství. Ví, jak se ve městě žije těm, kterým už nikdo netelefonuje.",
+      "overit": true
+    },
+    "15": {
+      "heslo": "Řemeslo",
+      "text": "Malíř pokojů. Pozná odvedenou práci od natřené fasády, co za rok opadá.",
+      "overit": true
+    },
+    "16": {
+      "heslo": "Senioři nejsou okrajová skupina",
+      "text": "Ví z vlastní zkušenosti, co ve městě chybí lidem, kteří už nejezdí autem.",
+      "overit": true
+    },
+    "17": {
+      "heslo": "Voda v místních částech",
+      "text": "Profesionální hasič a zemědělec z Todně. Sucho tady přišlo dřív než do města."
+    },
+    "18": {
+      "heslo": "Proč tu chybí doktoři",
+      "text": "Lékařka. Ví, co musí město nabídnout, aby sem mladý lékař vůbec přišel.",
+      "overit": true,
+      "titul": true
+    },
+    "19": {
+      "heslo": "Stavět s citem pro místo",
+      "text": "Architektka z Atelieru 111. Věnuje se menšímu měřítku s respektem ke kontextu místa.",
+      "titul": true
+    },
+    "20": {
+      "heslo": "Když něco nejede",
+      "text": "Servisní technik. Zvyklý najít příčinu, ne jen vyměnit, co je nejblíž.",
+      "overit": true
+    },
+    "21": {
+      "heslo": "Doprava očima řidiče",
+      "text": "Profesionální řidič. Křižovatku u Žižkova náměstí projíždí, ne prostuduje na mapě.",
+      "overit": true
+    },
+    "22": {
+      "heslo": "Město pro všechny generace",
+      "text": "Ví, co znamená zestárnout ve městě, které se staví hlavně pro auta.",
+      "overit": true
+    },
+    "23": {
+      "heslo": "Pozná reálnou cenu",
+      "text": "Majitel stavební firmy. Na nabídce vidí, jestli sedí, dřív než ji někdo podepíše."
+    }
+  },
+  "temata": [
+    {
+      "slug": "ucelne-hospodareni",
+      "heslo": "Dotace místo slibů",
+      "text": "Mít projekty připravené v šuplíku. Když přijde dotace, staví se — a město platí zlomek ceny.",
+      "kdo": 10
+    },
+    {
+      "slug": "zdravotnictvi",
+      "heslo": "Doktor, který tu zůstane",
+      "text": "Zachovat pohotovost, opravit polikliniku a udělat v podkroví byty pro zdravotní personál.",
+      "kdo": 3
+    },
+    {
+      "slug": "nechceme",
+      "heslo": "Bez dalšího zdražování",
+      "text": "Vodné, stočné, poplatek za odpad ani teplo nemají udělat další skok.",
+      "kdo": 8
+    },
+    {
+      "slug": "deti",
+      "heslo": "Škola, kde neteče do bot",
+      "text": "Modernizovat základní školu a odstranit havarijní stav v praktické škole. Workoutové hřiště u školy.",
+      "kdo": 7
+    },
+    {
+      "slug": "rozvoj-mesta",
+      "heslo": "Chodníky, ne studie",
+      "text": "Dělnická, Štefánikova, Sokolská, sídliště Budovatelská. Opravovat, ne znovu projednávat.",
+      "kdo": 2
+    },
+    {
+      "slug": "zelen-ve-meste",
+      "heslo": "Míň sekat, víc kvést",
+      "text": "Trvalky místo letniček, péče o stávající stromy a Weyszerův park zpátky k životu.",
+      "kdo": 5
+    },
+    {
+      "slug": "doprava",
+      "heslo": "Auta za radnici",
+      "text": "Uvolnit prostor za radnicí pro velkokapacitní parkoviště. A o obchvatu jednat s krajem, ne čekat.",
+      "kdo": 21
+    },
+    {
+      "slug": "zivotni-prostredi",
+      "heslo": "Lom u Třebíčka: ne",
+      "text": "Jasné usnesení města, ne mlčení. Stejně tak proti nelegální těžbě vltavínů na našem území.",
+      "kdo": 4
+    },
+    {
+      "slug": "mistni-casti",
+      "heslo": "Todně, Rejta, Svatá Trojice",
+      "text": "Voda, návsi a chodníky. Osadní výbory vědí nejlíp, co je potřeba udělat dřív.",
+      "kdo": 17
+    },
+    {
+      "slug": "seniori",
+      "heslo": "Byt, kde se dá zůstat",
+      "text": "Dům s pečovatelskou službou opravit celý a předávat jen hotové byty. Napojit na teplovod.",
+      "kdo": 16
+    },
+    {
+      "slug": "sport",
+      "heslo": "Hřiště i pro ty, co nikam nechodí",
+      "text": "Investovat do softbalového hřiště na Rejtech a nabídnout prostor pro neorganizovaný sport.",
+      "kdo": 4
+    },
+    {
+      "slug": "kultura",
+      "heslo": "Místo pro koncerty",
+      "text": "Otevřít areál fary tak, aby se daly pořádat akce bez narušení chodu města.",
+      "kdo": 2
+    },
+    {
+      "slug": "fungovani-uradu",
+      "heslo": "Zastupitelstvo online",
+      "text": "Přímý přenos z jednání zastupitelstva a odpovědi na podněty občanů. Ne mlčení.",
+      "kdo": 6
+    },
+    {
+      "slug": "bezpecnost",
+      "heslo": "Strážník, kterého potkáte",
+      "text": "Městská policie má být vidět v ulicích i v místních částech, ne jen na papíře.",
+      "kdo": 13
+    },
+    {
+      "slug": "cestovni-ruch",
+      "heslo": "Buškův hamr stojí za opravu",
+      "text": "Investovat do hamru, podpořit opravy církevních staveb a znovu prověřit cyklostezku do Borovan.",
+      "kdo": 9
+    }
+  ]
+}

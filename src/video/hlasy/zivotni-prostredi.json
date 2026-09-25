@@ -1,0 +1,57 @@
+{
+  "nazev": "Záleží nám na životním prostředí",
+  "zvuk": "hlasy/zivotni-prostredi.mp3",
+  "sluzba": "openai",
+  "hlas": "coral",
+  "delka": 29.124,
+  "zabery": [
+    {
+      "obraz": "lucni-nadrz.jpg",
+      "do": 4.104
+    },
+    {
+      "obraz": "levacek.jpg",
+      "do": 13.892
+    },
+    {
+      "obraz": "sberny-dvur.jpg",
+      "do": 21.928
+    },
+    {
+      "obraz": "cesta-trhovosvinenskem.jpg",
+      "do": 29.124
+    }
+  ],
+  "titulky": [
+    {
+      "od": 0.0,
+      "do": 4.104,
+      "text": "Záleží nám na životním prostředí."
+    },
+    {
+      "od": 4.484,
+      "do": 11.044,
+      "text": "Chceme, aby se město jasně vyjádřilo proti otevření lomu na živec u Třebíčka"
+    },
+    {
+      "od": 11.044,
+      "do": 13.892,
+      "text": "i proti nelegální těžbě vltavínů."
+    },
+    {
+      "od": 14.272,
+      "do": 18.723,
+      "text": "Chceme lépe řešit svoz odpadu, snížit jeho náklady"
+    },
+    {
+      "od": 18.723,
+      "do": 21.928,
+      "text": "a kultivovat stání na tříděný odpad."
+    },
+    {
+      "od": 22.308,
+      "do": 29.124,
+      "text": "A chceme bránit kůrovcovým kalamitám výsadbou smíšených lesů."
+    }
+  ]
+}

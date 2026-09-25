@@ -89,6 +89,45 @@ což je na hotové tiskovině vidět pozdě. Hesla plakátu jsou v
 QR kódy generuje `tools/qr.py`, vlastní kodér bez závislostí. Správnost se
 ověřovala proti `qrcode-generator` a hotové kódy se četly přes `jsQR`.
 
+## Sítě
+
+```bash
+make socialni             # karty 4:5 pro Instagram a Facebook
+make videa                # namluví a složí videa ke všem tématům programu
+make video TEMA=doprava   # jen jedno video
+```
+
+Karty i videa se sázejí stejně jako tiskoviny — HTML vyfocené Chromem přes
+browserless — takže značka na síti nemůže být jiná než na papíře. Nikde není
+tmavá plocha ani šedý pruh: text má vždycky vlastní místo pod obrazem a obraz
+se pro něj oreže.
+
+**Karty** (`tools/socialni.py`, texty v `src/data/socialni.json`). Prvních deset
+kandidátů má na kartě heslo a větu, v čem je ten člověk silný; zbytek listiny
+jméno, povolání a pořadí. Ořez portrétu se počítá pro každého zvlášť podle
+`src/data/fotky-hlavy.json`, kde je zapsané, kde má kdo na snímku temeno
+a bradu — s jedním společným ořezem by jednomu uťal vlasy a druhému bradu.
+
+**Videa** (`tools/hlas.py` a `tools/video.py`, scénáře v
+`src/data/video-temata.json`). Scénář je text, který hlas namluví, a ke každé
+větě obrázek. `hlas.py` namluví větu po větě, slepí nahrávky s pauzou a z délek
+spočítá, kdy který titulek naskočí; `video.py` z toho složí video 4:5
+s titulky a koncovou značkou. Titulky se vypalují do obrazu, protože na
+Facebooku se videa přehrávají bez zvuku.
+
+Mluvení je placené, takže se přeskakuje, co už hlas má; hotové nahrávky se
+verzují v `src/video/hlasy/`, aby šlo video složit znovu zadarmo. Službu vybírá
+`--sluzba`: `elevenlabs` má český hlas, `openai` je záloha s lehkým přízvukem.
+Klíč se bere z prostředí (`POLY_ELEVENLABS_API_KEY`, `POLY_OPENAI_API_KEY`),
+v repu není — **tenhle repozitář je veřejný**.
+
+Kresby měst a míst jsou v `src/video/kresby/`.
+
+Do repa jdou jen zdroje — scénáře, nahrávky hlasu a kresby. Hotová videa se
+sem nevrací: složí se příkazem výš a v historii by po každém přegenerování
+zůstalo dalších osmdesát megabajtů. Jejich místo je v artefaktech labu.
+
+
 ## Poznámky k migraci
 
 Web vznikl přenesením kopie volbats.cz z roku 2022. Skripty

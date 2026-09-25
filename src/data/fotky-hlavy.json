@@ -1,0 +1,28 @@
+{
+  "_": "Svislý rozsah hlavy v portrétech kandidátů — od temene vlasů po spodek brady, v procentech výšky snímku. Odečteno ručně z kontaktního listu; detektor obličeje v tomhle prostředí není a hledání pleti podle barvy na zdejších fotkách selhávalo (teplé pozadí a světlé oblečení mu splývaly s obličejem). Používá tools/socialni.py, aby ořez karty nikdy neuťal temeno ani bradu.",
+  "hlavy": {
+    "kandidat-1":  [13, 62],
+    "kandidat-2":  [17, 62],
+    "kandidat-3":  [13, 62],
+    "kandidat-4":  [14, 62],
+    "kandidat-5":  [27, 65],
+    "kandidat-6":  [23, 63],
+    "kandidat-7":  [22, 63],
+    "kandidat-8":  [26, 64],
+    "kandidat-9":  [22, 62],
+    "kandidat-10": [26, 64],
+    "kandidat-11": [27, 65],
+    "kandidat-12": [26, 63],
+    "kandidat-13": [14, 64],
+    "kandidat-14": [20, 62],
+    "kandidat-15": [14, 62],
+    "kandidat-16": [18, 62],
+    "kandidat-17": [22, 65],
+    "kandidat-18": [20, 64],
+    "kandidat-19": [22, 65],
+    "kandidat-20": [18, 64],
+    "kandidat-21": [14, 64],
+    "kandidat-22": [22, 62],
+    "kandidat-23": [16, 64]
+  }
+}
