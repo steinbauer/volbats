@@ -48,6 +48,7 @@ Servíruje to nginx v dockeru, vystavený přes labový traefik.
 | `tools/tiskoviny.py` | společný základ letáku, plakátů a kartiček |
 | `tools/qr.py` | generátor QR kódů (bez závislostí) |
 | `tools/nginx.conf` | hlavičky pro lokální náhled |
+| `tools/aliasy.py` | krátké adresy kandidat1…10.volbats.cz |
 
 Obsah se upravuje v `src/data/*.json`. Kandidáta stačí přidat do
 `kandidati.json`; fotku k němu připravit `tools/fotky.py` a odkázat ji
@@ -88,6 +89,22 @@ což je na hotové tiskovině vidět pozdě. Hesla plakátu jsou v
 
 QR kódy generuje `tools/qr.py`, vlastní kodér bez závislostí. Správnost se
 ověřovala proti `qrcode-generator` a hotové kódy se četly přes `jsQR`.
+
+## Krátké adresy kandidátů
+
+`kandidat1.volbats.cz` až `kandidat10.volbats.cz` přesměrují na medailonek
+kandidáta s tím číslem na listině. GitHub Pages unese jen jednu vlastní
+doménu na repozitář, takže každá zkratka je samostatný repozitář
+`steinbauer/kandidatN` se stránkou, která hned přesměruje, a HTTPS
+certifikát k ní vydá GitHub. V DNS u Wedosu na ně míří
+`kandidatN CNAME steinbauer.github.io.`
+
+```bash
+GITHUB_TOKEN=… make aliasy
+```
+
+Skript je idempotentní — když se změní pořadí nebo slug, stačí ho pustit
+znovu. HTTPS jde vynutit až po vydání certifikátu, to hlásí ve výpisu.
 
 ## Poznámky k migraci
 

@@ -18,6 +18,9 @@ letak.html
 plakaty/
 qr/
 
+# Obsah repozitářů s přesměrováním, generuje tools/aliasy.py
+aliasy/
+
 # Python bytecode
 __pycache__/
 *.pyc

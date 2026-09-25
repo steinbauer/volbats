@@ -7,6 +7,7 @@
 #   make plakaty    vyrobí tři varianty plakátu A5
 #   make qr         vyrobí kartičky s QR kódy a kódy samotné
 #   make ikony      přegeneruje ikony sekcí programu
+#   make aliasy     nasadí kandidat1…10.volbats.cz (potřebuje GITHUB_TOKEN)
 #   make stop-dev   zastaví kontejner
 
 # Větev určuje adresu; lomítka ve větvi doména neunese, tak jdou na pomlčky.
@@ -18,7 +19,7 @@ URL          = https://$(BRANCH_NAME).volbats.kamil.lab.home/
 # přeskočil devDependencies, tedy i samotné Vite.
 NPM = NODE_ENV=development npm
 
-.PHONY: url dev build install run-dev stop-dev restart-dev status logs letak plakaty qr ikony clean
+.PHONY: url dev build install run-dev stop-dev restart-dev status logs letak plakaty qr ikony aliasy clean
 
 ## Vypíše adresu a zajistí, že běží aktuální build
 url: build run-dev
@@ -75,5 +76,10 @@ qr:
 ikony:
 	@python3 tools/ikony.py
 
+## Přesměrování kandidat1…10.volbats.cz na medailonky, každé jako vlastní
+## repozitář na GitHub Pages (viz hlavička tools/aliasy.py)
+aliasy:
+	@python3 tools/aliasy.py --nasadit
+
 clean:
-	@rm -rf dist dist-ssr letak.pdf letak.html plakaty qr
+	@rm -rf dist dist-ssr letak.pdf letak.html plakaty qr aliasy
