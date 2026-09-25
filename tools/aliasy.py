@@ -109,8 +109,12 @@ def api(token, metoda, cesta, data=None):
         return chyba.code, json.loads(telo) if telo else None
 
 
-def nahraj(token, a, adresar):
-    """Obsah jako jediný commit, ať historie aliasu nebobtná."""
+def nahraj(token, a, adresar, strom_na_githubu):
+    """Obsah jako jediný commit, ať historie aliasu nebobtná.
+
+    Když se obsah nezměnil, nepushuje se: každý push spustí build Pages
+    a buildy puštěné těsně po sobě na GitHubu padají.
+    """
     hlavicka = base64.b64encode(f'x-access-token:{token}'.encode()).decode()
     # Token přes proměnné prostředí, ne v argumentech — ty vidí `ps`.
     prostredi = dict(
@@ -127,6 +131,10 @@ def nahraj(token, a, adresar):
             stdout=subprocess.DEVNULL)
         git('init', '-q', '-b', 'main')
         git('--work-tree', str(adresar), 'add', '-A')
+        strom = subprocess.run(['git', '-C', tmp, 'write-tree'], check=True,
+                               capture_output=True, text=True).stdout.strip()
+        if strom == strom_na_githubu:
+            return
         git('commit', '-q', '-m', f"Přesměrování {a['domena']} na {a['cil']}")
         git('push', '-q', '--force',
             f"https://github.com/{VLASTNIK}/{a['repo']}.git", 'main')
@@ -146,7 +154,9 @@ def nasad(token, a, adresar):
         if stav != 201:
             sys.exit(f"{a['repo']}: repozitář nejde založit ({stav}): {odpoved}")
 
-    nahraj(token, a, adresar)
+    stav, commit = api(token, 'GET', repo + '/commits/main')
+    strom = commit['commit']['tree']['sha'] if stav == 200 else None
+    nahraj(token, a, adresar, strom)
 
     stav, pages = api(token, 'GET', repo + '/pages')
     if stav == 404:
