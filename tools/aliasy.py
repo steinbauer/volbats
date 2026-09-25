@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Krátké adresy kandidat1.volbats.cz … kandidat10.volbats.cz.
+"""Krátké adresy kandidat1.volbats.cz … kandidat10.volbats.cz a pár dalších.
 
-Každá přesměruje na medailonek kandidáta s tím číslem na listině. Původní
-adresy /kandidati/<slug>/ zůstávají, tohle je jen zkratka na tiskoviny.
+Kandidátská přesměruje na medailonek kandidáta s tím číslem na listině,
+ostatní jsou v OSTATNI. Původní adresy zůstávají, tohle jsou jen zkratky
+na tiskoviny.
 
 GitHub Pages unese na jeden repozitář jen jednu vlastní doménu, takže každý
-alias je samostatný malý repozitář steinbauer/kandidatN s CNAME a stránkou,
+alias je samostatný malý repozitář steinbauer/<subdoména> s CNAME a stránkou,
 která hned přesměruje. HTTPS certifikát k doméně vystaví GitHub sám, jakmile
 na něj míří DNS:
 
-    kandidatN.volbats.cz.  CNAME  steinbauer.github.io.
+    <subdoména>.volbats.cz.  CNAME  steinbauer.github.io.
 
     python3 tools/aliasy.py             # jen vygeneruje obsah do aliasy/
     python3 tools/aliasy.py --nasadit   # token z GITHUB_TOKEN, nebo ze souboru
@@ -40,6 +41,11 @@ VYSTUP = KOREN / 'aliasy'
 VLASTNIK = 'steinbauer'
 WEB = 'https://volbats.cz'
 POCET = 10
+# Zkratky mimo kandidáty: subdoména → (popisek, cesta na webu)
+OSTATNI = {
+    'hp': ('Úvod', '/'),
+    'program': ('Program', '/program/'),
+}
 SOUBOR_S_TOKENEM = Path.home() / '.config/volbats/github-token'
 
 STRANKA = """<!doctype html>
@@ -70,6 +76,13 @@ def aliasy():
             'domena': f"kandidat{k['cislo']}.volbats.cz",
             'jmeno': k['jmeno'],
             'cil': f"{WEB}/kandidati/{k['slug']}/",
+        }
+    for subdomena, (popisek, cesta) in OSTATNI.items():
+        yield {
+            'repo': subdomena,
+            'domena': f"{subdomena}.volbats.cz",
+            'jmeno': popisek,
+            'cil': WEB + cesta,
         }
 
 

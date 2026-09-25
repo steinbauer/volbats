@@ -48,7 +48,7 @@ Servíruje to nginx v dockeru, vystavený přes labový traefik.
 | `tools/tiskoviny.py` | společný základ letáku, plakátů a kartiček |
 | `tools/qr.py` | generátor QR kódů (bez závislostí) |
 | `tools/nginx.conf` | hlavičky pro lokální náhled |
-| `tools/aliasy.py` | krátké adresy kandidat1…10.volbats.cz |
+| `tools/aliasy.py` | krátké adresy kandidat1…10, hp a program.volbats.cz |
 
 Obsah se upravuje v `src/data/*.json`. Kandidáta stačí přidat do
 `kandidati.json`; fotku k němu připravit `tools/fotky.py` a odkázat ji
@@ -95,9 +95,11 @@ ověřovala proti `qrcode-generator` a hotové kódy se četly přes `jsQR`.
 `kandidat1.volbats.cz` až `kandidat10.volbats.cz` přesměrují na medailonek
 kandidáta s tím číslem na listině. GitHub Pages unese jen jednu vlastní
 doménu na repozitář, takže každá zkratka je samostatný repozitář
-`steinbauer/kandidatN` se stránkou, která hned přesměruje, a HTTPS
+`steinbauer/<subdoména>` se stránkou, která hned přesměruje, a HTTPS
 certifikát k ní vydá GitHub. V DNS u Wedosu na ně míří
-`kandidatN CNAME steinbauer.github.io.`
+`<subdoména> CNAME steinbauer.github.io.` Stejně fungují `hp.volbats.cz`
+(úvodní stránka) a `program.volbats.cz` — další se přidávají do `OSTATNI`
+v `tools/aliasy.py`.
 
 ```bash
 make aliasy     # token v ~/.config/volbats/github-token
