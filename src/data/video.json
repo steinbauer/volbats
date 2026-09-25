@@ -85,135 +85,138 @@
     ]
   },
   "kultura-verka": {
-    "_": "Přepsáno ze zvuku, který dodala lídryně. Jména ověřit: Jan Štifter (spisovatel), Karel Valdauf (festival), Jaroslav Svěcený (houslista), Jan Nový.",
+    "_": "Fotky i jejich pořadí jsou z videa od lídryně, časy střihů odečtené z její střihové osy. Jména ověřit: Jan Štifter, Karel Valdauf, Jaroslav Svěcený, Jan Nový.",
     "nazev": "Záleží nám na kultuře",
     "zvuk": "hlas-kultura.m4a",
-    "zvuk_posun": 3.6,
-    "zvuk_utlum": [
-      60.5,
-      4.0
-    ],
-    "prechod": 0.5,
+    "prechod": 0.4,
     "zabery": [
       {
         "uvod": true,
-        "do": 3.6,
+        "do": 14.75,
         "podtitul": "Záleží nám na kultuře"
       },
       {
-        "obraz": "pred-valdaufem.jpg",
-        "do": 11.6
-      },
-      {
-        "obraz": "tvoreni.jpg",
-        "do": 18.2
-      },
-      {
         "obraz": "divadlo-na-fare1.jpg",
-        "do": 23.1
-      },
-      {
-        "obraz": "promitani-fara.jpg",
-        "do": 25.8
-      },
-      {
-        "obraz": "fara.jpg",
-        "do": 27.6
-      },
-      {
-        "obraz": "cteni.jpg",
-        "do": 33.4
-      },
-      {
-        "obraz": "vychazky-po-meste.jpg",
-        "do": 37.4
-      },
-      {
-        "obraz": "sveceny.jpg",
-        "do": 41.6
-      },
-      {
-        "obraz": "certi.jpg",
-        "do": 48.6
-      },
-      {
-        "obraz": "nesvadba-valdauf.jpg",
-        "do": 54.3
+        "do": 17.0
       },
       {
         "obraz": "divadlo-na-fare.jpg",
-        "do": 60.4
+        "do": 18.75
       },
       {
-        "obraz": "certi2.jpg",
-        "do": 68.1
+        "obraz": "divadlo-fara.jpg",
+        "do": 20.5
+      },
+      {
+        "obraz": "promitani-fara.jpg",
+        "do": 22.5
+      },
+      {
+        "obraz": "tvoreni.jpg",
+        "do": 25.25
+      },
+      {
+        "obraz": "fara.jpg",
+        "do": 27.5
+      },
+      {
+        "obraz": "cteni.jpg",
+        "do": 30.25
+      },
+      {
+        "obraz": "vychazky-po-meste.jpg",
+        "do": 33.75
+      },
+      {
+        "obraz": "sveceny.jpg",
+        "do": 38.75
+      },
+      {
+        "obraz": "certi.jpg",
+        "do": 45.75
+      },
+      {
+        "obraz": "nesvadba-valdauf.jpg",
+        "do": 50.75
+      },
+      {
+        "obraz": "pred-valdaufem.jpg",
+        "do": 57.5
+      },
+      {
+        "video": "koncert-valdauf.mp4",
+        "do": 80.5
       },
       {
         "koncovka": true,
-        "do": 72.5
+        "do": 82.7
       }
     ],
     "titulky": [
       {
-        "od": 3.9,
-        "do": 7.6,
+        "od": 0.3,
+        "do": 4.0,
         "text": "Záleží nám na kultuře ve městě."
       },
       {
-        "od": 7.6,
-        "do": 13.6,
+        "od": 4.0,
+        "do": 10.0,
         "text": "Chceme pokračovat v podpoře nejen velkých kulturních akcí,"
       },
       {
-        "od": 13.6,
-        "do": 18.0,
+        "od": 10.0,
+        "do": 14.4,
         "text": "ale nabídnout co nejpestřejší program pro všechny generace."
       },
       {
-        "od": 18.6,
-        "do": 23.6,
+        "od": 15.0,
+        "do": 20.0,
         "text": "Získali jsme areál bývalé fary a otevřeli ho pro divadlo,"
       },
       {
-        "od": 23.6,
-        "do": 27.6,
+        "od": 20.0,
+        "do": 24.0,
         "text": "pro film i pro tvoření v bývalých barokních stájích."
       },
       {
-        "od": 27.6,
-        "do": 33.4,
+        "od": 24.0,
+        "do": 29.8,
         "text": "Se spisovatelem Janem Štifterem jsme začali tradici Svinenského čtení"
       },
       {
-        "od": 33.4,
-        "do": 37.4,
+        "od": 29.8,
+        "do": 33.8,
         "text": "a s ním také komentované prohlídky města."
       },
       {
-        "od": 37.4,
-        "do": 41.6,
+        "od": 33.8,
+        "do": 38.0,
         "text": "I koncerty Jaroslava Svěceného si získaly velkou oblibu."
       },
       {
-        "od": 41.6,
-        "do": 48.6,
+        "od": 38.0,
+        "do": 45.0,
         "text": "S panem Janem Novým jsme uspořádali první oslavy svatého Mikuláše na náměstí."
       },
       {
-        "od": 48.6,
-        "do": 54.3,
+        "od": 45.0,
+        "do": 50.7,
         "text": "Rozšířili jsme festival Karla Valdaufa o program pro děti"
       },
       {
-        "od": 54.3,
-        "do": 56.7,
+        "od": 50.7,
+        "do": 53.1,
         "text": "a přidali páteční koncert."
       },
       {
-        "od": 56.7,
-        "do": 60.4,
+        "od": 53.1,
+        "do": 56.8,
         "text": "Pamatujete, jak se to povedlo hned na poprvé?"
       }
+    ],
+    "zvuk_utlum": [
+      79.8,
+      1.4
     ]
   }
 }

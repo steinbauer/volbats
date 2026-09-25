@@ -137,12 +137,14 @@ body {{
   background: {PLOCHA};
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
+  /* Pod kartou běží titulky, tak se obsah drží nad jejich pásem. */
+  padding-bottom: {VYSKA - TITULEK_Y + 40}px;
 }}
 .nazev {{
   font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 800; letter-spacing: -0.025em; line-height: 1.04;
-  font-size: 80px; text-align: center;
-  margin-top: 44px;
+  font-size: 76px; text-align: center;
+  margin-top: 40px;
 }}
 .mesto {{ color: #9a7411; }}
 .tema {{
@@ -280,9 +282,23 @@ def splynout(zdroj: Path, cil: Path) -> Path:
 def klip(zaber: dict, delka: float, cil: Path, karta: Path) -> None:
     """Jeden záběr jako kousek videa.
 
-    Pohyb je pomalý zoom, nic víc: obrázků je pět na půl minuty, takže každý
-    střih je vidět sám o sobě a nemusí se podtrhávat efektem.
+    Pohyb je pomalý zoom, nic víc: obrázků je pár na půl minuty, takže každý
+    střih je vidět sám o sobě a nemusí se podtrhávat efektem. Záběrem může být
+    i kus hotového videa — pak se jen usadí do plátna a nechá běžet.
     """
+    if zaber.get('video'):
+        zdroj = najdi_obraz(zaber['video'])
+        usazeni = (f'scale={SIRKA}:{POLE_V}:force_original_aspect_ratio=decrease:flags=lanczos,'
+                   f'pad={SIRKA}:{VYSKA}:(ow-iw)/2:{POLE_Y}+({POLE_V}-ih)/2:'
+                   f'color={PLOCHA_BARVA}')
+        subprocess.run(
+            ['ffmpeg', '-v', 'error', '-y', '-ss', str(zaber.get('od_videa', 0)),
+             '-t', f'{delka:.3f}', '-i', str(zdroj),
+             '-an', '-vf', usazeni + f',fps={FPS},setsar=1,format=yuv420p',
+             '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', str(cil)],
+            check=True, capture_output=True)
+        return
+
     if zaber.get('koncovka') or zaber.get('uvod'):
         # Úvodní i koncová karta jsou hotová plátna v plné velikosti.
         filtr = f'scale={SIRKA}:{VYSKA}'
