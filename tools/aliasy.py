@@ -12,12 +12,14 @@ na něj míří DNS:
     kandidatN.volbats.cz.  CNAME  steinbauer.github.io.
 
     python3 tools/aliasy.py             # jen vygeneruje obsah do aliasy/
-    GITHUB_TOKEN=… python3 tools/aliasy.py --nasadit
+    python3 tools/aliasy.py --nasadit   # token z GITHUB_TOKEN, nebo ze souboru
 
 Nasazení je idempotentní: založí, co chybí, nahraje obsah a zapne Pages.
 Vynucení HTTPS jde nastavit až po vydání certifikátu (pár minut po tom, co
 začne platit DNS) — do té doby skript hlásí stav a stačí ho pustit znovu.
 
+Token se bere z proměnné GITHUB_TOKEN, a když není, ze souboru
+~/.config/volbats/github-token — ať nemusí projít příkazovou řádkou ani chatem.
 Token potřebuje u účtu steinbauer právo zakládat repozitáře a spravovat
 Pages (classic `repo`, nebo fine-grained s Administration, Contents a Pages
 na zápis).
@@ -38,6 +40,7 @@ VYSTUP = KOREN / 'aliasy'
 VLASTNIK = 'steinbauer'
 WEB = 'https://volbats.cz'
 POCET = 10
+SOUBOR_S_TOKENEM = Path.home() / '.config/volbats/github-token'
 
 STRANKA = """<!doctype html>
 <html lang="cs">
@@ -168,8 +171,10 @@ def nasad(token, a, adresar):
 def main():
     nasadit = '--nasadit' in sys.argv[1:]
     token = os.environ.get('GITHUB_TOKEN')
+    if not token and SOUBOR_S_TOKENEM.exists():
+        token = SOUBOR_S_TOKENEM.read_text().strip()
     if nasadit and not token:
-        sys.exit('Nasazení potřebuje GITHUB_TOKEN')
+        sys.exit(f'Nasazení potřebuje GITHUB_TOKEN nebo token v {SOUBOR_S_TOKENEM}')
 
     for a in aliasy():
         adresar = vygeneruj(a)

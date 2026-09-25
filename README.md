@@ -100,7 +100,7 @@ certifikát k ní vydá GitHub. V DNS u Wedosu na ně míří
 `kandidatN CNAME steinbauer.github.io.`
 
 ```bash
-GITHUB_TOKEN=… make aliasy
+make aliasy     # token v ~/.config/volbats/github-token
 ```
 
 Skript je idempotentní — když se změní pořadí nebo slug, stačí ho pustit
