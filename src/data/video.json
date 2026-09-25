@@ -83,5 +83,137 @@
         "text": "které jsme ve městě založili."
       }
     ]
+  },
+  "kultura-verka": {
+    "_": "Přepsáno ze zvuku, který dodala lídryně. Jména ověřit: Jan Štifter (spisovatel), Karel Valdauf (festival), Jaroslav Svěcený (houslista), Jan Nový.",
+    "nazev": "Záleží nám na kultuře",
+    "zvuk": "hlas-kultura.m4a",
+    "zvuk_posun": 3.6,
+    "zvuk_utlum": [
+      60.5,
+      4.0
+    ],
+    "prechod": 0.5,
+    "zabery": [
+      {
+        "uvod": true,
+        "do": 3.6,
+        "podtitul": "Záleží nám na kultuře"
+      },
+      {
+        "obraz": "pred-valdaufem.jpg",
+        "do": 11.6
+      },
+      {
+        "obraz": "tvoreni.jpg",
+        "do": 18.2
+      },
+      {
+        "obraz": "divadlo-na-fare1.jpg",
+        "do": 23.1
+      },
+      {
+        "obraz": "promitani-fara.jpg",
+        "do": 25.8
+      },
+      {
+        "obraz": "fara.jpg",
+        "do": 27.6
+      },
+      {
+        "obraz": "cteni.jpg",
+        "do": 33.4
+      },
+      {
+        "obraz": "vychazky-po-meste.jpg",
+        "do": 37.4
+      },
+      {
+        "obraz": "sveceny.jpg",
+        "do": 41.6
+      },
+      {
+        "obraz": "certi.jpg",
+        "do": 48.6
+      },
+      {
+        "obraz": "nesvadba-valdauf.jpg",
+        "do": 54.3
+      },
+      {
+        "obraz": "divadlo-na-fare.jpg",
+        "do": 60.4
+      },
+      {
+        "obraz": "certi2.jpg",
+        "do": 68.1
+      },
+      {
+        "koncovka": true,
+        "do": 72.5
+      }
+    ],
+    "titulky": [
+      {
+        "od": 3.9,
+        "do": 7.6,
+        "text": "Záleží nám na kultuře ve městě."
+      },
+      {
+        "od": 7.6,
+        "do": 13.6,
+        "text": "Chceme pokračovat v podpoře nejen velkých kulturních akcí,"
+      },
+      {
+        "od": 13.6,
+        "do": 18.0,
+        "text": "ale nabídnout co nejpestřejší program pro všechny generace."
+      },
+      {
+        "od": 18.6,
+        "do": 23.6,
+        "text": "Získali jsme areál bývalé fary a otevřeli ho pro divadlo,"
+      },
+      {
+        "od": 23.6,
+        "do": 27.6,
+        "text": "pro film i pro tvoření v bývalých barokních stájích."
+      },
+      {
+        "od": 27.6,
+        "do": 33.4,
+        "text": "Se spisovatelem Janem Štifterem jsme začali tradici Svinenského čtení"
+      },
+      {
+        "od": 33.4,
+        "do": 37.4,
+        "text": "a s ním také komentované prohlídky města."
+      },
+      {
+        "od": 37.4,
+        "do": 41.6,
+        "text": "I koncerty Jaroslava Svěceného si získaly velkou oblibu."
+      },
+      {
+        "od": 41.6,
+        "do": 48.6,
+        "text": "S panem Janem Novým jsme uspořádali první oslavy svatého Mikuláše na náměstí."
+      },
+      {
+        "od": 48.6,
+        "do": 54.3,
+        "text": "Rozšířili jsme festival Karla Valdaufa o program pro děti"
+      },
+      {
+        "od": 54.3,
+        "do": 56.7,
+        "text": "a přidali páteční koncert."
+      },
+      {
+        "od": 56.7,
+        "do": 60.4,
+        "text": "Pamatujete, jak se to povedlo hned na poprvé?"
+      }
+    ]
   }
 }

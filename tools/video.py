@@ -130,6 +130,42 @@ body {{ background: transparent; position: relative; }}
     return _stranka(f'<div class="pas"><p class="text">{text}</p></div>', styl)
 
 
+def uvod_html(web: dict, podtitul: str) -> str:
+    """První záběr: značka a téma, ještě než začne mluvit hlas."""
+    styl = f"""
+body {{
+  background: {PLOCHA};
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}}
+.nazev {{
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; letter-spacing: -0.025em; line-height: 1.04;
+  font-size: 80px; text-align: center;
+  margin-top: 44px;
+}}
+.mesto {{ color: #9a7411; }}
+.tema {{
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 5px solid transparent;
+  border-image: {PRECHOD} 1;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; letter-spacing: -0.02em;
+  font-size: 54px; color: {CERVENA}; text-align: center;
+  max-width: 15em;
+}}
+.znak-cislo {{
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; font-size: 430px; fill: {INKOUST};
+}}"""
+    vnitrek = f"""
+  {znak(280, web['cislo'], 'uvod')}
+  <div class="nazev">{web['nazev']}<br><span class="mesto">{web['mesto']}</span></div>
+  <div class="tema">{podtitul}</div>"""
+    return _stranka(vnitrek, styl)
+
+
 def koncovka_html(web: dict) -> str:
     """Poslední záběr: značka, volební číslo a pod tím drobně termín voleb."""
     styl = f"""
@@ -190,9 +226,10 @@ def vyfot(html: str, cil: Path, pruhledne: bool) -> None:
 # --- obraz -------------------------------------------------------------------
 
 def najdi_obraz(jmeno: str) -> Path:
-    for slozka in (VIDEO, KRESBY):
-        if (slozka / jmeno).is_file():
-            return slozka / jmeno
+    if (VIDEO / jmeno).is_file():
+        return VIDEO / jmeno
+    for nalez in sorted(VIDEO.glob(f'*/{jmeno}')):
+        return nalez
     sys.exit(f'chybí obrázek {jmeno}')
 
 
@@ -240,16 +277,16 @@ def splynout(zdroj: Path, cil: Path) -> Path:
     return cil
 
 
-def klip(zaber: dict, delka: float, cil: Path, koncovka: Path) -> None:
+def klip(zaber: dict, delka: float, cil: Path, karta: Path) -> None:
     """Jeden záběr jako kousek videa.
 
     Pohyb je pomalý zoom, nic víc: obrázků je pět na půl minuty, takže každý
     střih je vidět sám o sobě a nemusí se podtrhávat efektem.
     """
-    if zaber.get('koncovka'):
-        # Koncová karta je už hotové plátno v plné velikosti.
+    if zaber.get('koncovka') or zaber.get('uvod'):
+        # Úvodní i koncová karta jsou hotová plátna v plné velikosti.
         filtr = f'scale={SIRKA}:{VYSKA}'
-        zdroj = koncovka
+        zdroj = karta
     else:
         zdroj = najdi_obraz(zaber['obraz'])
         if zaber.get('podklad') == 'splynout':
@@ -287,6 +324,12 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
     konec_png = prac / 'koncovka.png'
     vyfot(koncovka_html(web), konec_png, False)
 
+    uvod_png = None
+    for z in scenar['zabery']:
+        if z.get('uvod'):
+            uvod_png = prac / 'uvod.png'
+            vyfot(uvod_html(web, z.get('podtitul', scenar['nazev'])), uvod_png, False)
+
     hlavicka_png = prac / 'hlavicka.png'
     vyfot(hlavicka_html(web), hlavicka_png, True)
 
@@ -302,7 +345,7 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
         posledni = i == len(scenar['zabery']) - 1
         delka = z['do'] - zacatek + (0 if posledni else prechod)
         cil = prac / f'zaber-{i:02d}.mp4'
-        klip(z, delka, cil, konec_png)
+        klip(z, delka, cil, uvod_png if z.get('uvod') else konec_png)
         klipy.append(cil)
         zacatek = z['do']
 
@@ -318,9 +361,10 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
                      f'duration={prechod}:offset={offset:.3f}[x{i}]')
         predchozi = f'[x{i}]'
 
-    do_koncovky = scenar['zabery'][-2]['do']
+    od_listy = scenar['zabery'][0]['do'] if scenar['zabery'][0].get('uvod') else 0
+    do_listy = scenar['zabery'][-2]['do']
     filtr.append(f"{predchozi}[{len(klipy) + len(titulky)}:v]overlay=0:0:"
-                 f"enable='lt(t,{do_koncovky})'[h]")
+                 f"enable='between(t,{od_listy},{do_listy})'[h]")
     predchozi = '[h]'
 
     for i, t in enumerate(scenar['titulky']):
@@ -329,12 +373,27 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
                      f"enable='between(t,{od:.2f},{do:.2f})'[t{i}]")
         predchozi = f'[t{i}]'
 
+    # Nahrávka začíná až za úvodní kartou a na konci se nechá doznít.
+    stopa = len(klipy) + len(titulky) + 1
+    zvuk = []
+    posun = scenar.get('zvuk_posun', 0)
+    if posun:
+        zvuk.append(f'adelay={int(posun * 1000)}:all=1')
+    if scenar.get('zvuk_utlum'):
+        od, trvani = scenar['zvuk_utlum']
+        zvuk.append(f'afade=t=out:st={od + posun}:d={trvani}')
+    if zvuk:
+        filtr.append(f'[{stopa}:a]' + ','.join(zvuk) + '[zvuk]')
+        mapa_zvuku = '[zvuk]'
+    else:
+        mapa_zvuku = f'{stopa}:a'
+
     cil = VYSTUP / f'{jmeno}.mp4'
     cil.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
         ['ffmpeg', '-v', 'error', '-y', *vstupy,
          '-filter_complex', ';'.join(filtr),
-         '-map', predchozi, '-map', f'{len(klipy) + len(titulky) + 1}:a',
+         '-map', predchozi, '-map', mapa_zvuku,
          '-t', f"{scenar['zabery'][-1]['do']:.3f}",
          '-c:v', 'libx264', '-preset', 'slow', '-crf', '20', '-pix_fmt', 'yuv420p',
          '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart',
