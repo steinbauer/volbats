@@ -1,5 +1,5 @@
 {
-  "_": "Texty pro karty na Instagram a Facebook. Hesla jsou oddělená od sazby stejně jako v plakat.json, ať se dají přepsat bez sahání do tools/socialni.py. Sloveso drží opoziční tón: co umíme a co chceme, ne co jsme udělali. Klíč \"titul\" nechá na kartě akademický titul — u těch, kde titul nese informaci (MUDr., Ing. arch.), ne jen zdvořilost.",
+  "_": "Texty pro karty na Instagram a Facebook. Hesla jsou oddělená od sazby stejně jako v plakat.json, ať se dají přepsat bez sahání do tools/socialni.py. Sloveso drží opoziční tón: co umíme a co chceme, ne co jsme udělali.",
   "kandidati": {
     "1": {
       "heslo": "Umí sehnat dotaci",
@@ -78,13 +78,11 @@
     "18": {
       "heslo": "Proč tu chybí doktoři",
       "text": "Lékařka. Ví, co musí město nabídnout, aby sem mladý lékař vůbec přišel.",
-      "overit": true,
-      "titul": true
+      "overit": true
     },
     "19": {
       "heslo": "Stavět s citem pro místo",
-      "text": "Architektka z Atelieru 111. Věnuje se menšímu měřítku s respektem ke kontextu místa.",
-      "titul": true
+      "text": "Architektka z Atelieru 111. Věnuje se menšímu měřítku s respektem ke kontextu místa."
     },
     "20": {
       "heslo": "Když něco nejede",

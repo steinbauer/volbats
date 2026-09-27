@@ -23,7 +23,6 @@ import argparse
 import base64
 import io
 import json
-import re
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -55,8 +54,6 @@ S_TEXTEM_DO = 10
 # Odečteno ručně, viz hlavička src/data/fotky-hlavy.json.
 HLAVY = nacti('fotky-hlavy.json')['hlavy']
 
-# Kandidáti, kterým se na kartě nechává akademický titul.
-TITULY = {c: t.get('titul') for c, t in nacti('socialni.json')['kandidati'].items()}
 PORTRET = (1200, 1600)   # všechny portréty kandidátů mají tenhle rozměr
 
 # Značka vyplní v obrázku placeholder, který se po změření rámu nahradí
@@ -438,16 +435,12 @@ def _kdo(k: dict) -> str:
 
 
 def _zkrat_jmeno(k: dict) -> str:
-    """Jméno na kartu. Titul je většinou balast, u někoho ale informace.
+    """Jméno na kartu i s tituly, přesně jak stojí na kandidátní listině.
 
-    Komu se titul nechává, je v src/data/socialni.json pod klíčem `titul` —
-    u lékařky a architektky říká to, co povolání nestihne.
+    Původně se tituly škrtaly a nechávaly jen tam, kde nesou informaci
+    (MUDr., Ing. arch.). Od 27. 9. 2026 je kampaň chce u všech.
     """
-    jmeno = k['jmeno']
-    if TITULY.get(str(k['cislo'])):
-        return jmeno.replace(',', '').strip()
-    bez = re.sub(r'\b(Mgr|Ing|MUDr|Bc|DiS|arch)\.?\s*', '', jmeno)
-    return bez.replace(',', '').strip()
+    return k['jmeno'].strip()
 
 
 def dokument(karta_html: str, format: str) -> str:
