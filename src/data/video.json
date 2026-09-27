@@ -324,5 +324,119 @@
         "text": "tak jako jsme upravili ordinaci, abychom získali druhou dětskou lékařku."
       }
     ]
+  },
+  "sport-verka": {
+    "_": "Přepsáno ze zvuku. Whisper slyšel „sportovým gymnastky“, „softballového“, „na rejtech“, „softballistů“ a „rozšířet“; opraveno podle program.json a pravopisu. Poslední dvě vteřiny přepsal jako adresu webu — tam už je jen dozvuk.",
+    "nazev": "Záleží nám na sportu",
+    "zvuk": "hlas-sport.m4a",
+    "zvuk_posun": 2.5,
+    "deesser": true,
+    "prechod": 0.4,
+    "zabery": [
+      {
+        "uvod": true,
+        "do": 2.5,
+        "podtitul": "Záleží nám na sportu"
+      },
+      {
+        "obraz": "sportoviste.png",
+        "do": 8.5,
+        "pohyb": "zoom",
+        "vypln": "pole"
+      },
+      {
+        "video": "sport-verka.mp4",
+        "od_videa": 6.0,
+        "orez": "960:720:160:0",
+        "do": 11.0,
+        "vypln": "pole"
+      },
+      {
+        "video": "sport-verka.mp4",
+        "od_videa": 8.5,
+        "orez": "1280:584:0:68",
+        "do": 14.0,
+        "vypln": "pole"
+      },
+      {
+        "video": "sport-verka.mp4",
+        "od_videa": 11.5,
+        "orez": "1280:720:0:0",
+        "do": 16.75,
+        "vypln": "pole"
+      },
+      {
+        "video": "sport-verka.mp4",
+        "od_videa": 14.25,
+        "orez": "1280:692:0:14",
+        "do": 20.75,
+        "vypln": "pole"
+      },
+      {
+        "video": "sport-verka.mp4",
+        "od_videa": 18.25,
+        "orez": "890:720:194:0",
+        "do": 24.25,
+        "vypln": "pole"
+      },
+      {
+        "video": "sport-verka.mp4",
+        "od_videa": 21.75,
+        "orez": "960:720:160:0",
+        "do": 34.5,
+        "vypln": "pole"
+      },
+      {
+        "koncovka": true,
+        "do": 36.7
+      }
+    ],
+    "titulky": [
+      {
+        "od": 3.2,
+        "do": 5.2,
+        "text": "Záleží nám na sportu."
+      },
+      {
+        "od": 5.2,
+        "do": 8.2,
+        "text": "Chceme podpořit co nejvíce druhů sportů,"
+      },
+      {
+        "od": 8.2,
+        "do": 12.2,
+        "text": "připravit jim zázemí, kde mohou trénovat a pořádat turnaje,"
+      },
+      {
+        "od": 12.2,
+        "do": 16.2,
+        "text": "například stolní tenisté nebo sportovní gymnastky."
+      },
+      {
+        "od": 16.2,
+        "do": 20.2,
+        "text": "Chceme investovat do softbalového hřiště na Rejtech"
+      },
+      {
+        "od": 20.2,
+        "do": 23.2,
+        "text": "a ocenit tím úspěchy našich softbalistů."
+      },
+      {
+        "od": 23.2,
+        "do": 26.2,
+        "text": "Chceme rozšířit nabídku sportovišť"
+      },
+      {
+        "od": 26.2,
+        "do": 29.2,
+        "text": "i pro neorganizované sportování."
+      },
+      {
+        "od": 29.2,
+        "do": 33.4,
+        "text": "I proto jsme vybudovali například multifunkční hřiště."
+      }
+    ]
   }
 }
