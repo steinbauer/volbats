@@ -272,10 +272,11 @@
         "vypln": "pole"
       },
       {
-        "obraz": "ordinace-koutek.png",
+        "obraz": "ordinace-lekarka.png",
         "do": 33.1,
         "pohyb": "zoom",
-        "vypln": "pole"
+        "vypln": "pole",
+        "_": "Na přání lídryně fotka místo malby — k větě o druhé dětské lékařce sedí člověk líp než nábytek."
       },
       {
         "koncovka": true,
