@@ -44,6 +44,12 @@ KONCOVKA = 4.4
 # sykavka se tím stáhne jen ve chvíli, kdy zazní, a hlas nezmatní tak,
 # jako když se výšky stáhnou natrvalo. Zesílení na konci dorovnává hlasitost,
 # kterou komprese ubrala.
+# Dva sousední výřezy z jednoho videa jsou si často podobné — tělocvična
+# a tatáž tělocvična o dva metry vedle. Prolnutí z nich udělá ducha, jako by
+# pod obrazem prosvítal ten druhý, tak se mezi nimi střihá natvrdo. Nula to
+# být nemůže, xfade potřebuje nenulovou dobu; dva snímky nikdo nepozná.
+STRIH_V_ZABERU = 0.06
+
 DEESSER = ('asplit=2[nizke][vysoke];'
            '[nizke]lowpass=f=6000[n];'
            '[vysoke]highpass=f=6000,'
@@ -391,6 +397,15 @@ def klip(zaber: dict, delka: float, cil: Path, karta: Path, prechod: float = 0) 
         check=True, capture_output=True)
 
 
+def _prechody(zabery: list, zakladni: float) -> list[float]:
+    """Doba prolnutí po každém záběru kromě posledního."""
+    ven = []
+    for z, dalsi in zip(zabery, zabery[1:]):
+        z_videa = z.get('video') and dalsi.get('video') and z['video'] == dalsi['video']
+        ven.append(z.get('prechod', STRIH_V_ZABERU if z_videa else zakladni))
+    return ven
+
+
 def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
     prechod = scenar.get('prechod', 0.6)
     prac.mkdir(parents=True, exist_ok=True)
@@ -413,14 +428,17 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
         vyfot(titulek_html(t['text']), cil, True)
         titulky.append(cil)
 
-    # Každý záběr je delší o překryv, aby bylo co prolnout.
+    # Prolnutí ukazuje konec jednoho klipu přes začátek dalšího, takže každý
+    # klip musí být delší o překryv, kterým vstupuje — tedy o ten, který mu
+    # předchází, ne o ten za ním. Při stejně dlouhých přechodech na tom
+    # nezáleží, při různých se tím rozjede časování celé řady.
+    prechody = _prechody(scenar['zabery'], prechod)
     klipy, zacatek = [], 0.0
     for i, z in enumerate(scenar['zabery']):
-        posledni = i == len(scenar['zabery']) - 1
-        delka = z['do'] - zacatek + (0 if posledni else prechod)
+        vstupni = prechody[i - 1] if i else 0
+        delka = z['do'] - zacatek + vstupni
         cil = prac / f'zaber-{i:02d}.mp4'
-        klip(z, delka, cil, uvod_png if z.get('uvod') else konec_png,
-             0 if posledni else prechod)
+        klip(z, delka, cil, uvod_png if z.get('uvod') else konec_png, vstupni)
         klipy.append(cil)
         zacatek = z['do']
 
@@ -431,9 +449,11 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
 
     filtr, predchozi = [], '[0:v]'
     for i in range(1, len(klipy)):
-        offset = scenar['zabery'][i - 1]['do'] - prechod
+        muj = prechody[i - 1]
+        # Prolnutí začne o svou délku dřív a doběhne přesně na hranici záběrů.
+        offset = scenar['zabery'][i - 1]['do'] - muj
         filtr.append(f'{predchozi}[{i}:v]xfade=transition=fade:'
-                     f'duration={prechod}:offset={offset:.3f}[x{i}]')
+                     f'duration={muj}:offset={offset:.3f}[x{i}]')
         predchozi = f'[x{i}]'
 
     od_listy = scenar['zabery'][0]['do'] if scenar['zabery'][0].get('uvod') else 0
