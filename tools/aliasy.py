@@ -3,8 +3,9 @@
 
 Kandidátská přesměruje na medailonek kandidáta s tím číslem na listině,
 a kdo medailonek nemá, na jeho dlaždici v seznamu /kandidati/#<slug>.
-Ostatní zkratky jsou v OSTATNI. Původní adresy zůstávají, tohle jsou jen zkratky
-na tiskoviny.
+Témata programu mají zkratku podle slugu sekce (zdravotnictvi.volbats.cz →
+/program/#zdravotnictvi), ostatní jsou v OSTATNI. Původní adresy zůstávají,
+tohle jsou jen zkratky na tiskoviny.
 
 GitHub Pages unese na jeden repozitář jen jednu vlastní doménu, takže každý
 alias je samostatný malý repozitář steinbauer/<subdoména> s CNAME a stránkou,
@@ -42,8 +43,10 @@ VYSTUP = KOREN / 'aliasy'
 VLASTNIK = 'steinbauer'
 WEB = 'https://volbats.cz'
 # Zkratky mimo kandidáty: subdoména → (popisek, cesta na webu)
+# Úvod není „hp“: certifikát pro hp.volbats.cz GitHub nevydal ani po dvou
+# dnech a novém repozitáři — nejspíš ho Let's Encrypt drží jako jméno značky.
 OSTATNI = {
-    'hp': ('Úvod', '/'),
+    'uvod': ('Úvod', '/'),
     'program': ('Program', '/program/'),
 }
 SOUBOR_S_TOKENEM = Path.home() / '.config/volbats/github-token'
@@ -77,6 +80,14 @@ def aliasy():
             'domena': f"kandidat{k['cislo']}.volbats.cz",
             'jmeno': k['jmeno'],
             'cil': WEB + cesta,
+        }
+    program = json.loads((KOREN / 'src/data/program.json').read_text())
+    for sekce in program['sekce']:
+        yield {
+            'repo': sekce['slug'],
+            'domena': f"{sekce['slug']}.volbats.cz",
+            'jmeno': sekce['stitek'],
+            'cil': f"{WEB}/program/#{sekce['slug']}",
         }
     for subdomena, (popisek, cesta) in OSTATNI.items():
         yield {
@@ -157,7 +168,11 @@ def nahraj(token, a, adresar, strom_na_githubu):
 def nasad(token, a, adresar):
     repo = f"/repos/{VLASTNIK}/{a['repo']}"
 
-    stav, _ = api(token, 'GET', repo)
+    stav, existujici = api(token, 'GET', repo)
+    # Obsah se nahrává force pushem. Repozitář stejného jména, který nezaložil
+    # tenhle skript, by tím přišel o historii — takový se nepřepisuje.
+    if stav == 200 and not (existujici.get('description') or '').startswith('Přesměrování'):
+        sys.exit(f"{VLASTNIK}/{a['repo']} už existuje a není to alias, nesahám na něj")
     if stav == 404:
         stav, odpoved = api(token, 'POST', '/user/repos', {
             'name': a['repo'],
