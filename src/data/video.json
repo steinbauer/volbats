@@ -220,10 +220,11 @@
     ]
   },
   "zdravotnictvi-verka": {
-    "_": "Přepsáno ze zvuku od lídryně. Whisper slyšel „s jeho českým krajem“, „skvalitnění“, „znovu zavedení“ a „lékařem po hotovosti“ — opraveno podle program.json, sekce zdravotnictví.",
+    "_": "Přepsáno ze zvuku. Whisper slyšel „s jeho českým krajem“, „skvalitnění“, „znovu zavedení“, „návštědních“ a „lékařem po hotovosti“ — opraveno podle program.json.",
     "nazev": "Záleží nám na zdravotnictví",
-    "zvuk": "hlas-zdravotnictvi.m4a",
+    "zvuk": "hlas-zdravotnictvi.mp3",
     "zvuk_posun": 2.5,
+    "deesser": true,
     "prechod": 0.4,
     "zabery": [
       {
@@ -233,13 +234,13 @@
       },
       {
         "obraz": "poliklinika.jpg",
-        "do": 5.5,
+        "do": 5.8,
         "pohyb": "zoom",
         "vypln": "pole"
       },
       {
         "obraz": "poliklinika-vchod.png",
-        "do": 8.0,
+        "do": 8.8,
         "pohyb": "zoom",
         "vypln": "pole"
       },
@@ -247,85 +248,80 @@
         "video": "zdravotnictvi-verka.mp4",
         "od_videa": 5.5,
         "orez": "960:540:0:90",
-        "do": 12.5,
+        "do": 13.0,
         "vypln": "cele",
-        "_": "Text přes celou šířku, ořez by ho usekl."
+        "_": "Cedule s hodinami: text přes celou šířku, ořez by ho usekl."
       },
       {
-        "video": "zdravotnictvi-verka.mp4",
-        "od_videa": 10.0,
-        "orez": "720:720:120:0",
-        "do": 18.0,
+        "obraz": "lekar-navsteva.png",
+        "do": 19.2,
+        "pohyb": "zoom",
         "vypln": "pole"
       },
       {
-        "video": "zdravotnictvi-verka.mp4",
-        "od_videa": 15.5,
-        "orez": "960:540:0:90",
-        "do": 23.0,
+        "obraz": "zdravotnici.png",
+        "do": 24.0,
+        "pohyb": "zoom",
         "vypln": "pole"
       },
       {
         "obraz": "ordinace-lehatko.png",
-        "do": 28.0,
+        "do": 27.8,
         "pohyb": "zoom",
         "vypln": "pole"
       },
       {
         "obraz": "ordinace-koutek.png",
-        "do": 30.66,
+        "do": 33.1,
         "pohyb": "zoom",
         "vypln": "pole"
       },
       {
         "koncovka": true,
-        "do": 32.86
+        "do": 35.3
       }
     ],
     "titulky": [
       {
-        "od": 2.8,
-        "do": 4.9,
+        "od": 3.3,
+        "do": 5.8,
         "text": "Záleží nám na zdravotnictví."
       },
       {
-        "od": 4.9,
-        "do": 9.0,
+        "od": 5.8,
+        "do": 8.8,
         "text": "Chceme jednat s Jihočeským krajem"
       },
       {
-        "od": 9.0,
-        "do": 12.5,
+        "od": 8.8,
+        "do": 13.0,
         "text": "o zachování a zkvalitnění lékařské služby první pomoci,"
       },
       {
-        "od": 12.5,
-        "do": 16.6,
+        "od": 13.0,
+        "do": 16.5,
         "text": "a to včetně znovuzavedení návštěvních služeb"
       },
       {
-        "od": 16.6,
-        "do": 18.5,
+        "od": 16.5,
+        "do": 19.2,
         "text": "u pacientů lékařem pohotovosti."
       },
       {
-        "od": 18.5,
-        "do": 22.6,
+        "od": 19.2,
+        "do": 24.0,
         "text": "Chceme zajistit co nejširší spektrum odborných lékařů,"
       },
       {
-        "od": 22.6,
-        "do": 25.5,
+        "od": 24.0,
+        "do": 27.5,
         "text": "upravit jim ordinace dle jejich požadavků,"
       },
       {
-        "od": 25.5,
-        "do": 30.8,
+        "od": 27.8,
+        "do": 32.9,
         "text": "tak jako jsme upravili ordinaci, abychom získali druhou dětskou lékařku."
       }
-    ],
-    "_orez": "Černé pruhy v předloze se ořezávají po úsecích, každý má jiné.",
-    "deesser": true,
-    "_vypln": "Všechny záběry vyplňují stejný pruh; předlohy mají různé tvary."
+    ]
   }
 }

@@ -305,7 +305,7 @@ def _usazeni_pole(vypln: str | None) -> str:
             f'pad={SIRKA}:{VYSKA}:(ow-iw)/2:{POLE_Y}+({POLE_V}-ih)/2:color={PLOCHA_BARVA}')
 
 
-def klip(zaber: dict, delka: float, cil: Path, karta: Path) -> None:
+def klip(zaber: dict, delka: float, cil: Path, karta: Path, prechod: float = 0) -> None:
     """Jeden záběr jako kousek videa.
 
     Pohyb je pomalý zoom, nic víc: obrázků je pár na půl minuty, takže každý
@@ -319,11 +319,18 @@ def klip(zaber: dict, delka: float, cil: Path, karta: Path) -> None:
         # kterou značka nemá mít, tak se ořežou pryč — každý záběr zvlášť,
         # protože každý je má jinde.
         orez = f"crop={zaber['orez']}," if zaber.get('orez') else ''
+        # Klip končí přesně tam, kde v předloze končí jeho střih, a poslední
+        # snímek se pak podrží po dobu prolnutí. Kdyby si bral rovnou i ten
+        # překryv, sáhl by do dalšího záběru předlohy — a ten má jiný ořez,
+        # takže by obraz na dvě desetiny vteřiny poskočil do jiného výřezu.
+        vlastni = max(delka - prechod, 0.1)
+        drzet = (f',tpad=stop_mode=clone:stop_duration={prechod:.3f}'
+                 if prechod else '')
         usazeni = orez + _usazeni_pole(zaber.get('vypln'))
         subprocess.run(
             ['ffmpeg', '-v', 'error', '-y', '-ss', str(zaber.get('od_videa', 0)),
-             '-t', f'{delka:.3f}', '-i', str(zdroj),
-             '-an', '-vf', usazeni + f',fps={FPS},setsar=1,format=yuv420p',
+             '-t', f'{vlastni:.3f}', '-i', str(zdroj),
+             '-an', '-vf', usazeni + f',fps={FPS}{drzet},setsar=1,format=yuv420p',
              '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', str(cil)],
             check=True, capture_output=True)
         return
@@ -410,7 +417,8 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
         posledni = i == len(scenar['zabery']) - 1
         delka = z['do'] - zacatek + (0 if posledni else prechod)
         cil = prac / f'zaber-{i:02d}.mp4'
-        klip(z, delka, cil, uvod_png if z.get('uvod') else konec_png)
+        klip(z, delka, cil, uvod_png if z.get('uvod') else konec_png,
+             0 if posledni else prechod)
         klipy.append(cil)
         zacatek = z['do']
 
