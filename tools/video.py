@@ -288,7 +288,13 @@ def klip(zaber: dict, delka: float, cil: Path, karta: Path) -> None:
     """
     if zaber.get('video'):
         zdroj = najdi_obraz(zaber['video'])
-        usazeni = (f'scale={SIRKA}:{POLE_V}:force_original_aspect_ratio=decrease:flags=lanczos,'
+        # Předloha mívá kolem obrazu černé pruhy, protože se do ní vkládaly
+        # fotky různých tvarů. Na krémové ploše by z nich byla ta tmavá zóna,
+        # kterou značka nemá mít, tak se ořežou pryč — každý záběr zvlášť,
+        # protože každý je má jinde.
+        orez = f"crop={zaber['orez']}," if zaber.get('orez') else ''
+        usazeni = (orez +
+                   f'scale={SIRKA}:{POLE_V}:force_original_aspect_ratio=decrease:flags=lanczos,'
                    f'pad={SIRKA}:{VYSKA}:(ow-iw)/2:{POLE_Y}+({POLE_V}-ih)/2:'
                    f'color={PLOCHA_BARVA}')
         subprocess.run(
