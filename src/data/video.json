@@ -266,17 +266,15 @@
         "vypln": "pole"
       },
       {
-        "video": "zdravotnictvi-verka.mp4",
-        "od_videa": 20.5,
-        "orez": "912:720:24:0",
+        "obraz": "ordinace-lehatko.png",
         "do": 28.0,
+        "pohyb": "zoom",
         "vypln": "pole"
       },
       {
-        "video": "zdravotnictvi-verka.mp4",
-        "od_videa": 25.5,
-        "orez": "920:720:20:0",
+        "obraz": "ordinace-koutek.png",
         "do": 30.66,
+        "pohyb": "zoom",
         "vypln": "pole"
       },
       {
