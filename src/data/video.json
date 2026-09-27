@@ -232,16 +232,16 @@
         "podtitul": "Záleží nám na zdravotnictví"
       },
       {
-        "video": "zdravotnictvi-verka.mp4",
-        "od_videa": 0.0,
-        "orez": "960:720:0:0",
-        "do": 5.5
+        "obraz": "poliklinika.jpg",
+        "do": 5.5,
+        "pohyb": "zoom",
+        "vypln": "cover"
       },
       {
-        "video": "zdravotnictvi-verka.mp4",
-        "od_videa": 3.0,
-        "orez": "960:720:0:0",
-        "do": 8.0
+        "obraz": "poliklinika-vchod.png",
+        "do": 8.0,
+        "pohyb": "zoom",
+        "vypln": "cover"
       },
       {
         "video": "zdravotnictvi-verka.mp4",
