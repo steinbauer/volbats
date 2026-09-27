@@ -770,22 +770,102 @@ a:hover { text-decoration: underline; }
   b { color: $inkoust; }
 }
 
-.tema-video__dalsi {
-  display: block;
-  width: 100%;
-  margin-top: 0.6rem;
-  padding: 0.5rem 0.7rem;
-  border: 1px solid $linka;
-  border-radius: 10px;
-  background: $papir;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: $cervena;
-  cursor: pointer;
-  text-align: left;
 
-  &:hover { border-color: $cervena; }
-  &:focus-visible { outline: 3px solid $cervena; outline-offset: 2px; }
+// Přehrávač přes celou obrazovku. Překryv je tmavý záměrně — je to ovládání
+// stránky, ne grafika značky, a jen tak video s krémovými okraji vystoupí.
+.lightbox {
+  border: 0;
+  padding: 0;
+  // Překryv drží samotný dialog, ne jen ::backdrop — ten se v některých
+  // prohlížečích i při snímkování obrazovky nevykreslí a stránka pod ním
+  // prosvítá.
+  background: rgba(25, 20, 19, 0.88);
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &::backdrop { background: rgba(25, 20, 19, 0.88); }
+  &[open] { display: flex; align-items: center; justify-content: center; }
+}
+
+.lightbox__telo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1rem;
+  max-height: 100%;
+
+  video {
+    max-height: min(74vh, 900px);
+    max-width: min(92vw, 520px);
+    border-radius: 12px;
+    background: $plocha;
+    display: block;
+  }
+}
+
+.lightbox__nazev {
+  margin: 0;
+  font-family: $pismo-nadpis;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: $plocha;
+  text-align: center;
+
+  @include bs.media-breakpoint-down(sm) { font-size: 1rem; }
+}
+
+.lightbox__ovladani {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  color: rgba(253, 247, 228, 0.75);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+
+  button {
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 1px solid rgba(253, 247, 228, 0.35);
+    border-radius: 50%;
+    background: none;
+    color: $plocha;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover { border-color: $plocha; background: rgba(253, 247, 228, 0.12); }
+    &:focus-visible { outline: 3px solid $zluta; outline-offset: 2px; }
+  }
+}
+
+.lightbox__dalsi {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(253, 247, 228, 0.6);
+  text-align: center;
+}
+
+.lightbox__zavrit {
+  position: absolute;
+  top: -0.2rem;
+  right: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(253, 247, 228, 0.15);
+  color: $plocha;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover { background: rgba(253, 247, 228, 0.3); }
+  &:focus-visible { outline: 3px solid $zluta; outline-offset: 2px; }
 }
 
 .program__zaver {

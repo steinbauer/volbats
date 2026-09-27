@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import Meta from '../components/Meta'
 import IkonaSekce from '../components/IkonaSekce'
-import VideoTema, { videa, videaPodleSekce } from '../components/VideoTema'
+import VideoTema, { VideoLightbox, videa, videaPodleSekce } from '../components/VideoTema'
 import program from '../data/program.json'
 import { web } from '../data/web'
 
@@ -15,18 +15,12 @@ import { web } from '../data/web'
  * na úvodní stránce.
  */
 export default function Program() {
-  // Které video hraje, ví stránka. Kdyby si to hlídalo každé samo, daly by
-  // se spustit dvě naráz a mluvily by přes sebe.
-  const [hraje, setHraje] = useState(null)
+  // Videa se přehrávají v jednom přehrávači přes celou obrazovku, tak stačí
+  // vědět, které je zrovna otevřené. Dvě naráz tím pádem hrát nemůžou.
+  const [otevrene, setOtevrene] = useState(null)
 
-  const spust = (sekce) => {
-    // Při přeskoku na jiné video je potřeba se k němu i posunout;
-    // při prvním spuštění by skrolování jen zmátlo.
-    if (hraje && hraje !== sekce) {
-      document.getElementById(sekce)?.scrollIntoView({ behavior: 'smooth' })
-    }
-    setHraje(sekce)
-  }
+  const prepni = (smer) =>
+    setOtevrene((i) => (i == null ? i : (i + smer + videa.length) % videa.length))
 
   return (
     <>
@@ -82,17 +76,18 @@ export default function Program() {
                   </ul>
                 </div>
                 {videaPodleSekce[sekce.slug] && (
-                  <VideoTema
-                    video={videaPodleSekce[sekce.slug]}
-                    hraje={hraje === sekce.slug}
-                    spust={spust}
-                    dalsi={videa[(videaPodleSekce[sekce.slug].poradi + 1) % videa.length]}
-                  />
+                  <VideoTema video={videaPodleSekce[sekce.slug]} otevri={setOtevrene} />
                 )}
               </div>
             </article>
           ))}
           </div>
+
+          <VideoLightbox
+            otevrene={otevrene}
+            zavri={() => setOtevrene(null)}
+            prepni={prepni}
+          />
 
           <div className="program__zaver">
             <h2>{program.zaver}</h2>
