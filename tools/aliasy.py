@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Krátké adresy kandidat1.volbats.cz … kandidat10.volbats.cz a pár dalších.
+"""Krátké adresy kandidat1.volbats.cz … kandidat23.volbats.cz a pár dalších.
 
 Kandidátská přesměruje na medailonek kandidáta s tím číslem na listině,
-ostatní jsou v OSTATNI. Původní adresy zůstávají, tohle jsou jen zkratky
+a kdo medailonek nemá, na jeho dlaždici v seznamu /kandidati/#<slug>.
+Ostatní zkratky jsou v OSTATNI. Původní adresy zůstávají, tohle jsou jen zkratky
 na tiskoviny.
 
 GitHub Pages unese na jeden repozitář jen jednu vlastní doménu, takže každý
@@ -40,7 +41,6 @@ KOREN = Path(__file__).resolve().parent.parent
 VYSTUP = KOREN / 'aliasy'
 VLASTNIK = 'steinbauer'
 WEB = 'https://volbats.cz'
-POCET = 10
 # Zkratky mimo kandidáty: subdoména → (popisek, cesta na webu)
 OSTATNI = {
     'hp': ('Úvod', '/'),
@@ -67,15 +67,16 @@ STRANKA = """<!doctype html>
 
 def aliasy():
     kandidati = json.loads((KOREN / 'src/data/kandidati.json').read_text())
-    for k in sorted(kandidati, key=lambda k: k['cislo'])[:POCET]:
-        # Přesměrovat na stránku, která neexistuje, by bylo horší než nic.
-        if not k.get('zivotopis'):
-            sys.exit(f"{k['jmeno']} nemá medailonek, alias by vedl na 404")
+    for k in sorted(kandidati, key=lambda k: k['cislo']):
+        # Stejné pravidlo jako maStranku() v src/data/lide.js — vlastní
+        # stránku má jen ten, od koho dorazil medailonek.
+        cesta = (f"/kandidati/{k['slug']}/" if k.get('zivotopis')
+                 else f"/kandidati/#{k['slug']}")
         yield {
             'repo': f"kandidat{k['cislo']}",
             'domena': f"kandidat{k['cislo']}.volbats.cz",
             'jmeno': k['jmeno'],
-            'cil': f"{WEB}/kandidati/{k['slug']}/",
+            'cil': WEB + cesta,
         }
     for subdomena, (popisek, cesta) in OSTATNI.items():
         yield {
