@@ -37,6 +37,17 @@ VYSTUP = KOREN / 'video'
 # Koncová značka doběhne po hlase; tolik vteřin má na obrazovce vydržet.
 KONCOVKA = 4.4
 
+# De-esser pro nahrávky s ostrými sykavkami. Signál se rozdělí na nízké
+# a vysoké pásmo, komprimuje se jen to vysoké a pak se obě zase sečtou —
+# sykavka se tím stáhne jen ve chvíli, kdy zazní, a hlas nezmatní tak,
+# jako když se výšky stáhnou natrvalo. Zesílení na konci dorovnává hlasitost,
+# kterou komprese ubrala.
+DEESSER = ('asplit=2[nizke][vysoke];'
+           '[nizke]lowpass=f=6000[n];'
+           '[vysoke]highpass=f=6000,'
+           'acompressor=threshold=0.02:ratio=8:attack=1:release=40[v];'
+           '[n][v]amix=inputs=2:normalize=0,volume=4.5dB')
+
 # 4:5 je tentýž poměr jako karty — největší plocha, kterou Instagram i Facebook
 # pustí do nástěnky. Výš než 1080 px se nešplhá: předlohy mají necelý tisíc
 # pixelů na šířku a větší formát by z nich udělal jen měkčí obraz.
@@ -279,6 +290,21 @@ def splynout(zdroj: Path, cil: Path) -> Path:
     return cil
 
 
+def _usazeni_pole(vypln: str | None) -> str:
+    """Jak se obraz posadí do pruhu uprostřed plátna.
+
+    `pole` ho roztáhne přes celý pruh a přebytek ořízne — všechny záběry pak
+    mají tentýž tvar a obraz mezi nimi neskáče. Jinak se vejde celý a kolem
+    zůstane krémová plocha.
+    """
+    if vypln == 'pole':
+        return (f'scale={SIRKA}:{POLE_V}:force_original_aspect_ratio=increase:flags=lanczos,'
+                f'crop={SIRKA}:{POLE_V},'
+                f'pad={SIRKA}:{VYSKA}:0:{POLE_Y}:color={PLOCHA_BARVA}')
+    return (f'scale={SIRKA}:{POLE_V}:force_original_aspect_ratio=decrease:flags=lanczos,'
+            f'pad={SIRKA}:{VYSKA}:(ow-iw)/2:{POLE_Y}+({POLE_V}-ih)/2:color={PLOCHA_BARVA}')
+
+
 def klip(zaber: dict, delka: float, cil: Path, karta: Path) -> None:
     """Jeden záběr jako kousek videa.
 
@@ -293,10 +319,7 @@ def klip(zaber: dict, delka: float, cil: Path, karta: Path) -> None:
         # kterou značka nemá mít, tak se ořežou pryč — každý záběr zvlášť,
         # protože každý je má jinde.
         orez = f"crop={zaber['orez']}," if zaber.get('orez') else ''
-        usazeni = (orez +
-                   f'scale={SIRKA}:{POLE_V}:force_original_aspect_ratio=decrease:flags=lanczos,'
-                   f'pad={SIRKA}:{VYSKA}:(ow-iw)/2:{POLE_Y}+({POLE_V}-ih)/2:'
-                   f'color={PLOCHA_BARVA}')
+        usazeni = orez + _usazeni_pole(zaber.get('vypln'))
         subprocess.run(
             ['ffmpeg', '-v', 'error', '-y', '-ss', str(zaber.get('od_videa', 0)),
              '-t', f'{delka:.3f}', '-i', str(zdroj),
@@ -314,12 +337,32 @@ def klip(zaber: dict, delka: float, cil: Path, karta: Path) -> None:
         if zaber.get('podklad') == 'splynout':
             zdroj = splynout(zdroj, cil.with_name(cil.stem + '-podklad.png'))
         s, v = rozmer(zdroj)
-        # Obraz se vejde do pruhu, ať je na výšku nebo na šířku — nic se neoreže.
-        mer = min(SIRKA / s, POLE_V / v)
-        os, ov = int(s * mer) // 2 * 2, int(v * mer) // 2 * 2
+        if zaber.get('vypln') == 'pole':
+            # Všechny záběry vyplní tentýž obdélník, i za cenu ořezu — jinak
+            # obraz mezi záběry skáče podle toho, jestli je předloha na šířku,
+            # na výšku nebo čtvercová.
+            os, ov = SIRKA, POLE_V
+        else:
+            # Obraz se vejde do pruhu celý, ať má jakýkoli tvar.
+            mer = min(SIRKA / s, POLE_V / v)
+            os, ov = int(s * mer) // 2 * 2, int(v * mer) // 2 * 2
+
+        vyrez = zaber.get('vyrez', 'střed')
+        if zaber.get('vypln') == 'pole':
+            posun = {'nahoru': '0', 'dolů': '(ih-oh)'}.get(vyrez, '(ih-oh)/2')
+            do_pole = (f'scale={os}:{ov}:force_original_aspect_ratio=increase:flags=lanczos,'
+                       f'crop={os}:{ov}:(iw-ow)/2:{posun},')
+        else:
+            do_pole = ''
 
         if zaber.get('pohyb') == 'klid':
-            filtr = f'scale={os}:{ov}:flags=lanczos'
+            filtr = do_pole + f'scale={os}:{ov}:flags=lanczos'
+        elif do_pole:
+            krok = 0.12 / (delka * FPS)
+            filtr = (do_pole + f'scale={os * 2}:{ov * 2}:flags=lanczos,'
+                     f"zoompan=z='min(1+{krok:.6f}*on,1.12)':d=1"
+                     f":x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
+                     f':s={os}x{ov}:fps={FPS}')
         else:
             # 12 % za celý záběr: pohyb se pozná, ale nestrhává pozornost.
             krok = 0.12 / (delka * FPS)
@@ -398,6 +441,8 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
     # Nahrávka začíná až za úvodní kartou a na konci se nechá doznít.
     stopa = len(klipy) + len(titulky) + 1
     zvuk = []
+    if scenar.get('deesser'):
+        zvuk.append(DEESSER)
     posun = scenar.get('zvuk_posun', 0)
     if posun:
         zvuk.append(f'adelay={int(posun * 1000)}:all=1')
@@ -405,7 +450,10 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
         od, trvani = scenar['zvuk_utlum']
         zvuk.append(f'afade=t=out:st={od + posun}:d={trvani}')
     if zvuk:
-        filtr.append(f'[{stopa}:a]' + ','.join(zvuk) + '[zvuk]')
+        retez = zvuk[0]
+        for dalsi in zvuk[1:]:
+            retez += (';' if '[' in dalsi else ',') + dalsi
+        filtr.append(f'[{stopa}:a]' + retez + '[zvuk]')
         mapa_zvuku = '[zvuk]'
     else:
         mapa_zvuku = f'{stopa}:a'

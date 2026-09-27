@@ -235,43 +235,49 @@
         "obraz": "poliklinika.jpg",
         "do": 5.5,
         "pohyb": "zoom",
-        "vypln": "cover"
+        "vypln": "pole"
       },
       {
         "obraz": "poliklinika-vchod.png",
         "do": 8.0,
         "pohyb": "zoom",
-        "vypln": "cover"
+        "vypln": "pole"
       },
       {
         "video": "zdravotnictvi-verka.mp4",
         "od_videa": 5.5,
         "orez": "960:540:0:90",
-        "do": 12.5
+        "do": 12.5,
+        "vypln": "cele",
+        "_": "Text přes celou šířku, ořez by ho usekl."
       },
       {
         "video": "zdravotnictvi-verka.mp4",
         "od_videa": 10.0,
         "orez": "720:720:120:0",
-        "do": 18.0
+        "do": 18.0,
+        "vypln": "pole"
       },
       {
         "video": "zdravotnictvi-verka.mp4",
         "od_videa": 15.5,
         "orez": "960:540:0:90",
-        "do": 23.0
+        "do": 23.0,
+        "vypln": "pole"
       },
       {
         "video": "zdravotnictvi-verka.mp4",
         "od_videa": 20.5,
         "orez": "912:720:24:0",
-        "do": 28.0
+        "do": 28.0,
+        "vypln": "pole"
       },
       {
         "video": "zdravotnictvi-verka.mp4",
         "od_videa": 25.5,
         "orez": "920:720:20:0",
-        "do": 30.66
+        "do": 30.66,
+        "vypln": "pole"
       },
       {
         "koncovka": true,
@@ -320,6 +326,8 @@
         "text": "tak jako jsme upravili ordinaci, abychom získali druhou dětskou lékařku."
       }
     ],
-    "_orez": "Černé pruhy v předloze se ořezávají po úsecích, každý má jiné."
+    "_orez": "Černé pruhy v předloze se ořezávají po úsecích, každý má jiné.",
+    "deesser": true,
+    "_vypln": "Všechny záběry vyplňují stejný pruh; předlohy mají různé tvary."
   }
 }
