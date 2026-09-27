@@ -48,6 +48,7 @@ Servíruje to nginx v dockeru, vystavený přes labový traefik.
 | `tools/tiskoviny.py` | společný základ letáku, plakátů a kartiček |
 | `tools/qr.py` | generátor QR kódů (bez závislostí) |
 | `tools/nginx.conf` | hlavičky pro lokální náhled |
+| `tools/aliasy.py` | krátké adresy kandidat1…23, hp a program.volbats.cz |
 
 Obsah se upravuje v `src/data/*.json`. Kandidáta stačí přidat do
 `kandidati.json`; fotku k němu připravit `tools/fotky.py` a odkázat ji
@@ -127,6 +128,24 @@ Do repa jdou jen zdroje — scénáře, nahrávky hlasu a kresby. Hotová videa 
 sem nevrací: složí se příkazem výš a v historii by po každém přegenerování
 zůstalo dalších osmdesát megabajtů. Jejich místo je v artefaktech labu.
 
+## Krátké adresy kandidátů
+
+`kandidat1.volbats.cz` až `kandidat23.volbats.cz` přesměrují na medailonek
+kandidáta s tím číslem na listině, a kdo ho nemá, na jeho dlaždici v seznamu
+(`/kandidati/#<slug>`). GitHub Pages unese jen jednu vlastní
+doménu na repozitář, takže každá zkratka je samostatný repozitář
+`steinbauer/<subdoména>` se stránkou, která hned přesměruje, a HTTPS
+certifikát k ní vydá GitHub. V DNS u Wedosu na ně míří
+`<subdoména> CNAME steinbauer.github.io.` Stejně fungují `hp.volbats.cz`
+(úvodní stránka) a `program.volbats.cz` — další se přidávají do `OSTATNI`
+v `tools/aliasy.py`.
+
+```bash
+make aliasy     # token v ~/.config/volbats/github-token
+```
+
+Skript je idempotentní — když se změní pořadí nebo slug, stačí ho pustit
+znovu. HTTPS jde vynutit až po vydání certifikátu, to hlásí ve výpisu.
 
 ## Poznámky k migraci
 

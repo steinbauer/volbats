@@ -782,6 +782,8 @@ a:hover { text-decoration: underline; }
   background: $papir;
   border: 1px solid $linka;
   padding-bottom: 1rem;
+  // Při skoku na kotvu nesmí dlaždici schovat přilepená hlavička.
+  scroll-margin-top: 7rem;
 }
 
 .kandidat__foto {

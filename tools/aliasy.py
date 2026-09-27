@@ -1,0 +1,210 @@
+#!/usr/bin/env python3
+"""Krátké adresy kandidat1.volbats.cz … kandidat23.volbats.cz a pár dalších.
+
+Kandidátská přesměruje na medailonek kandidáta s tím číslem na listině,
+a kdo medailonek nemá, na jeho dlaždici v seznamu /kandidati/#<slug>.
+Ostatní zkratky jsou v OSTATNI. Původní adresy zůstávají, tohle jsou jen zkratky
+na tiskoviny.
+
+GitHub Pages unese na jeden repozitář jen jednu vlastní doménu, takže každý
+alias je samostatný malý repozitář steinbauer/<subdoména> s CNAME a stránkou,
+která hned přesměruje. HTTPS certifikát k doméně vystaví GitHub sám, jakmile
+na něj míří DNS:
+
+    <subdoména>.volbats.cz.  CNAME  steinbauer.github.io.
+
+    python3 tools/aliasy.py             # jen vygeneruje obsah do aliasy/
+    python3 tools/aliasy.py --nasadit   # token z GITHUB_TOKEN, nebo ze souboru
+
+Nasazení je idempotentní: založí, co chybí, nahraje obsah a zapne Pages.
+Vynucení HTTPS jde nastavit až po vydání certifikátu (pár minut po tom, co
+začne platit DNS) — do té doby skript hlásí stav a stačí ho pustit znovu.
+
+Token se bere z proměnné GITHUB_TOKEN, a když není, ze souboru
+~/.config/volbats/github-token — ať nemusí projít příkazovou řádkou ani chatem.
+Token potřebuje u účtu steinbauer právo zakládat repozitáře a spravovat
+Pages (classic `repo`, nebo fine-grained s Administration, Contents a Pages
+na zápis).
+"""
+import base64
+import html
+import json
+import os
+import subprocess
+import sys
+import tempfile
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+KOREN = Path(__file__).resolve().parent.parent
+VYSTUP = KOREN / 'aliasy'
+VLASTNIK = 'steinbauer'
+WEB = 'https://volbats.cz'
+# Zkratky mimo kandidáty: subdoména → (popisek, cesta na webu)
+OSTATNI = {
+    'hp': ('Úvod', '/'),
+    'program': ('Program', '/program/'),
+}
+SOUBOR_S_TOKENEM = Path.home() / '.config/volbats/github-token'
+
+STRANKA = """<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<title>{jmeno} — Volba pro město</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="{cil}">
+<meta http-equiv="refresh" content="0; url={cil}">
+<script>location.replace({cil_js})</script>
+</head>
+<body>
+<p><a href="{cil}">{jmeno}</a></p>
+</body>
+</html>
+"""
+
+
+def aliasy():
+    kandidati = json.loads((KOREN / 'src/data/kandidati.json').read_text())
+    for k in sorted(kandidati, key=lambda k: k['cislo']):
+        # Stejné pravidlo jako maStranku() v src/data/lide.js — vlastní
+        # stránku má jen ten, od koho dorazil medailonek.
+        cesta = (f"/kandidati/{k['slug']}/" if k.get('zivotopis')
+                 else f"/kandidati/#{k['slug']}")
+        yield {
+            'repo': f"kandidat{k['cislo']}",
+            'domena': f"kandidat{k['cislo']}.volbats.cz",
+            'jmeno': k['jmeno'],
+            'cil': WEB + cesta,
+        }
+    for subdomena, (popisek, cesta) in OSTATNI.items():
+        yield {
+            'repo': subdomena,
+            'domena': f"{subdomena}.volbats.cz",
+            'jmeno': popisek,
+            'cil': WEB + cesta,
+        }
+
+
+def vygeneruj(a):
+    adresar = VYSTUP / a['repo']
+    adresar.mkdir(parents=True, exist_ok=True)
+    stranka = STRANKA.format(
+        jmeno=html.escape(a['jmeno']),
+        cil=html.escape(a['cil']),
+        cil_js=json.dumps(a['cil']),
+    )
+    (adresar / 'index.html').write_text(stranka)
+    # Cokoli jiného na subdoméně (překlep, stará cesta) skončí taky na kartě.
+    (adresar / '404.html').write_text(stranka)
+    (adresar / 'CNAME').write_text(a['domena'] + '\n')
+    (adresar / '.nojekyll').write_text('')
+    return adresar
+
+
+def api(token, metoda, cesta, data=None):
+    pozadavek = urllib.request.Request(
+        'https://api.github.com' + cesta,
+        method=metoda,
+        data=json.dumps(data).encode() if data is not None else None,
+        headers={
+            'Authorization': f'Bearer {token}',
+            'Accept': 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28',
+        },
+    )
+    try:
+        with urllib.request.urlopen(pozadavek) as odpoved:
+            telo = odpoved.read()
+            return odpoved.status, json.loads(telo) if telo else None
+    except urllib.error.HTTPError as chyba:
+        telo = chyba.read()
+        return chyba.code, json.loads(telo) if telo else None
+
+
+def nahraj(token, a, adresar, strom_na_githubu):
+    """Obsah jako jediný commit, ať historie aliasu nebobtná.
+
+    Když se obsah nezměnil, nepushuje se: každý push spustí build Pages
+    a buildy puštěné těsně po sobě na GitHubu padají.
+    """
+    hlavicka = base64.b64encode(f'x-access-token:{token}'.encode()).decode()
+    # Token přes proměnné prostředí, ne v argumentech — ty vidí `ps`.
+    prostredi = dict(
+        os.environ,
+        GIT_CONFIG_COUNT='1',
+        GIT_CONFIG_KEY_0='http.extraHeader',
+        GIT_CONFIG_VALUE_0=f'Authorization: Basic {hlavicka}',
+        GIT_AUTHOR_NAME='volbats', GIT_AUTHOR_EMAIL='noreply@volbats.cz',
+        GIT_COMMITTER_NAME='volbats', GIT_COMMITTER_EMAIL='noreply@volbats.cz',
+    )
+    with tempfile.TemporaryDirectory() as tmp:
+        git = lambda *args: subprocess.run(
+            ['git', '-C', tmp, *args], env=prostredi, check=True,
+            stdout=subprocess.DEVNULL)
+        git('init', '-q', '-b', 'main')
+        git('--work-tree', str(adresar), 'add', '-A')
+        strom = subprocess.run(['git', '-C', tmp, 'write-tree'], check=True,
+                               capture_output=True, text=True).stdout.strip()
+        if strom == strom_na_githubu:
+            return
+        git('commit', '-q', '-m', f"Přesměrování {a['domena']} na {a['cil']}")
+        git('push', '-q', '--force',
+            f"https://github.com/{VLASTNIK}/{a['repo']}.git", 'main')
+
+
+def nasad(token, a, adresar):
+    repo = f"/repos/{VLASTNIK}/{a['repo']}"
+
+    stav, _ = api(token, 'GET', repo)
+    if stav == 404:
+        stav, odpoved = api(token, 'POST', '/user/repos', {
+            'name': a['repo'],
+            'description': f"Přesměrování {a['domena']} → {a['cil']}",
+            'homepage': f"https://{a['domena']}/",
+            'has_issues': False, 'has_projects': False, 'has_wiki': False,
+        })
+        if stav != 201:
+            sys.exit(f"{a['repo']}: repozitář nejde založit ({stav}): {odpoved}")
+
+    stav, commit = api(token, 'GET', repo + '/commits/main')
+    strom = commit['commit']['tree']['sha'] if stav == 200 else None
+    nahraj(token, a, adresar, strom)
+
+    stav, pages = api(token, 'GET', repo + '/pages')
+    if stav == 404:
+        stav, pages = api(token, 'POST', repo + '/pages',
+                          {'source': {'branch': 'main', 'path': '/'}})
+        if stav != 201:
+            sys.exit(f"{a['repo']}: Pages nejdou zapnout ({stav}): {pages}")
+
+    if pages.get('cname') != a['domena']:
+        api(token, 'PUT', repo + '/pages', {'cname': a['domena']})
+
+    _, pages = api(token, 'GET', repo + '/pages')
+    certifikat = (pages.get('https_certificate') or {}).get('state')
+    if pages.get('https_enforced'):
+        return 'HTTPS vynucené'
+    if certifikat == 'approved':
+        stav, _ = api(token, 'PUT', repo + '/pages', {'https_enforced': True})
+        return 'HTTPS vynucené' if stav == 204 else f'vynucení HTTPS selhalo ({stav})'
+    return f'čeká na certifikát ({certifikat or "zatím nežádán — platí DNS?"})'
+
+
+def main():
+    nasadit = '--nasadit' in sys.argv[1:]
+    token = os.environ.get('GITHUB_TOKEN')
+    if not token and SOUBOR_S_TOKENEM.exists():
+        token = SOUBOR_S_TOKENEM.read_text().strip()
+    if nasadit and not token:
+        sys.exit(f'Nasazení potřebuje GITHUB_TOKEN nebo token v {SOUBOR_S_TOKENEM}')
+
+    for a in aliasy():
+        adresar = vygeneruj(a)
+        stav = nasad(token, a, adresar) if nasadit else 'vygenerováno'
+        print(f"https://{a['domena']}/  →  {a['cil']}  [{stav}]")
+
+
+if __name__ == '__main__':
+    main()
