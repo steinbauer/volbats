@@ -124,6 +124,13 @@ v repu není — **tenhle repozitář je veřejný**.
 
 Kresby měst a míst jsou v `src/video/kresby/`.
 
+Vybraná videa jsou na webu u odpovídajících sekcí programu — co kde, říká
+`src/data/videa.json`. Do `public/videa/` k nim `make videa-web` vyrobí
+zmenšenou kopii a náhledový obrázek; ten je první kreslený záběr bez titulku,
+takže po spuštění obraz nepřeskočí. Dokud návštěvník neklikne, je na stránce
+jen ten obrázek a z videa se nestahuje nic. Hrát může vždy jen jedno —
+stránka si drží, které to je, protože jinak by šlo spustit dvě naráz.
+
 Do repa jdou jen zdroje — scénáře, nahrávky hlasu a kresby. Hotová videa se
 sem nevrací: složí se příkazem výš a v historii by po každém přegenerování
 zůstalo dalších osmdesát megabajtů. Jejich místo je v artefaktech labu.

@@ -30,6 +30,8 @@ from socialni import PLOCHA, PRECHOD, TLUMENY, znak
 from tiskoviny import BROWSERLESS, CERVENA, INKOUST, KOREN, fonty, nacti, nacti_web
 
 VIDEO = KOREN / 'src/video'
+# Verze pro web jde rovnou do public/, odkud ji Vite vezme do buildu.
+WEB = KOREN / 'public/videa'
 KRESBY = VIDEO / 'kresby'
 HLASY = VIDEO / 'hlasy'
 VYSTUP = KOREN / 'video'
@@ -479,11 +481,46 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
     return cil
 
 
+def pro_web(scenar: dict, web_data: dict, hotove: Path, jmeno: str, prac: Path) -> None:
+    """Zmenšená kopie do public/ a k ní náhledový obrázek.
+
+    Na webu se video přehrává na pár set pixelech, takže plné rozlišení by
+    jen natahovalo stahování. Náhled je první kreslený záběr bez titulku —
+    tentýž obraz, jaký uvidí návštěvník po spuštění, takže při kliknutí nic
+    nepřeskočí.
+    """
+    WEB.mkdir(parents=True, exist_ok=True)
+    cil = WEB / f'{jmeno}.mp4'
+    subprocess.run(
+        ['ffmpeg', '-v', 'error', '-y', '-i', str(hotove),
+         '-vf', f'scale={SIRKA // 2}:-2:flags=lanczos',
+         '-c:v', 'libx264', '-preset', 'slow', '-crf', '28', '-pix_fmt', 'yuv420p',
+         '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', str(cil)],
+        check=True, capture_output=True)
+
+    # Náhled: buď obrázek určený scénářem, nebo první kreslený záběr.
+    jmeno_obrazu = scenar.get('poster') or next(
+        (z['obraz'] for z in scenar['zabery'] if z.get('obraz')), None)
+    if not jmeno_obrazu:
+        return
+    nahled = prac / 'poster.mp4'
+    klip({'obraz': jmeno_obrazu, 'pohyb': 'klid', 'vypln': 'pole'}, 0.2, nahled,
+         prac / 'koncovka.png')
+    hlavicka_png = prac / 'hlavicka.png'
+    subprocess.run(
+        ['ffmpeg', '-v', 'error', '-y', '-i', str(nahled), '-i', str(hlavicka_png),
+         '-filter_complex', f'[0:v][1:v]overlay=0:0,scale={SIRKA // 2}:-2',
+         '-frames:v', '1', '-q:v', '4', str(WEB / f'{jmeno}.jpg')],
+        check=True, capture_output=True)
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description='Video pro Facebook a Instagram')
     p.add_argument('scenar', nargs='*', default=['seniori'],
                    help='která témata; bez uvedení jen seniori')
     p.add_argument('--dily', action='store_true', help='nechat mezisoubory')
+    p.add_argument('--web', action='store_true',
+                   help='navíc zmenšenou kopii a náhled do public/videa/')
     args = p.parse_args()
 
     web = nacti_web()
@@ -492,6 +529,8 @@ def main() -> None:
         scenar = nacti_scenar(tema)
         prac = VYSTUP / 'dily' / tema
         cil = sestav(scenar, web, prac, tema)
+        if args.web:
+            pro_web(scenar, web, cil, tema, prac)
         if not args.dily:
             shutil.rmtree(prac, ignore_errors=True)
 

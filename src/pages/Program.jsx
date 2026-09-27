@@ -1,5 +1,8 @@
+import { useState } from 'react'
+
 import Meta from '../components/Meta'
 import IkonaSekce from '../components/IkonaSekce'
+import VideoTema, { videa, videaPodleSekce } from '../components/VideoTema'
 import program from '../data/program.json'
 import { web } from '../data/web'
 
@@ -12,6 +15,19 @@ import { web } from '../data/web'
  * na úvodní stránce.
  */
 export default function Program() {
+  // Které video hraje, ví stránka. Kdyby si to hlídalo každé samo, daly by
+  // se spustit dvě naráz a mluvily by přes sebe.
+  const [hraje, setHraje] = useState(null)
+
+  const spust = (sekce) => {
+    // Při přeskoku na jiné video je potřeba se k němu i posunout;
+    // při prvním spuštění by skrolování jen zmátlo.
+    if (hraje && hraje !== sekce) {
+      document.getElementById(sekce)?.scrollIntoView({ behavior: 'smooth' })
+    }
+    setHraje(sekce)
+  }
+
   return (
     <>
       {/* Popisek je psaný zvlášť, ne slepený z perexu a úvodu — ty dají
@@ -56,12 +72,24 @@ export default function Program() {
                 <IkonaSekce slug={sekce.slug} className="program-sekce__ikona" />
                 {sekce.nadpis}
               </h2>
-              {!sekce.nechceme && <p className="program-sekce__uvod">Chceme:</p>}
-              <ul className="program-sekce__body">
-                {sekce.body.map((bod) => (
-                  <li key={bod}>{bod}</li>
-                ))}
-              </ul>
+              <div className="program-sekce__telo">
+                <div>
+                  {!sekce.nechceme && <p className="program-sekce__uvod">Chceme:</p>}
+                  <ul className="program-sekce__body">
+                    {sekce.body.map((bod) => (
+                      <li key={bod}>{bod}</li>
+                    ))}
+                  </ul>
+                </div>
+                {videaPodleSekce[sekce.slug] && (
+                  <VideoTema
+                    video={videaPodleSekce[sekce.slug]}
+                    hraje={hraje === sekce.slug}
+                    spust={spust}
+                    dalsi={videa[(videaPodleSekce[sekce.slug].poradi + 1) % videa.length]}
+                  />
+                )}
+              </div>
             </article>
           ))}
           </div>

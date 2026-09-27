@@ -687,6 +687,107 @@ a:hover { text-decoration: underline; }
   }
 }
 
+// Video k tématu stojí vedle odrážek; na užším displeji pod nimi.
+.program-sekce__telo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 2rem;
+  align-items: start;
+
+  @include bs.media-breakpoint-down(md) {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.tema-video {
+  position: relative;
+
+  @include bs.media-breakpoint-down(md) {
+    max-width: 260px;
+  }
+
+  video {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    background: $plocha;
+  }
+}
+
+// Dokud se neklikne, je to obrázek — prohlížeč ze samotného videa nestahuje nic.
+.tema-video__nahled {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  line-height: 0;
+
+  img {
+    width: 100%;
+    display: block;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover img,
+  &:focus-visible img { transform: scale(1.03); }
+  &:focus-visible { outline: 3px solid $cervena; outline-offset: 3px; }
+}
+
+.tema-video__tlacitko {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 68px;
+    height: 68px;
+    filter: drop-shadow(0 2px 10px rgba(25, 20, 19, 0.28));
+  }
+  circle { fill: rgba(255, 255, 255, 0.92); }
+  path { fill: $cervena; }
+}
+
+.tema-video__popis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.55rem 0.8rem;
+  background: linear-gradient(to top, rgba(253, 244, 230, 0.96), rgba(253, 244, 230, 0));
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: $text-tlumeny;
+  text-align: center;
+
+  b { color: $inkoust; }
+}
+
+.tema-video__dalsi {
+  display: block;
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid $linka;
+  border-radius: 10px;
+  background: $papir;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $cervena;
+  cursor: pointer;
+  text-align: left;
+
+  &:hover { border-color: $cervena; }
+  &:focus-visible { outline: 3px solid $cervena; outline-offset: 2px; }
+}
+
 .program__zaver {
   margin-top: 3rem;
   padding-top: 2.5rem;

@@ -8,6 +8,7 @@
 #   make qr         vyrobí kartičky s QR kódy a kódy samotné
 #   make socialni   vyrobí karty na Instagram a Facebook
 #   make video      složí video k jednomu tématu (make video TEMA=doprava)
+#   make videa-web  zmenšené kopie a náhledy videí, která jsou na webu
 #   make videa      namluví a složí videa ke všem tématům programu
 #   make ikony      přegeneruje ikony sekcí programu
 #   make aliasy     nasadí kandidat1…10.volbats.cz (potřebuje GITHUB_TOKEN)
@@ -22,7 +23,7 @@ URL          = https://$(BRANCH_NAME).volbats.kamil.lab.home/
 # přeskočil devDependencies, tedy i samotné Vite.
 NPM = NODE_ENV=development npm
 
-.PHONY: url dev build install run-dev stop-dev restart-dev status logs letak plakaty qr socialni video videa ikony aliasy clean
+.PHONY: url dev build install run-dev stop-dev restart-dev status logs letak plakaty qr socialni video videa videa-web ikony aliasy clean
 
 ## Vypíše adresu a zajistí, že běží aktuální build
 url: build run-dev
@@ -83,6 +84,11 @@ socialni:
 TEMA ?= seniori
 video:
 	@python3 tools/video.py $(TEMA)
+
+## Videa, která jsou na webu u sekcí programu — zmenšená kopie a náhled.
+## Která to jsou, říká src/data/videa.json.
+videa-web:
+	@python3 tools/video.py --web $$(python3 -c "import json;print(' '.join(v['soubor'] for v in json.load(open('src/data/videa.json'))['videa']))")
 
 ## Všechna témata programu: hlas z textu a z něj video.
 ## Mluvení je placené, takže se přeskakuje, co už hlas má — viz tools/hlas.py.

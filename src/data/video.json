@@ -217,7 +217,8 @@
     "zvuk_utlum": [
       79.8,
       1.4
-    ]
+    ],
+    "poster": "valdauf.png"
   },
   "zdravotnictvi-verka": {
     "_": "Přepsáno ze zvuku. Whisper slyšel „s jeho českým krajem“, „skvalitnění“, „znovu zavedení“, „návštědních“ a „lékařem po hotovosti“ — opraveno podle program.json.",
