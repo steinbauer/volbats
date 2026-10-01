@@ -473,6 +473,10 @@ def sestav(scenar: dict, web: dict, prac: Path, jmeno: str) -> Path:
     zvuk = []
     if scenar.get('deesser'):
         zvuk.append(DEESSER)
+    # Úprava nahrávky z telefonu (sykavky, lupnutí) jako řetězec ffmpeg filtrů —
+    # zdroj zůstává, jak přišel, a nastavení se dá doladit bez nového stříhání.
+    if scenar.get('zvuk_filtr'):
+        zvuk.append(scenar['zvuk_filtr'])
     posun = scenar.get('zvuk_posun', 0)
     if posun:
         zvuk.append(f'adelay={int(posun * 1000)}:all=1')

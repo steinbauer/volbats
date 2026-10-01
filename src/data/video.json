@@ -439,5 +439,191 @@
         "text": "I proto jsme vybudovali například multifunkční hřiště."
       }
     ]
+  },
+  "deti-verka": {
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně, střihy ale posunuté na hranice vět (její osa čas neřešila). Workout a bikepark nejsou z Trhových Svinů, proto jsou překreslené na akvarel, stejně jako závěrečný přeškrtnutý mobil a drogy. Titulky přepsané whisperem, opraveno „Jihočeským krajem“, „Ke Střelnici“, „bikepark“. Věta o skládce je vyměněná za novou nahrávku od lídryně (1. 10. 2026) — původně řekla „Na Spořilově“, správně je „Ke Střelnici“; vlepená v tichu mezi větami, o 1,3 dB zesílená na hlasitost zbytku, a všechno za ní je o 0,25 s později.",
+    "nazev": "Záleží nám na dětech",
+    "zvuk": "hlas-deti.m4a",
+    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
+    "prechod": 0.4,
+    "zabery": [
+      {
+        "uvod": true,
+        "do": 6.6,
+        "podtitul": "Záleží nám na dětech"
+      },
+      {
+        "obraz": "jazykova-ucebna.jpg",
+        "do": 8.6
+      },
+      {
+        "obraz": "ucebna.jpg",
+        "do": 10.5
+      },
+      {
+        "obraz": "venkovni-ucebna.jpg",
+        "do": 12.8
+      },
+      {
+        "obraz": "telocvicna.jpg",
+        "do": 15.4
+      },
+      {
+        "obraz": "jidelna.jpg",
+        "do": 18.2
+      },
+      {
+        "obraz": "kuchyne.jpg",
+        "do": 19.7
+      },
+      {
+        "obraz": "prirodni-zahrada.jpg",
+        "do": 22.6
+      },
+      {
+        "obraz": "skolkova-zahrada.jpg",
+        "do": 25.3
+      },
+      {
+        "obraz": "zluta-trida.jpg",
+        "do": 27.0
+      },
+      {
+        "obraz": "zluta-trida-umyvarna.jpg",
+        "do": 28.7
+      },
+      {
+        "obraz": "prakticka-skola.jpg",
+        "do": 32.0
+      },
+      {
+        "obraz": "prakticka-skola2.jpg",
+        "do": 35.4
+      },
+      {
+        "obraz": "hacha.jpg",
+        "do": 40.5
+      },
+      {
+        "obraz": "workout.jpg",
+        "do": 48.8
+      },
+      {
+        "obraz": "skladka.jpg",
+        "do": 50.9
+      },
+      {
+        "obraz": "skladka2.jpg",
+        "do": 52.2
+      },
+      {
+        "obraz": "skladka-mapa.jpg",
+        "do": 53.75
+      },
+      {
+        "obraz": "bikepark.jpg",
+        "do": 56.45
+      },
+      {
+        "obraz": "mobily-drogy.jpg",
+        "do": 62.85
+      },
+      {
+        "koncovka": true,
+        "do": 67.25
+      }
+    ],
+    "titulky": [
+      {
+        "od": 0.7,
+        "do": 2.4,
+        "text": "Záleží nám na dětech."
+      },
+      {
+        "od": 3.3,
+        "do": 6.3,
+        "text": "To jsme dokázali mnoha investicemi do školství."
+      },
+      {
+        "od": 7.0,
+        "do": 10.4,
+        "text": "Na základní škole jsme modernizovali učebny,"
+      },
+      {
+        "od": 10.6,
+        "do": 12.6,
+        "text": "zřídili venkovní učebnu,"
+      },
+      {
+        "od": 12.95,
+        "do": 15.3,
+        "text": "vyměnili podlahu v tělocvičně,"
+      },
+      {
+        "od": 15.55,
+        "do": 19.4,
+        "text": "zrekonstruovali celou školní jídelnu včetně kuchyně."
+      },
+      {
+        "od": 20.0,
+        "do": 22.5,
+        "text": "V mateřské škole Čtyřlístek"
+      },
+      {
+        "od": 22.7,
+        "do": 25.3,
+        "text": "jsme vybudovali novou přírodní zahradu"
+      },
+      {
+        "od": 25.3,
+        "do": 28.1,
+        "text": "a v Berušce novou žlutou třídu."
+      },
+      {
+        "od": 29.25,
+        "do": 31.6,
+        "text": "Chceme investovat do oprav budovy,"
+      },
+      {
+        "od": 31.6,
+        "do": 35.3,
+        "text": "kde sídlí praktická škola zřizovaná Jihočeským krajem"
+      },
+      {
+        "od": 35.4,
+        "do": 39.8,
+        "text": "a která je zároveň rodným domem prezidenta Emila Háchy."
+      },
+      {
+        "od": 41.0,
+        "do": 44.2,
+        "text": "Chceme se zaměřit na investice do míst"
+      },
+      {
+        "od": 44.2,
+        "do": 47.95,
+        "text": "pro volnočasové aktivity i pro starší děti."
+      },
+      {
+        "od": 49.5,
+        "do": 53.6,
+        "text": "Chceme prověřit prostor bývalé skládky Ke Střelnici"
+      },
+      {
+        "od": 53.7,
+        "do": 55.75,
+        "text": "a vybudovat zde bikepark."
+      },
+      {
+        "od": 57.15,
+        "do": 59.65,
+        "text": "Chceme dětem nabídnout jinou zábavu,"
+      },
+      {
+        "od": 59.65,
+        "do": 62.65,
+        "text": "než jsou mobily, nebo dokonce drogy."
+      }
+    ]
   }
 }

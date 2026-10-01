@@ -2,6 +2,12 @@
   "_": "Videa k tématům programu. Klíč sekce odpovídá slugu v program.json, soubor jménu v public/videa/ — tam leží zmenšená kopie a náhledový obrázek, oboje vyrábí tools/video.py --web. Pořadí v seznamu je pořadí, ve kterém se mezi videi přeskakuje.",
   "videa": [
     {
+      "sekce": "deti",
+      "soubor": "deti-verka",
+      "nazev": "Záleží nám na dětech",
+      "delka": "1:07"
+    },
+    {
       "sekce": "seniori",
       "soubor": "seniori",
       "nazev": "Záleží nám na seniorech",
