@@ -626,5 +626,219 @@
         "text": "než jsou mobily, nebo dokonce drogy."
       }
     ]
+  },
+  "cestovni-ruch-verka": {
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (1. 10. 2026), střihy posunuté na hranice vět — její osa šla po pěti vteřinách a za hlasem měla devatenáct vteřin ticha. Hlas je z jejího videa, uříznutý za poslední větou. Titulky přepsané whisperem, opraveno „cyklostezky“, „stezku Trhovosvinensko“, „Trhové Sviny zbožné i hříšné“, „podkroví stodoly“, „Pavel Tigrid“, „kapli na Rejtech“; řekla „a nová expozice“, v titulku je mluvnicky „a novou expozici“. Snímek WA0008 z hamru ve střihu nepoužila, tak tu není ani on. Náhled na webu je kresba hamru z kresby/, stejně jako u dětí kreslená škola.",
+    "nazev": "Záleží nám na cestovním ruchu",
+    "zvuk": "hlas-cestovni-ruch.m4a",
+    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
+    "prechod": 0.4,
+    "poster": "hamr.jpg",
+    "zabery": [
+      {
+        "uvod": true,
+        "do": 6.1,
+        "podtitul": "Záleží nám na cestovním ruchu"
+      },
+      {
+        "obraz": "kic.jpg",
+        "do": 15.6
+      },
+      {
+        "obraz": "cyklostezka-borovany.jpg",
+        "do": 21.5
+      },
+      {
+        "obraz": "stezka-trhovosvinensko.jpg",
+        "do": 26.75
+      },
+      {
+        "obraz": "stezka-kolinuv-mlyn.jpg",
+        "do": 29.06
+      },
+      {
+        "obraz": "stezka-zbozne-hrisne.jpg",
+        "do": 31.82
+      },
+      {
+        "obraz": "buskuv-hamr.jpg",
+        "do": 39.41
+      },
+      {
+        "obraz": "hamr-podkrovi-stodoly.jpg",
+        "do": 43.15
+      },
+      {
+        "obraz": "hamr-expozice.jpg",
+        "do": 45.3
+      },
+      {
+        "obraz": "hamr-expozice2.jpg",
+        "do": 47.43
+      },
+      {
+        "obraz": "naves.jpg",
+        "do": 55.98
+      },
+      {
+        "obraz": "kaple-rejta.jpg",
+        "do": 59.21
+      },
+      {
+        "obraz": "radnice.jpg",
+        "do": 61.58
+      },
+      {
+        "obraz": "stara-posta.jpg",
+        "do": 62.98
+      },
+      {
+        "obraz": "pamatnik-padlych.jpg",
+        "do": 66.92
+      },
+      {
+        "obraz": "knihy1.jpg",
+        "do": 72.42
+      },
+      {
+        "obraz": "knihy3.jpg",
+        "do": 74.84
+      },
+      {
+        "obraz": "knihy2.jpg",
+        "do": 78.6
+      },
+      {
+        "koncovka": true,
+        "do": 83.0
+      }
+    ],
+    "titulky": [
+      {
+        "od": 0.9,
+        "do": 3.5,
+        "text": "Záleží nám na cestovním ruchu,"
+      },
+      {
+        "od": 3.6,
+        "do": 6.0,
+        "text": "na historii a památkách ve městě."
+      },
+      {
+        "od": 6.15,
+        "do": 11.6,
+        "text": "Podporujeme činnost Kulturního informačního centra,"
+      },
+      {
+        "od": 11.75,
+        "do": 15.5,
+        "text": "pro které jsme zařídili nové prostory na náměstí."
+      },
+      {
+        "od": 15.6,
+        "do": 18.4,
+        "text": "Chceme znovu prověřit možnosti"
+      },
+      {
+        "od": 18.4,
+        "do": 21.4,
+        "text": "zřízení cyklostezky do Borovan,"
+      },
+      {
+        "od": 21.5,
+        "do": 24.39,
+        "text": "tak jako se nám povedlo obnovit"
+      },
+      {
+        "od": 24.39,
+        "do": 26.75,
+        "text": "naučnou stezku Trhovosvinensko"
+      },
+      {
+        "od": 26.75,
+        "do": 29.06,
+        "text": "a nově zřídit naučnou stezku"
+      },
+      {
+        "od": 29.06,
+        "do": 31.7,
+        "text": "Trhové Sviny zbožné i hříšné."
+      },
+      {
+        "od": 31.82,
+        "do": 35.4,
+        "text": "Chceme další investice do oprav"
+      },
+      {
+        "od": 35.4,
+        "do": 39.3,
+        "text": "i do zatraktivnění Buškova hamru,"
+      },
+      {
+        "od": 39.41,
+        "do": 41.79,
+        "text": "tak jako se nám povedlo zpřístupnit"
+      },
+      {
+        "od": 41.79,
+        "do": 45.6,
+        "text": "podkroví stodoly a novou expozici o řemeslech."
+      },
+      {
+        "od": 47.43,
+        "do": 49.28,
+        "text": "Jak řekl Pavel Tigrid,"
+      },
+      {
+        "od": 49.28,
+        "do": 51.7,
+        "text": "„památky jsou naše moře“,"
+      },
+      {
+        "od": 51.77,
+        "do": 53.8,
+        "text": "proto chceme dále investovat"
+      },
+      {
+        "od": 53.8,
+        "do": 55.9,
+        "text": "do renovací památek ve městě."
+      },
+      {
+        "od": 55.98,
+        "do": 59.1,
+        "text": "Tak jako jsme opravili kapli na Rejtech,"
+      },
+      {
+        "od": 59.21,
+        "do": 62.9,
+        "text": "fasádu historické radnice i staré pošty"
+      },
+      {
+        "od": 62.98,
+        "do": 66.8,
+        "text": "a zrekonstruovali památník padlých na náměstí."
+      },
+      {
+        "od": 66.92,
+        "do": 70.21,
+        "text": "Chceme dále podporovat vydávání knih"
+      },
+      {
+        "od": 70.21,
+        "do": 72.4,
+        "text": "o historii našeho města,"
+      },
+      {
+        "od": 72.42,
+        "do": 74.8,
+        "text": "včetně místních částí,"
+      },
+      {
+        "od": 74.84,
+        "do": 77.6,
+        "text": "tak jako jsme s jejich vydáváním začali."
+      }
+    ]
   }
 }

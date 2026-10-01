@@ -30,6 +30,12 @@
       "soubor": "sport-verka",
       "nazev": "Záleží nám na sportu",
       "delka": "0:37"
+    },
+    {
+      "sekce": "cestovni-ruch",
+      "soubor": "cestovni-ruch-verka",
+      "nazev": "Záleží nám na cestovním ruchu",
+      "delka": "1:23"
     }
   ]
 }
