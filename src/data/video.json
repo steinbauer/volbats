@@ -446,6 +446,7 @@
     "zvuk": "hlas-deti.m4a",
     "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
     "prechod": 0.4,
+    "poster": "zakladka.jpg",
     "zabery": [
       {
         "uvod": true,
