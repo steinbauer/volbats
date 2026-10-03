@@ -840,5 +840,145 @@
         "text": "tak jako jsme s jejich vydáváním začali."
       }
     ]
+  },
+  "zivotni-prostredi-verka": {
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět. Hlas je z jejího videa, uříznutý za poslední větou. Popelnice (popel.webp) byly malý snímek z internetu — Gemini ho odmítl zvětšit, protože ho poznal jako cizí obrázek — proto jsou překreslené na akvarel. Titulky přepsané whisperem, opraveno „svoz“. Náhled na webu je kresba Luční nádrže z kresby/.",
+    "nazev": "Záleží nám na životním prostředí",
+    "zvuk": "hlas-zivotni-prostredi.m4a",
+    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
+    "prechod": 0.4,
+    "poster": "lucni-nadrz.jpg",
+    "zabery": [
+      {
+        "uvod": true,
+        "do": 4.8,
+        "podtitul": "Záleží nám na životním prostředí"
+      },
+      {
+        "obraz": "lom-mapa.jpg",
+        "do": 8.54
+      },
+      {
+        "obraz": "zivec-clanek.jpg",
+        "do": 13.0,
+        "pohyb": "klid"
+      },
+      {
+        "obraz": "vltaviny-mapa.jpg",
+        "do": 17.08
+      },
+      {
+        "obraz": "vltaviny-jamy.jpg",
+        "do": 20.4
+      },
+      {
+        "obraz": "vltaviny-kratery.jpg",
+        "do": 24.6
+      },
+      {
+        "obraz": "popelnice.jpg",
+        "do": 30.4
+      },
+      {
+        "obraz": "trideny-odpad.jpg",
+        "do": 32.44
+      },
+      {
+        "obraz": "trideny-odpad2.jpg",
+        "do": 33.8
+      },
+      {
+        "obraz": "trideny-odpad3.jpg",
+        "do": 35.2
+      },
+      {
+        "obraz": "kurovec-paseka.jpg",
+        "do": 37.48
+      },
+      {
+        "obraz": "kurovec-les.jpg",
+        "do": 39.28
+      },
+      {
+        "obraz": "kurovec-les2.jpg",
+        "do": 42.4
+      },
+      {
+        "koncovka": true,
+        "do": 46.8
+      }
+    ],
+    "titulky": [
+      {
+        "od": 1.8,
+        "do": 3.98,
+        "text": "Záleží nám na životním prostředí."
+      },
+      {
+        "od": 5.2,
+        "do": 8.54,
+        "text": "Chceme jasné vyjádření města proti"
+      },
+      {
+        "od": 8.54,
+        "do": 10.06,
+        "text": "otevření lomu na živec"
+      },
+      {
+        "od": 10.06,
+        "do": 12.56,
+        "text": "v blízkosti Třebíčka a Čeřejova."
+      },
+      {
+        "od": 13.75,
+        "do": 17.08,
+        "text": "Chceme jasné vyjádření města proti"
+      },
+      {
+        "od": 17.08,
+        "do": 20.2,
+        "text": "nelegální těžbě vltavínů na našem území"
+      },
+      {
+        "od": 20.4,
+        "do": 23.8,
+        "text": "a zvýšení úsilí k jejímu zamezení."
+      },
+      {
+        "od": 25.2,
+        "do": 27.48,
+        "text": "Chceme lépe řešit svoz odpadu"
+      },
+      {
+        "od": 27.48,
+        "do": 30.04,
+        "text": "a snížit tím náklady na něj."
+      },
+      {
+        "od": 31.2,
+        "do": 32.44,
+        "text": "Chceme kultivovat"
+      },
+      {
+        "od": 32.44,
+        "do": 34.3,
+        "text": "stání na tříděný odpad."
+      },
+      {
+        "od": 35.59,
+        "do": 38.22,
+        "text": "Chceme bránit kůrovcovým kalamitám"
+      },
+      {
+        "od": 38.22,
+        "do": 39.28,
+        "text": "v našich lesích"
+      },
+      {
+        "od": 39.28,
+        "do": 41.72,
+        "text": "výsadbou smíšených lesů."
+      }
+    ]
   }
 }
