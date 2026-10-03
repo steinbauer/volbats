@@ -842,12 +842,12 @@
     ]
   },
   "zivotni-prostredi-verka": {
-    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět. Hlas je z jejího videa, uříznutý za poslední větou. Popelnice (popel.webp) byly malý snímek z internetu — Gemini ho odmítl zvětšit, protože ho poznal jako cizí obrázek — proto jsou překreslené na akvarel. Titulky přepsané whisperem, opraveno „svoz“. Náhled na webu je kresba lesa po kůrovci podle její fotky (kresby/).",
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět. Hlas je z jejího videa, uříznutý za poslední větou. Popelnice (popel.webp) byly malý snímek z internetu — Gemini ho odmítl zvětšit, protože ho poznal jako cizí obrázek — proto jsou překreslené na akvarel. Titulky přepsané whisperem, opraveno „svoz“. Náhled na webu je kresba Luční nádrže z kresby/, vybral Kamil.",
     "nazev": "Záleží nám na životním prostředí",
     "zvuk": "hlas-zivotni-prostredi.m4a",
     "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
     "prechod": 0.4,
-    "poster": "les-vyhled.jpg",
+    "poster": "lucni-nadrz.jpg",
     "zabery": [
       {
         "uvod": true,
@@ -982,12 +982,12 @@
     ]
   },
   "zelen-ve-meste-verka": {
-    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět — její osa šla po pěti vteřinách a za hlasem měla dvacet vteřin ticha. Hlas je z jejího videa, uříznutý za poslední větou; v pauze 34,9–36,3 s byl slyšet hluk od souseda, o kterém psala, tak je ztlumená na ticho jako ostatní pauzy. Mozaiková seč (fotka ze Zvolena) a obě trvalky jsou podle ní jen ilustrační, proto překreslené na akvarel. Kašna a truhlíky s letničkami v mailu nebyly, jsou vzaté z jejího videa. Fotka nové2.jpg (hřiště s novými stromy) v jejím střihu není, tak tu není ani ona. Titulky přepsané whisperem, opraveno „zeleni“ a „Weyszerův park“. Náhled na webu je kresba Weyszerova parku podle její fotky (kresby/). Všechny záběry mají jednotný tvar pole (vypln: pole), ať obraz mezi nimi neskáče; sucho na náměstí je nová fotka bez auta od Kamila, dořezaná tak, aby se vešla celá kašna, a břízy u přehrady jsou jeho lepší výřez (3. 10. 2026).",
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět — její osa šla po pěti vteřinách a za hlasem měla dvacet vteřin ticha. Hlas je z jejího videa, uříznutý za poslední větou; v pauze 34,9–36,3 s byl slyšet hluk od souseda, o kterém psala, tak je ztlumená na ticho jako ostatní pauzy. Mozaiková seč (fotka ze Zvolena) a obě trvalky jsou podle ní jen ilustrační, proto překreslené na akvarel. Kašna a truhlíky s letničkami v mailu nebyly, jsou vzaté z jejího videa. Fotka nové2.jpg (hřiště s novými stromy) v jejím střihu není, tak tu není ani ona. Titulky přepsané whisperem, opraveno „zeleni“ a „Weyszerův park“. Náhled na webu je kresba parku z kresby/ (park1), vybral Kamil. Všechny záběry mají jednotný tvar pole (vypln: pole), ať obraz mezi nimi neskáče; sucho na náměstí je nová fotka bez auta od Kamila, dořezaná na suchý trávník vedle kašny, a břízy u přehrady jsou jeho lepší výřez (3. 10. 2026). Druhá fotka Weyszerova parku je vyřazená — vedle třetí, skoro stejné, vypadalo prolnutí jako dvě fotky přes sebe.",
     "nazev": "Záleží nám na zeleni ve městě",
     "zvuk": "hlas-zelen-ve-meste.m4a",
     "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
     "prechod": 0.4,
-    "poster": "weyszeruv-park-kresba.jpg",
+    "poster": "park1.jpg",
     "zabery": [
       {
         "uvod": true,
@@ -1037,11 +1037,6 @@
       {
         "obraz": "weyszeruv-park.jpg",
         "do": 31.42,
-        "vypln": "pole"
-      },
-      {
-        "obraz": "weyszeruv-park2.jpg",
-        "do": 32.5,
         "vypln": "pole"
       },
       {
