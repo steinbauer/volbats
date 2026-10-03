@@ -842,12 +842,12 @@
     ]
   },
   "zivotni-prostredi-verka": {
-    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět. Hlas je z jejího videa, uříznutý za poslední větou. Popelnice (popel.webp) byly malý snímek z internetu — Gemini ho odmítl zvětšit, protože ho poznal jako cizí obrázek — proto jsou překreslené na akvarel. Titulky přepsané whisperem, opraveno „svoz“. Náhled na webu je kresba Luční nádrže z kresby/.",
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět. Hlas je z jejího videa, uříznutý za poslední větou. Popelnice (popel.webp) byly malý snímek z internetu — Gemini ho odmítl zvětšit, protože ho poznal jako cizí obrázek — proto jsou překreslené na akvarel. Titulky přepsané whisperem, opraveno „svoz“. Náhled na webu je kresba lesa po kůrovci podle její fotky (kresby/).",
     "nazev": "Záleží nám na životním prostředí",
     "zvuk": "hlas-zivotni-prostredi.m4a",
     "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
     "prechod": 0.4,
-    "poster": "lucni-nadrz.jpg",
+    "poster": "les-vyhled.jpg",
     "zabery": [
       {
         "uvod": true,
@@ -982,12 +982,12 @@
     ]
   },
   "zelen-ve-meste-verka": {
-    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět — její osa šla po pěti vteřinách a za hlasem měla dvacet vteřin ticha. Hlas je z jejího videa, uříznutý za poslední větou; v pauze 34,9–36,3 s byl slyšet hluk od souseda, o kterém psala, tak je ztlumená na ticho jako ostatní pauzy. Mozaiková seč (fotka ze Zvolena) a obě trvalky jsou podle ní jen ilustrační, proto překreslené na akvarel. Kašna a truhlíky s letničkami v mailu nebyly, jsou vzaté z jejího videa. Fotka nové2.jpg (hřiště s novými stromy) v jejím střihu není, tak tu není ani ona. Titulky přepsané whisperem, opraveno „zeleni“ a „Weyszerův park“. Náhled na webu je kresba parku z kresby/.",
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět — její osa šla po pěti vteřinách a za hlasem měla dvacet vteřin ticha. Hlas je z jejího videa, uříznutý za poslední větou; v pauze 34,9–36,3 s byl slyšet hluk od souseda, o kterém psala, tak je ztlumená na ticho jako ostatní pauzy. Mozaiková seč (fotka ze Zvolena) a obě trvalky jsou podle ní jen ilustrační, proto překreslené na akvarel. Kašna a truhlíky s letničkami v mailu nebyly, jsou vzaté z jejího videa. Fotka nové2.jpg (hřiště s novými stromy) v jejím střihu není, tak tu není ani ona. Titulky přepsané whisperem, opraveno „zeleni“ a „Weyszerův park“. Náhled na webu je kresba Weyszerova parku podle její fotky (kresby/). Všechny záběry mají jednotný tvar pole (vypln: pole), ať obraz mezi nimi neskáče; sucho na náměstí je nová fotka bez auta od Kamila, dořezaná tak, aby se vešla celá kašna, a břízy u přehrady jsou jeho lepší výřez (3. 10. 2026).",
     "nazev": "Záleží nám na zeleni ve městě",
     "zvuk": "hlas-zelen-ve-meste.m4a",
     "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
     "prechod": 0.4,
-    "poster": "park1.jpg",
+    "poster": "weyszeruv-park-kresba.jpg",
     "zabery": [
       {
         "uvod": true,
@@ -996,63 +996,79 @@
       },
       {
         "obraz": "sucho-namesti.jpg",
-        "do": 8.54
+        "do": 8.54,
+        "vypln": "pole"
       },
       {
         "obraz": "sucho-trznice.jpg",
-        "do": 11.38
+        "do": 11.38,
+        "vypln": "pole"
       },
       {
         "obraz": "mozaikova-sec.jpg",
-        "do": 15.7
+        "do": 15.7,
+        "vypln": "pole"
       },
       {
         "obraz": "nove-stromy.jpg",
-        "do": 17.74
+        "do": 17.74,
+        "vypln": "pole"
       },
       {
         "obraz": "nove-stromy2.jpg",
-        "do": 19.9
+        "do": 19.9,
+        "vypln": "pole"
       },
       {
         "obraz": "brizy-u-prehrady.jpg",
-        "do": 22.08
+        "do": 22.08,
+        "vypln": "pole"
       },
       {
         "obraz": "strom-roku.jpg",
-        "do": 24.5
+        "do": 24.5,
+        "vypln": "pole"
       },
       {
         "obraz": "alej-ke-hrbitovu.jpg",
-        "do": 28.8
+        "do": 28.8,
+        "vypln": "pole"
       },
       {
         "obraz": "weyszeruv-park.jpg",
-        "do": 31.42
+        "do": 31.42,
+        "vypln": "pole"
       },
       {
         "obraz": "weyszeruv-park2.jpg",
-        "do": 32.5
+        "do": 32.5,
+        "vypln": "pole"
       },
       {
         "obraz": "weyszeruv-park3.jpg",
-        "do": 35.9
+        "do": 35.9,
+        "vypln": "pole"
       },
       {
         "obraz": "kasna-letnicky.jpg",
-        "do": 38.42
+        "do": 38.42,
+        "vypln": "pole"
       },
       {
         "obraz": "truhliky-letnicky.jpg",
-        "do": 41.2
+        "do": 41.2,
+        "vypln": "pole",
+        "vyrez": "nahoru"
       },
       {
         "obraz": "trvalky.jpg",
-        "do": 45.62
+        "do": 45.62,
+        "vypln": "pole"
       },
       {
         "obraz": "trvalky2.jpg",
-        "do": 49.0
+        "do": 49.0,
+        "vypln": "pole"
       },
       {
         "koncovka": true,
