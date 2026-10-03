@@ -980,5 +980,176 @@
         "text": "výsadbou smíšených lesů."
       }
     ]
+  },
+  "zelen-ve-meste-verka": {
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět — její osa šla po pěti vteřinách a za hlasem měla dvacet vteřin ticha. Hlas je z jejího videa, uříznutý za poslední větou; v pauze 34,9–36,3 s byl slyšet hluk od souseda, o kterém psala, tak je ztlumená na ticho jako ostatní pauzy. Mozaiková seč (fotka ze Zvolena) a obě trvalky jsou podle ní jen ilustrační, proto překreslené na akvarel. Kašna a truhlíky s letničkami v mailu nebyly, jsou vzaté z jejího videa. Fotka nové2.jpg (hřiště s novými stromy) v jejím střihu není, tak tu není ani ona. Titulky přepsané whisperem, opraveno „zeleni“ a „Weyszerův park“. Náhled na webu je kresba parku z kresby/.",
+    "nazev": "Záleží nám na zeleni ve městě",
+    "zvuk": "hlas-zelen-ve-meste.m4a",
+    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
+    "prechod": 0.4,
+    "poster": "park1.jpg",
+    "zabery": [
+      {
+        "uvod": true,
+        "do": 4.8,
+        "podtitul": "Záleží nám na zeleni ve městě"
+      },
+      {
+        "obraz": "sucho-namesti.jpg",
+        "do": 8.54
+      },
+      {
+        "obraz": "sucho-trznice.jpg",
+        "do": 11.38
+      },
+      {
+        "obraz": "mozaikova-sec.jpg",
+        "do": 15.7
+      },
+      {
+        "obraz": "nove-stromy.jpg",
+        "do": 17.74
+      },
+      {
+        "obraz": "nove-stromy2.jpg",
+        "do": 19.9
+      },
+      {
+        "obraz": "brizy-u-prehrady.jpg",
+        "do": 22.08
+      },
+      {
+        "obraz": "strom-roku.jpg",
+        "do": 24.5
+      },
+      {
+        "obraz": "alej-ke-hrbitovu.jpg",
+        "do": 28.8
+      },
+      {
+        "obraz": "weyszeruv-park.jpg",
+        "do": 31.42
+      },
+      {
+        "obraz": "weyszeruv-park2.jpg",
+        "do": 32.5
+      },
+      {
+        "obraz": "weyszeruv-park3.jpg",
+        "do": 35.9
+      },
+      {
+        "obraz": "kasna-letnicky.jpg",
+        "do": 38.42
+      },
+      {
+        "obraz": "truhliky-letnicky.jpg",
+        "do": 41.2
+      },
+      {
+        "obraz": "trvalky.jpg",
+        "do": 45.62
+      },
+      {
+        "obraz": "trvalky2.jpg",
+        "do": 49.0
+      },
+      {
+        "koncovka": true,
+        "do": 53.4
+      }
+    ],
+    "titulky": [
+      {
+        "od": 1.4,
+        "do": 3.7,
+        "text": "Záleží nám na zeleni ve městě."
+      },
+      {
+        "od": 5.0,
+        "do": 8.54,
+        "text": "Stále častější období sucha ukazují"
+      },
+      {
+        "od": 8.54,
+        "do": 11.3,
+        "text": "nutnost optimalizace seče trávníků,"
+      },
+      {
+        "od": 11.38,
+        "do": 14.34,
+        "text": "například tzv. mozaikovou sečí."
+      },
+      {
+        "od": 15.9,
+        "do": 17.74,
+        "text": "I díky dotacím jsme vysadili"
+      },
+      {
+        "od": 17.74,
+        "do": 19.42,
+        "text": "celou řadu nových stromů."
+      },
+      {
+        "od": 20.2,
+        "do": 22.08,
+        "text": "Pro ně, ale především"
+      },
+      {
+        "od": 22.08,
+        "do": 23.62,
+        "text": "pro stávající stromy,"
+      },
+      {
+        "od": 23.7,
+        "do": 26.2,
+        "text": "chceme daleko intenzivnější"
+      },
+      {
+        "od": 26.2,
+        "do": 27.36,
+        "text": "odbornou péči."
+      },
+      {
+        "od": 29.1,
+        "do": 31.42,
+        "text": "Kompletní revitalizaci chceme"
+      },
+      {
+        "od": 31.42,
+        "do": 32.5,
+        "text": "pro Weyszerův park"
+      },
+      {
+        "od": 32.5,
+        "do": 34.8,
+        "text": "u cesty ke Svaté Trojici."
+      },
+      {
+        "od": 36.36,
+        "do": 38.42,
+        "text": "Začali jsme s výrazně bohatší"
+      },
+      {
+        "od": 38.42,
+        "do": 40.64,
+        "text": "květinovou výzdobou na náměstí."
+      },
+      {
+        "od": 41.7,
+        "do": 43.48,
+        "text": "Výsadbu letniček chceme"
+      },
+      {
+        "od": 43.48,
+        "do": 45.62,
+        "text": "společně s odborníky přehodnotit"
+      },
+      {
+        "od": 45.62,
+        "do": 48.18,
+        "text": "a nahradit výsadbou trvalek."
+      }
+    ]
   }
 }
