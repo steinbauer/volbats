@@ -1162,5 +1162,202 @@
         "text": "a nahradit výsadbou trvalek."
       }
     ]
+  },
+  "mistni-casti-verka": {
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (3. 10. 2026), střihy posunuté na hranice vět, všechny záběry v jednotném tvaru pole. Hlas je z jejího videa, uříznutý za poslední větou. Ve střihu nepoužila letecký snímek Todně, snímek Rejty „dotace na kanál“ ani „Návrh bez názvu (4)“, tak tu nejsou ani ony. Titulky přepsané whisperem, opraveno „výstavbu“, „návsi“ (řekla „návsy“) a „Rejtech“. Letecké snímky nesou vodoznak ze-vzduchu.cz, nechaný tak, jak přišly.",
+    "nazev": "Záleží nám na místních částech",
+    "zvuk": "hlas-mistni-casti.m4a",
+    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
+    "prechod": 0.4,
+    "poster": "brezi.jpg",
+    "zabery": [
+      {
+        "uvod": true,
+        "do": 3.5,
+        "podtitul": "Záleží nám na místních částech"
+      },
+      {
+        "obraz": "bukvice-letecky.jpg",
+        "do": 6.24,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "nezetice-letecky.jpg",
+        "do": 9.6,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "vrt.jpg",
+        "do": 14.5,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "vrt2.jpg",
+        "do": 20.2,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "trojice-vodovod.jpg",
+        "do": 24.58,
+        "vypln": "pole",
+        "vyrez": "nahoru"
+      },
+      {
+        "obraz": "trojice-vodovod2.jpg",
+        "do": 26.7,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "rejta-letecky.jpg",
+        "do": 31.4,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "nechov-naves.jpg",
+        "do": 35.0,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "trojice-setkavani.jpg",
+        "do": 40.6,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "osadni-vybory.jpg",
+        "do": 48.4,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "todne-slavnost.jpg",
+        "do": 50.86,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "certi.jpg",
+        "do": 52.4,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "betlem.jpg",
+        "do": 54.6,
+        "vypln": "pole"
+      },
+      {
+        "koncovka": true,
+        "do": 59.0
+      }
+    ],
+    "titulky": [
+      {
+        "od": 0.4,
+        "do": 2.8,
+        "text": "Záleží nám na místních částech."
+      },
+      {
+        "od": 3.74,
+        "do": 6.24,
+        "text": "Prioritně chceme vyřešit výstavbu"
+      },
+      {
+        "od": 6.24,
+        "do": 9.06,
+        "text": "vodohospodářských sítí tam, kde chybí."
+      },
+      {
+        "od": 10.2,
+        "do": 12.48,
+        "text": "Chceme vybudovat vodovodní řady,"
+      },
+      {
+        "od": 12.64,
+        "do": 14.3,
+        "text": "které se napojí na vrty,"
+      },
+      {
+        "od": 14.82,
+        "do": 17.1,
+        "text": "které jsme i díky dotaci vybudovali"
+      },
+      {
+        "od": 17.1,
+        "do": 19.88,
+        "text": "v Hrádku, ve Březí a v Nežeticích."
+      },
+      {
+        "od": 20.5,
+        "do": 22.52,
+        "text": "Stejně jako se nám podařilo"
+      },
+      {
+        "od": 22.52,
+        "do": 24.58,
+        "text": "díky dotaci vybudovat vodovod"
+      },
+      {
+        "od": 24.58,
+        "do": 26.54,
+        "text": "i kanalizaci na Svatou Trojici"
+      },
+      {
+        "od": 26.9,
+        "do": 28.5,
+        "text": "a získat dotaci"
+      },
+      {
+        "od": 28.5,
+        "do": 30.28,
+        "text": "na kanalizaci na Rejtech."
+      },
+      {
+        "od": 32.0,
+        "do": 33.6,
+        "text": "Chceme kultivovat návsi,"
+      },
+      {
+        "od": 33.74,
+        "do": 34.92,
+        "text": "tak jako v Něchově,"
+      },
+      {
+        "od": 35.06,
+        "do": 38.22,
+        "text": "nebo vybudovat zázemí pro setkávání,"
+      },
+      {
+        "od": 38.26,
+        "do": 40.08,
+        "text": "tak jako na Svaté Trojici."
+      },
+      {
+        "od": 41.3,
+        "do": 43.1,
+        "text": "Chceme pokračovat v podpoře"
+      },
+      {
+        "od": 43.1,
+        "do": 44.32,
+        "text": "osadních výborů,"
+      },
+      {
+        "od": 44.6,
+        "do": 45.94,
+        "text": "v jejich zapojení"
+      },
+      {
+        "od": 45.94,
+        "do": 47.72,
+        "text": "do rozhodování o investicích."
+      },
+      {
+        "od": 48.9,
+        "do": 50.86,
+        "text": "Chceme pokračovat v podpoře"
+      },
+      {
+        "od": 50.86,
+        "do": 53.94,
+        "text": "spolkového života v místních částech."
+      }
+    ]
   }
 }
