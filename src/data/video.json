@@ -1164,10 +1164,10 @@
     ]
   },
   "mistni-casti-verka": {
-    "_": "Fotky a jejich pořadí jsou z videa od lídryně (3. 10. 2026), střihy posunuté na hranice vět, všechny záběry v jednotném tvaru pole. Hlas je z jejího videa, uříznutý za poslední větou. Ve střihu nepoužila letecký snímek Todně, snímek Rejty „dotace na kanál“ ani „Návrh bez názvu (4)“, tak tu nejsou ani ony. Titulky přepsané whisperem, opraveno „výstavbu“, „návsi“ (řekla „návsy“) a „Rejtech“. Letecké snímky nesou vodoznak ze-vzduchu.cz, nechaný tak, jak přišly.",
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (3. 10. 2026), střihy posunuté na hranice vět, všechny záběry v jednotném tvaru pole. Hlas je z jejího videa, uříznutý za poslední větou. Ve střihu nepoužila letecký snímek Todně, snímek Rejty „dotace na kanál“ ani „Návrh bez názvu (4)“, tak tu nejsou ani ony. Titulky přepsané whisperem, opraveno „výstavbu“, „návsi“ (řekla „návsy“) a „Rejtech“. Letecké snímky Bukvic a Nežetic jsou obecní, originály bez vodoznaku ale nejsou — vodoznak ze-vzduchu.cz (čtyři rohy a střed) je dokreslený pryč (LaMa, maska z vysázeného textu). Nahrávka má cvaknutí mikrofonu vyhlazená přímo v souboru (64 krátkých impulzů nad 6 kHz, v okně 6 ms nahrazených dolní propustí; adeclick jich nechával třetinu), proto filtr už jen de-esser.",
     "nazev": "Záleží nám na místních částech",
     "zvuk": "hlas-mistni-casti.m4a",
-    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
+    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5",
     "prechod": 0.4,
     "poster": "brezi.jpg",
     "zabery": [
