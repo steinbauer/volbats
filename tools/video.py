@@ -249,8 +249,15 @@ def vyfot(html: str, cil: Path, pruhledne: bool) -> None:
 def najdi_obraz(jmeno: str) -> Path:
     if (VIDEO / jmeno).is_file():
         return VIDEO / jmeno
-    for nalez in sorted(VIDEO.glob(f'*/{jmeno}')):
-        return nalez
+    # Obrázky se hledají jménem napříč složkami témat. Kdyby stejné jméno
+    # leželo ve dvou, vzal by se potichu ten první podle abecedy — a do videa
+    # by se dostala fotka z jiného tématu. Proto radši konec s chybou.
+    nalezy = sorted(VIDEO.glob(f'*/{jmeno}'))
+    if len(nalezy) > 1:
+        sys.exit(f'obrázek {jmeno} je ve více složkách: '
+                 + ', '.join(str(n.relative_to(VIDEO)) for n in nalezy))
+    if nalezy:
+        return nalezy[0]
     sys.exit(f'chybí obrázek {jmeno}')
 
 
