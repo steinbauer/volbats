@@ -842,10 +842,10 @@
     ]
   },
   "zivotni-prostredi-verka": {
-    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět. Hlas je z jejího videa, uříznutý za poslední větou. Popelnice (popel.webp) byly malý snímek z internetu — Gemini ho odmítl zvětšit, protože ho poznal jako cizí obrázek — proto jsou překreslené na akvarel. Titulky přepsané whisperem, opraveno „svoz“. Náhled na webu je kresba Luční nádrže z kresby/, vybral Kamil.",
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět. Hlas je z jejího videa, uříznutý za poslední větou. Popelnice (popel.webp) byly malý snímek z internetu — Gemini ho odmítl zvětšit, protože ho poznal jako cizí obrázek — proto jsou překreslené na akvarel. Titulky přepsané whisperem, opraveno „svoz“. Náhled na webu je kresba Luční nádrže z kresby/, vybral Kamil. Sykavky stažené silněji než u dřívějších videí (dělicí kmitočet 5 kHz, poměr 10:1) — Kamil je 4. 10. 2026 slyšel ostré; ve špičkách o 6–8 dB tišší proti řeči.",
     "nazev": "Záleží nám na životním prostředí",
     "zvuk": "hlas-zivotni-prostredi.m4a",
-    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
+    "zvuk_filtr": "asplit=2[n][v];[n]lowpass=f=5000[n2];[v]highpass=f=5000,acompressor=threshold=0.012:ratio=10:attack=0.5:release=40[v2];[n2][v2]amix=inputs=2:normalize=0,volume=4dB",
     "prechod": 0.4,
     "poster": "lucni-nadrz.jpg",
     "zabery": [
@@ -982,10 +982,10 @@
     ]
   },
   "zelen-ve-meste-verka": {
-    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět — její osa šla po pěti vteřinách a za hlasem měla dvacet vteřin ticha. Hlas je z jejího videa, uříznutý za poslední větou; v pauze 34,9–36,3 s byl slyšet hluk od souseda, o kterém psala, tak je ztlumená na ticho jako ostatní pauzy. Mozaiková seč (fotka ze Zvolena) a obě trvalky jsou podle ní jen ilustrační, proto překreslené na akvarel. Kašna a truhlíky s letničkami v mailu nebyly, jsou vzaté z jejího videa. Fotka nové2.jpg (hřiště s novými stromy) v jejím střihu není, tak tu není ani ona. Titulky přepsané whisperem, opraveno „zeleni“ a „Weyszerův park“. Náhled na webu je kresba parku z kresby/ (park1), vybral Kamil. Všechny záběry mají jednotný tvar pole (vypln: pole), ať obraz mezi nimi neskáče; sucho na náměstí je nová fotka bez auta od Kamila, dořezaná na suchý trávník vedle kašny, a břízy u přehrady jsou jeho lepší výřez (3. 10. 2026). Druhá fotka Weyszerova parku je vyřazená — vedle třetí, skoro stejné, vypadalo prolnutí jako dvě fotky přes sebe.",
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (2. 10. 2026), střihy posunuté na hranice vět — její osa šla po pěti vteřinách a za hlasem měla dvacet vteřin ticha. Hlas je z jejího videa, uříznutý za poslední větou; v pauze 34,9–36,3 s byl slyšet hluk od souseda, o kterém psala, tak je ztlumená na ticho jako ostatní pauzy. Mozaiková seč (fotka ze Zvolena) a obě trvalky jsou podle ní jen ilustrační, proto překreslené na akvarel. Kašna a truhlíky s letničkami v mailu nebyly, jsou vzaté z jejího videa. Fotka nové2.jpg (hřiště s novými stromy) v jejím střihu není, tak tu není ani ona. Titulky přepsané whisperem, opraveno „zeleni“ a „Weyszerův park“. Náhled na webu je kresba parku z kresby/ (park1), vybral Kamil. Všechny záběry mají jednotný tvar pole (vypln: pole), ať obraz mezi nimi neskáče; sucho na náměstí je nová fotka bez auta od Kamila, dořezaná na suchý trávník vedle kašny, a břízy u přehrady jsou jeho lepší výřez (3. 10. 2026). Druhá fotka Weyszerova parku je vyřazená — vedle třetí, skoro stejné, vypadalo prolnutí jako dvě fotky přes sebe. Sykavky stažené silněji než u dřívějších videí (dělicí kmitočet 5 kHz, poměr 10:1) — Kamil je 4. 10. 2026 slyšel ostré; ve špičkách o 6–8 dB tišší proti řeči.",
     "nazev": "Záleží nám na zeleni ve městě",
     "zvuk": "hlas-zelen-ve-meste.m4a",
-    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5,adeclick=t=1",
+    "zvuk_filtr": "asplit=2[n][v];[n]lowpass=f=5000[n2];[v]highpass=f=5000,acompressor=threshold=0.012:ratio=10:attack=0.5:release=40[v2];[n2][v2]amix=inputs=2:normalize=0,volume=4dB",
     "prechod": 0.4,
     "poster": "park1.jpg",
     "zabery": [
@@ -1164,10 +1164,10 @@
     ]
   },
   "mistni-casti-verka": {
-    "_": "Fotky a jejich pořadí jsou z videa od lídryně (3. 10. 2026), střihy posunuté na hranice vět, všechny záběry v jednotném tvaru pole. Hlas je z jejího videa, uříznutý za poslední větou. Ve střihu nepoužila letecký snímek Todně, snímek Rejty „dotace na kanál“ ani „Návrh bez názvu (4)“, tak tu nejsou ani ony. Titulky přepsané whisperem, opraveno „výstavbu“, „návsi“ (řekla „návsy“) a „Rejtech“. Letecké snímky Bukvic a Nežetic jsou obecní, originály bez vodoznaku ale nejsou — vodoznak ze-vzduchu.cz (čtyři rohy a střed) je dokreslený pryč (LaMa, maska z vysázeného textu). Nahrávka má cvaknutí mikrofonu vyhlazená přímo v souboru (64 krátkých impulzů nad 6 kHz, v okně 6 ms nahrazených dolní propustí; adeclick jich nechával třetinu), proto filtr už jen de-esser.",
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (3. 10. 2026), střihy posunuté na hranice vět, všechny záběry v jednotném tvaru pole. Hlas je z jejího videa, uříznutý za poslední větou. Ve střihu nepoužila letecký snímek Todně, snímek Rejty „dotace na kanál“ ani „Návrh bez názvu (4)“, tak tu nejsou ani ony. Titulky přepsané whisperem, opraveno „výstavbu“, „návsi“ (řekla „návsy“) a „Rejtech“. Letecké snímky Bukvic a Nežetic jsou obecní, originály bez vodoznaku ale nejsou — vodoznak ze-vzduchu.cz (čtyři rohy a střed) je dokreslený pryč (LaMa, maska z vysázeného textu). Nahrávka má cvaknutí mikrofonu vyhlazená přímo v souboru (64 krátkých impulzů nad 6 kHz, v okně 6 ms nahrazených dolní propustí; adeclick jich nechával třetinu). Sykavky stažené silněji než u dřívějších videí (dělicí kmitočet 5 kHz, poměr 10:1) — Kamil je 4. 10. 2026 slyšel ostré; ve špičkách o 6–8 dB tišší proti řeči.",
     "nazev": "Záleží nám na místních částech",
     "zvuk": "hlas-mistni-casti.m4a",
-    "zvuk_filtr": "deesser=i=0.3:m=0.5:f=0.5",
+    "zvuk_filtr": "asplit=2[n][v];[n]lowpass=f=5000[n2];[v]highpass=f=5000,acompressor=threshold=0.012:ratio=10:attack=0.5:release=40[v2];[n2][v2]amix=inputs=2:normalize=0,volume=4dB",
     "prechod": 0.4,
     "poster": "brezi.jpg",
     "zabery": [
