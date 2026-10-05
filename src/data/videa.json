@@ -14,6 +14,12 @@
       "delka": "0:30"
     },
     {
+      "sekce": "doprava",
+      "soubor": "doprava-verka",
+      "nazev": "Záleží nám na dopravě",
+      "delka": "1:29"
+    },
+    {
       "sekce": "zdravotnictvi",
       "soubor": "zdravotnictvi-verka",
       "nazev": "Záleží nám na zdravotnictví",

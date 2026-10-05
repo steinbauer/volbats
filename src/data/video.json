@@ -1359,5 +1359,266 @@
         "text": "spolkového života v místních částech."
       }
     ]
+  },
+  "doprava-verka": {
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (5. 10. 2026), střihy posunuté na hranice vět, všechny záběry v jednotném tvaru pole. Hlas poslala zvlášť jako nahrávku z telefonu, uříznutý za poslední větou. Letecký snímek náměstí ve střihu nepoužila, tak tu není. Výřezy map bez ovládání a lišty Windows; ve snímcích ze Street View je šipka, popisek ulice a ikonky podniků dokreslené pryč (průhledný kruh se šipkou odečtený výpočtem, zbytek LaMa). Úzký úsek u hřbitova je celý, se hřbitovem i silnicí na Borovany — lídryně chtěla hřbitov kvůli orientaci, a fotka je na pole moc široká (2,15 : 1), tak má nad a pod sebou krémovou plochu a stojí bez zoomu. Titulky přepsané whisperem, opraveno „Jihočeského“, „jimi“, „pod hřbitovem“, „přes novou halu firmy A. Schmied“, „na Borovany“, „u Strážkovic“ a „kde“ (whisper slyšel „kdež“). Sykavky stažené stejně jako u místních částí, navíc horní propust na 80 Hz proti bouchnutí do mikrofonu — hlas začíná nad 120 Hz.",
+    "nazev": "Záleží nám na dopravě",
+    "zvuk": "hlas-doprava.m4a",
+    "zvuk_filtr": "highpass=f=80,asplit=2[n][v];[n]lowpass=f=5000[n2];[v]highpass=f=5000,acompressor=threshold=0.012:ratio=10:attack=0.5:release=40[v2];[n2][v2]amix=inputs=2:normalize=0,volume=4dB",
+    "prechod": 0.4,
+    "poster": "trocnovska.jpg",
+    "zabery": [
+      {
+        "uvod": true,
+        "do": 3.8,
+        "podtitul": "Záleží nám na dopravě"
+      },
+      {
+        "obraz": "obchvat-mapa.jpg",
+        "do": 14.7,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "otevek-letecky.jpg",
+        "do": 20.7,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "pod-hrbitovem.jpg",
+        "do": 22.25,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "schmied-hala.jpg",
+        "do": 30.2,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "otevek-napojeni.jpg",
+        "do": 35.65,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "otevek-kruhac.jpg",
+        "do": 40.55,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "uzky-usek.jpg",
+        "do": 48.0,
+        "pohyb": "klid"
+      },
+      {
+        "obraz": "svodidla.jpg",
+        "do": 56.85,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "kruhac-borovany.jpg",
+        "do": 63.9,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "kruhac-strazkovice.jpg",
+        "do": 70.75,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "krizovatka-husova.jpg",
+        "do": 75.65,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "krizovatka-namesti.jpg",
+        "do": 84.3,
+        "vypln": "pole"
+      },
+      {
+        "koncovka": true,
+        "do": 88.7
+      }
+    ],
+    "titulky": [
+      {
+        "od": 0.89,
+        "do": 2.68,
+        "text": "Záleží nám na dopravě."
+      },
+      {
+        "od": 3.98,
+        "do": 5.53,
+        "text": "Pro řešení dopravy bude zásadní"
+      },
+      {
+        "od": 5.53,
+        "do": 8.36,
+        "text": "vybudování obchvatu města."
+      },
+      {
+        "od": 9.55,
+        "do": 10.58,
+        "text": "V minulosti jsme museli"
+      },
+      {
+        "od": 10.58,
+        "do": 12.75,
+        "text": "přesvědčit zástupce"
+      },
+      {
+        "od": 12.75,
+        "do": 14.25,
+        "text": "Jihočeského kraje,"
+      },
+      {
+        "od": 14.85,
+        "do": 17.71,
+        "text": "aby změnili jimi navrhovanou trasu,"
+      },
+      {
+        "od": 18.16,
+        "do": 20.46,
+        "text": "která vedla přes domy v Otěvěku,"
+      },
+      {
+        "od": 20.87,
+        "do": 22.05,
+        "text": "pod hřbitovem"
+      },
+      {
+        "od": 22.36,
+        "do": 24.89,
+        "text": "a přes novou halu firmy A. Schmied."
+      },
+      {
+        "od": 26.19,
+        "do": 27.87,
+        "text": "Na jednání o projektu"
+      },
+      {
+        "od": 28.13,
+        "do": 30.35,
+        "text": "na podzim v roce 2022"
+      },
+      {
+        "od": 30.35,
+        "do": 32.45,
+        "text": "jsme upozornili"
+      },
+      {
+        "od": 32.45,
+        "do": 34.18,
+        "text": "na možnou nebezpečnost"
+      },
+      {
+        "od": 34.18,
+        "do": 35.77,
+        "text": "napojení v Otěvěku"
+      },
+      {
+        "od": 35.77,
+        "do": 38.29,
+        "text": "a bylo nám přislíbeno,"
+      },
+      {
+        "od": 38.61,
+        "do": 40.67,
+        "text": "že se zde doplní kruhový objezd."
+      },
+      {
+        "od": 40.67,
+        "do": 44.46,
+        "text": "Dále jsme za nebezpečný považovali"
+      },
+      {
+        "od": 44.46,
+        "do": 46.31,
+        "text": "úsek mezi hřbitovem"
+      },
+      {
+        "od": 46.31,
+        "do": 48.11,
+        "text": "a silnicí na Borovany."
+      },
+      {
+        "od": 48.11,
+        "do": 50.42,
+        "text": "V projektu byla svodidla"
+      },
+      {
+        "od": 50.42,
+        "do": 52.82,
+        "text": "hned za krajnicí."
+      },
+      {
+        "od": 53.38,
+        "do": 54.92,
+        "text": "Bylo nám přislíbeno,"
+      },
+      {
+        "od": 55.06,
+        "do": 56.99,
+        "text": "že tento úsek bude rozšířen."
+      },
+      {
+        "od": 56.99,
+        "do": 60.58,
+        "text": "Za nedostatečnou jsme označili"
+      },
+      {
+        "od": 60.58,
+        "do": 62.51,
+        "text": "i velikost kruhového objezdu"
+      },
+      {
+        "od": 62.51,
+        "do": 64.03,
+        "text": "na silnici na Borovany."
+      },
+      {
+        "od": 64.03,
+        "do": 67.45,
+        "text": "I zde se měl kruhový objezd zvětšit,"
+      },
+      {
+        "od": 67.45,
+        "do": 69.29,
+        "text": "a to na velikost,"
+      },
+      {
+        "od": 69.43,
+        "do": 70.87,
+        "text": "jaká je u Strážkovic."
+      },
+      {
+        "od": 70.87,
+        "do": 73.19,
+        "text": "Na tomto jednání jsme se"
+      },
+      {
+        "od": 73.19,
+        "do": 75.79,
+        "text": "ale bohužel nedozvěděli,"
+      },
+      {
+        "od": 75.79,
+        "do": 78.25,
+        "text": "jak bude řešena křižovatka"
+      },
+      {
+        "od": 78.25,
+        "do": 79.64,
+        "text": "na náměstí,"
+      },
+      {
+        "od": 79.97,
+        "do": 82.12,
+        "text": "kde výrazně zesílí doprava"
+      },
+      {
+        "od": 82.12,
+        "do": 83.91,
+        "text": "Husovou ulicí."
+      }
+    ]
   }
 }
