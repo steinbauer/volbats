@@ -808,6 +808,14 @@ a:hover { text-decoration: underline; }
   }
 }
 
+.lightbox__foto {
+  display: block;
+  max-height: min(78vh, 1400px);
+  max-width: min(92vw, 1000px);
+  border-radius: 8px;
+  background: $plocha;
+}
+
 .lightbox__nazev {
   margin: 0;
   font-family: $pismo-nadpis;
@@ -1079,6 +1087,58 @@ a:hover { text-decoration: underline; }
 
 // Zpět na kandidátku + další kandidát. Vlastní třída kvůli zalomení: jméno
 // kandidáta se do řádku nevejde a na mobilu by roztahovalo stránku.
+// --- galerie fotek u medailonku -------------------------------------------
+// Dvojice před a po bývají na výšku; miniatura je ukazuje celé, bez ořezu.
+.fotogalerie {
+  margin-top: 2.5rem;
+}
+
+.fotogalerie__nadpis {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.fotogalerie__mrizka {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+
+  @include bs.media-breakpoint-down(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  button {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: 1px solid $linka;
+    background: $papir;
+    cursor: zoom-in;
+    text-align: left;
+    overflow: hidden;
+
+    &:focus-visible { outline: 3px solid $zluta; outline-offset: 2px; }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  button:hover img { transform: scale(1.04); }
+}
+
+.fotogalerie__popis {
+  padding: 0.5rem 0.65rem 0.6rem;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: $text-tlumeny;
+}
+
 .medailonek__navigace {
   display: flex;
   flex-wrap: wrap;

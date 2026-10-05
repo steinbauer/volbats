@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import Meta from '../components/Meta'
 import Prose from '../components/Prose'
 import KandidatFoto from '../components/KandidatFoto'
+import FotoGalerie from '../components/FotoGalerie'
 import { kandidati, maStranku } from '../data/lide'
 import NotFound from './NotFound'
 
@@ -66,6 +67,10 @@ export default function KandidatDetail() {
               <div className="text papir">
                 <Prose html={kandidat.zivotopis} />
               </div>
+
+              {kandidat.galerie?.length > 0 && (
+                <FotoGalerie fotky={kandidat.galerie} nazev="Před a po" />
+              )}
 
               <div className="medailonek__navigace mt-5">
                 <Link className="tlacitko tlacitko--obrys" to="/kandidati/">

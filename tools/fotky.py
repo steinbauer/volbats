@@ -7,12 +7,18 @@ si prohlížeč stáhl tu, kterou opravdu zobrazí.
 
     python3 tools/fotky.py <adresář s portréty>
     python3 tools/fotky.py --spolecna <soubor> [horní hrana] [spodní hrana]
+    python3 tools/fotky.py --galerie <předpona> <soubory…>
 
 Portréty se čekají pojmenované číslem kandidáta (1.jpg, 2.jpg, …) a výstup
 jde do src/obrazky/ jako kandidat-<číslo>-<šířka>.webp. Společná fotka se
 ukládá jako spolecna-<šířka>.webp; hrany ořezu se zadávají v pixelech
 originálu, protože na úvodní stránce sedí v horní části fotky logo a dole
 nemá zbýt zbytečný pás dlažby.
+
+Fotky do galerie u medailonku se neořezávají — bývají to dvojice před a po
+pod sebou a každý řez by jednu půlku ukousl. Ukládají se jako
+<předpona>-<jméno souboru>-<šířka>.webp; v kandidati.json se pak v poli
+`galerie` odkazují jménem bez šířky a přípony.
 """
 import sys
 from pathlib import Path
@@ -30,6 +36,10 @@ KVALITA = 82
 # Portrétu na dlaždici 82 stačí, ale na společné fotce přes celou šířku je
 # na fasádách a v davu poznat — tam se vyplatí přidat i za cenu kilobajtů.
 KVALITA_SPOLECNA = 90
+# Miniatura v mřížce a fotka v lightboxu přes výšku obrazovky. Dvojice
+# před a po bývají na výšku, takže 1400 px šířky dá i na velkém displeji
+# ostrý obraz a víc už předlohy od kandidátů stejně nemají.
+SIRKY_GALERIE = (400, 800, 1400)
 
 def uprav(zdroj: Path) -> list[str]:
     im = ImageOps.exif_transpose(Image.open(zdroj))   # srovná otočení z fotáku
@@ -77,7 +87,32 @@ def uprav_spolecnou(zdroj: Path, nahore: int = 0, dole: int | None = None) -> li
     return vytvorene
 
 
+def uprav_galerii(predpona: str, zdroj: Path) -> list[str]:
+    """Fotka do galerie: celá, jen zmenšená do srcsetu."""
+    im = ImageOps.exif_transpose(Image.open(zdroj))
+    if im.mode != 'RGB':
+        im = im.convert('RGB')
+    vytvorene = []
+    for sirka in SIRKY_GALERIE:
+        jmeno = f'{predpona}-{zdroj.stem}-{sirka}.webp'
+        # Menší předlohu nezvětšujeme; největší varianta pak je, jaká je.
+        cil = im if sirka >= im.width else im.resize(
+            (sirka, round(im.height * sirka / im.width)), Image.LANCZOS)
+        cil.save(CIL / jmeno, 'WEBP', quality=KVALITA, method=6)
+        vytvorene.append(jmeno)
+    return vytvorene
+
+
 def main():
+    if len(sys.argv) >= 4 and sys.argv[1] == '--galerie':
+        predpona, celkem = sys.argv[2], 0
+        for zdroj in map(Path, sys.argv[3:]):
+            for jmeno in uprav_galerii(predpona, zdroj):
+                celkem += (CIL / jmeno).stat().st_size
+            print(f'{zdroj.name:32} -> {predpona}-{zdroj.stem}-{{{",".join(map(str, SIRKY_GALERIE))}}}.webp')
+        print(f'\ncelkem {celkem / 1024 / 1024:.1f} MB')
+        return
+
     if len(sys.argv) in (3, 4, 5) and sys.argv[1] == '--spolecna':
         zdroj = Path(sys.argv[2])
         nahore = int(sys.argv[3]) if len(sys.argv) > 3 else 0
