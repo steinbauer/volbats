@@ -24,5 +24,9 @@
     "kandidat-21": [14, 64],
     "kandidat-22": [22, 62],
     "kandidat-23": [16, 64]
+  },
+  "_spodek": "Komu má být na kartě vidět i krk (přání kandidáta): spodní okraj rámu v procentech výšky snímku. Rám se pak řídí tímhle, ne celým temenem.",
+  "spodek": {
+    "kandidat-1": 80
   }
 }

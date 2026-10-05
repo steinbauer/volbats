@@ -53,6 +53,9 @@ S_TEXTEM_DO = 10
 # Svislý rozsah hlavy v každém portrétu, aby ořez neuťal temeno ani bradu.
 # Odečteno ručně, viz hlavička src/data/fotky-hlavy.json.
 HLAVY = nacti('fotky-hlavy.json')['hlavy']
+# Komu má být na kartě vidět i krk: spodní okraj rámu v procentech snímku.
+# Přednost má před celým temenem, které pak rám může uříznout.
+SPODEK = nacti('fotky-hlavy.json').get('spodek', {})
 
 PORTRET = (1200, 1600)   # všechny portréty kandidátů mají tenhle rozměr
 
@@ -121,6 +124,8 @@ def orez(klic: str, ram_sirka: float, ram_vyska: float) -> float:
     horni = (od + do) / 2 + 2 - vidno / 2
     # Uříznuté temeno je vidět víc než uříznutá ramena, tak má přednost.
     horni = min(horni, od - 2)
+    if klic in SPODEK:
+        horni = SPODEK[klic] - vidno
     return round(max(0.0, min(100.0, horni / (100 - vidno) * 100)), 1)
 
 
@@ -352,7 +357,7 @@ def karta_kandidat(k: dict, texty: dict, web: dict, varianta: str, format: str) 
     vidět.
     """
     t = texty.get(str(k['cislo']), {})
-    povolani = k['povolani']
+    povolani = t.get('povolani', k['povolani'])
     if k.get('cast') and k['cast'] != web['mesto']:
         povolani += f' · {k["cast"]}'
 
