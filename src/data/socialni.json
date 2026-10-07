@@ -202,5 +202,21 @@
       "text": "Investovat do hamru, podpořit opravy církevních staveb a znovu prověřit cyklostezku do Borovan.",
       "kdo": 9
     }
-  ]
+  ],
+  "vyzvy": {
+    "_": "Výzvy mimo karty kandidátů a témat, sází je tools/vyzvy.py. „Hoď tam 4!“ navrhla lídryně 7. 10. 2026 (křížek u celé strany, řazení z jedničky na čtyřku, zrychlení „fíí“ — to jen ve zvuku, napsané se jí nelíbí). Poděkování musí sedět na jakýkoli výsledek voleb: žádné „vyhráli“, „zvolení“ ani „mandát“.",
+    "hod-tam-4": {
+      "titulek": "Hoď tam <em>čtyřku!</em>",
+      "popisek": "Jeden křížek u čtyřky = hlas celému týmu."
+    },
+    "dekujeme": {
+      "titulek": "Děkujeme.",
+      "vety": [
+        "Za každý hlas, každý rozhovor i každou radu, kterou jste nám během kampaně dali.",
+        "Trhové Sviny jsou naše srdeční záležitost.",
+        "Pracovat pro ně budeme dál."
+      ],
+      "podpis": "Věra Korčaková a celý tým Volby pro město"
+    }
+  }
 }
