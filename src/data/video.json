@@ -1620,5 +1620,322 @@
         "text": "Husovou ulicí."
       }
     ]
+  },
+  "bezpecnost-verka": {
+    "_": "Fotky a jejich pořadí jsou z videa od lídryně (7. 10. 2026), střihy posunuté na hranice vět — její osa šla po pěti vteřinách. Fotky poslala zvlášť v zipu, ve kterém bylo i to, co ve střihu nepoužila (duplikát vykopávky, menší kopie fotky policie, další snímek Trocnovské, nový asfalt, čtvrtá fotka chodníku), tak tu není. Podle jejího mailu jsou první tři fotky chodníků z náměstí a další dvě z ulice Nové Město; střihy jsou posazené tak, že náměstí doběhne se slovem „náměstí“ a Nové Město začne s „nebo v dolní části“. Hlas poslala zvlášť jako nahrávku z telefonu (v jejím videu je tatáž, jen o 0,66 s posunutá), uříznutý za poslední větou. Ve snímcích ze Street View jsou popisky silnic, špendlík a kus ovládání dokreslené pryč LaMou; kruh se šipkou u Trocnovské je dokreslený celý, protože Street View pod ním obraz rozmazává a odečíst se nedal. Titulky přepsané whisperem, opraveno „Štefánikově“, „křižovatku“, „frekventovaných“, „Nové Město“, „dopravě“ a „Otěvěku“. Sykavky byly v nahrávce nejostřejší ze všech (+8,8 dB, některé až na plný rozsah), proto dělicí kmitočet 4 kHz a poměr 12:1 — ve špičkách vychází jako doprava. Pod 90 Hz nahrávka žádné bouchnutí nemá, horní propust na 80 Hz je jen pojistka. Náhled na webu je kresba radnice s autem městské policie, kterou poslala k videu; do poměru náhledu je doplněná papírem po stranách.",
+    "nazev": "Bezpečnost, chodníky, dodávky vody, městská policie",
+    "zvuk": "hlas-bezpecnost.mp3",
+    "zvuk_filtr": "highpass=f=80,asplit=2[n][v];[n]lowpass=f=4000[n2];[v]highpass=f=4000,acompressor=threshold=0.01:ratio=12:attack=0.3:release=40[v2];[n2][v2]amix=inputs=2:normalize=0,volume=4dB",
+    "prechod": 0.4,
+    "poster": "radnice-policie.jpg",
+    "zabery": [
+      {
+        "uvod": true,
+        "do": 9.8,
+        "podtitul": "Bezpečnost, chodníky, dodávky vody, městská policie"
+      },
+      {
+        "obraz": "stefanikova.jpg",
+        "do": 18.85,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "delnicka.jpg",
+        "do": 20.9,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "krizovatka-komenskeho.jpg",
+        "do": 26.3,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "chodnik-namesti1.jpg",
+        "do": 31.35,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "chodnik-namesti2.jpg",
+        "do": 34.1,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "chodnik-namesti3.jpg",
+        "do": 38.4,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "chodnik-nove-mesto1.jpg",
+        "do": 40.85,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "chodnik-nove-mesto2.jpg",
+        "do": 42.7,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "trocnovska-horni.jpg",
+        "do": 47.45,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "trocnovska-horni2.jpg",
+        "do": 55.65,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "porucha.jpg",
+        "do": 60.8,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "trocnovska-dolni-vykop1.jpg",
+        "do": 62.7,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "trocnovska-dolni-vykop2.jpg",
+        "do": 65.0,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "trocnovska-dolni-hotovo.jpg",
+        "do": 69.1,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "upravna-vody1.jpg",
+        "do": 71.95,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "upravna-vody2.jpg",
+        "do": 77.4,
+        "vypln": "pole"
+      },
+      {
+        "obraz": "mestska-policie.jpg",
+        "do": 93.15,
+        "vypln": "pole"
+      },
+      {
+        "koncovka": true,
+        "do": 97.55
+      }
+    ],
+    "titulky": [
+      {
+        "od": 0.59,
+        "do": 2.48,
+        "text": "Záleží nám na bezpečnosti."
+      },
+      {
+        "od": 3.27,
+        "do": 4.73,
+        "text": "Bezpečné chodníky,",
+        "_do": null
+      },
+      {
+        "od": 4.73,
+        "do": 6.92,
+        "text": "spolehlivé dodávky vody,",
+        "_do": null
+      },
+      {
+        "od": 6.92,
+        "do": 9.01,
+        "text": "městská policie ve městě."
+      },
+      {
+        "od": 10.63,
+        "do": 12.73,
+        "text": "Záleží nám na bezpečnosti chodců."
+      },
+      {
+        "od": 13.62,
+        "do": 15.23,
+        "text": "Chceme budovat nové chodníky",
+        "_do": null
+      },
+      {
+        "od": 15.23,
+        "do": 16.4,
+        "text": "tam, kde chybí,"
+      },
+      {
+        "od": 17.05,
+        "do": 18.85,
+        "text": "například ve Štefánikově",
+        "_do": null
+      },
+      {
+        "od": 18.85,
+        "do": 20.49,
+        "text": "nebo v Dělnické ulici."
+      },
+      {
+        "od": 21.28,
+        "do": 23.51,
+        "text": "Nutné je vyřešit křižovatku",
+        "_do": null
+      },
+      {
+        "od": 23.51,
+        "do": 25.53,
+        "text": "ulic Husova a Komenského."
+      },
+      {
+        "od": 27.03,
+        "do": 29.24,
+        "text": "Chceme se ale znovu vrátit k opravám",
+        "_do": null
+      },
+      {
+        "od": 29.24,
+        "do": 31.26,
+        "text": "stávajících chodníků,"
+      },
+      {
+        "od": 31.42,
+        "do": 33.57,
+        "text": "především na frekventovaných místech."
+      },
+      {
+        "od": 34.62,
+        "do": 36.26,
+        "text": "Nelze rezignovat na opravy",
+        "_do": null
+      },
+      {
+        "od": 36.26,
+        "do": 38.18,
+        "text": "povrchů na náměstí"
+      },
+      {
+        "od": 38.62,
+        "do": 40.76,
+        "text": "nebo v dolní části"
+      },
+      {
+        "od": 40.91,
+        "do": 41.8,
+        "text": "ulice Nové Město."
+      },
+      {
+        "od": 43.55,
+        "do": 45.2,
+        "text": "Společně s rekonstrukcí",
+        "_do": null
+      },
+      {
+        "od": 45.2,
+        "do": 47.23,
+        "text": "horní části Trocnovské ulice"
+      },
+      {
+        "od": 47.66,
+        "do": 50.04,
+        "text": "chceme opravit a rozšířit chodníky."
+      },
+      {
+        "od": 51.09,
+        "do": 52.91,
+        "text": "Zde také chceme vybudovat",
+        "_do": null
+      },
+      {
+        "od": 52.91,
+        "do": 55.1,
+        "text": "nové vodohospodářské sítě."
+      },
+      {
+        "od": 56.2,
+        "do": 58.77,
+        "text": "Časté poruchy ohrožují bezpečnost"
+      },
+      {
+        "od": 58.99,
+        "do": 60.01,
+        "text": "nejen v dopravě."
+      },
+      {
+        "od": 61.51,
+        "do": 62.7,
+        "text": "Stejně tak, jako jsme",
+        "_do": null
+      },
+      {
+        "od": 62.7,
+        "do": 64.99,
+        "text": "vodohospodářské sítě opravili",
+        "_do": null
+      },
+      {
+        "od": 64.99,
+        "do": 67.2,
+        "text": "při rekonstrukci dolní části",
+        "_do": null
+      },
+      {
+        "od": 67.2,
+        "do": 68.51,
+        "text": "Trocnovské ulice."
+      },
+      {
+        "od": 69.65,
+        "do": 71.62,
+        "text": "Důležitá je i kvalita vody,"
+      },
+      {
+        "od": 72.25,
+        "do": 74.07,
+        "text": "proto jsme provedli celkovou",
+        "_do": null
+      },
+      {
+        "od": 74.07,
+        "do": 76.66,
+        "text": "rekonstrukci úpravny vody v Otěvěku."
+      },
+      {
+        "od": 78.12,
+        "do": 80.1,
+        "text": "Pro bezpečnost je zásadní",
+        "_do": null
+      },
+      {
+        "od": 80.1,
+        "do": 82.02,
+        "text": "i fungování městské policie,"
+      },
+      {
+        "od": 82.64,
+        "do": 84.1,
+        "text": "a to v nejohroženějších",
+        "_do": null
+      },
+      {
+        "od": 84.1,
+        "do": 85.41,
+        "text": "časech a místech."
+      },
+      {
+        "od": 86.36,
+        "do": 88.62,
+        "text": "Proto chceme prioritní přítomnost",
+        "_do": null
+      },
+      {
+        "od": 88.62,
+        "do": 90.4,
+        "text": "našich strážníků ve městě"
+      },
+      {
+        "od": 90.85,
+        "do": 92.75,
+        "text": "a v našich místních částech."
+      }
+    ]
   }
 }
