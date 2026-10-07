@@ -100,7 +100,7 @@ def ikona(slug: str, velikost_px: float, id_prechodu: str, barva=None) -> str:
             f'{defs}{cesty}</svg>')
 
 
-def orez(klic: str, ram_sirka: float, ram_vyska: float) -> float:
+def orez(klic: str, ram_sirka: float, ram_vyska: float, nad_vlasy=None) -> float:
     """Svislá pozice ořezu v procentech, aby se do rámu vešla celá hlava.
 
     Rám je vždycky širší poměr než portrét 3:4, takže se z fotky ukáže jen
@@ -126,6 +126,9 @@ def orez(klic: str, ram_sirka: float, ram_vyska: float) -> float:
     horni = min(horni, od - 2)
     if klic in SPODEK:
         horni = SPODEK[klic] - vidno
+    # Vlastní rozložení karty říká rovnou, kolik procent rámu má zbýt nad vlasy.
+    if nad_vlasy is not None:
+        horni = od - nad_vlasy * vidno / 100
     return round(max(0.0, min(100.0, horni / (100 - vidno) * 100)), 1)
 
 
@@ -284,6 +287,14 @@ p {{ margin: 0; }}
 
 .text {{ font-size: 32px; line-height: 1.38; margin-top: 16px; color: #40372f; }}
 
+/* --- menší popisek na přání kandidáta: fotka dostane víc výšky --- */
+.karta--popisek-mensi .popis {{ padding-top: 22px; }}
+.karta--popisek-mensi .poradi {{ font-size: 20px; margin-bottom: 10px; }}
+.karta--popisek-mensi .jmeno {{ font-size: 64px; }}
+.karta--popisek-mensi .povolani {{ font-size: 26px; margin-top: 8px; }}
+.karta--popisek-mensi .heslo {{ font-size: 48px; margin-top: 16px; }}
+.karta--popisek-mensi .text {{ font-size: 26px; margin-top: 10px; }}
+
 /* --- karta bez textu: fotka dostane víc místa a jméno smí být velké --- */
 .karta--prosta .snimek {{ border-radius: 30px; }}
 .karta--prosta .jmeno {{ font-size: 100px; }}
@@ -342,9 +353,18 @@ def _hlavicka(web: dict, id_p: str) -> str:
   </div>"""
 
 
-def _snimek(k: dict) -> str:
-    """Fotka i s klíčem, podle kterého se po změření rámu dopočítá ořez."""
-    return (f'<div class="snimek" data-foto="{k["foto"]}" style="--orez: {POS}%">'
+def _snimek(k: dict, karta: dict | None = None) -> str:
+    """Fotka i s klíčem, podle kterého se po změření rámu dopočítá ořez.
+
+    Užší rám na přání kandidáta: fotka na výšku pak v rámu ukáže víc pod
+    bradou i nad vlasy a hlava vyjde menší.
+    """
+    karta = karta or {}
+    styl = f'--orez: {POS}%'
+    if karta.get('sirka_fotky'):
+        styl += f'; width: {karta["sirka_fotky"]}%; align-self: center'
+    nad = f' data-nad="{karta["nad_vlasy"]}"' if 'nad_vlasy' in karta else ''
+    return (f'<div class="snimek" data-foto="{k["foto"]}"{nad} style="{styl}">'
             f'<img src="{fotka(k["foto"])}" alt=""></div>')
 
 
@@ -374,10 +394,15 @@ def karta_kandidat(k: dict, texty: dict, web: dict, varianta: str, format: str) 
     <p class="heslo{_delka(heslo, 21)}">{heslo}</p>
     <p class="text">{t.get('text', '')}</p>"""
 
-    return f"""<div class="karta karta--{varianta} karta--{format}">
+    karta = t.get('karta', {})
+    if format == 'ctverec':
+        # Na čtverci stojí fotka vedle textu a má vlastní šířku i ořez.
+        karta = {kl: v for kl, v in karta.items() if kl == 'popisek'}
+    popisek = f' karta--popisek-{karta["popisek"]}' if karta.get('popisek') else ''
+    return f"""<div class="karta karta--{varianta} karta--{format}{popisek}">
   {_hlavicka(web, f'p{k["cislo"]}')}
   <div class="telo">
-    {_snimek(k)}
+    {_snimek(k, karta)}
     <div class="popis">{obsah}</div>
   </div>
 </div>"""
@@ -482,7 +507,7 @@ def zmer(html: str) -> dict:
            'const r=await page.evaluate(()=>{const k=document.querySelector(".karta");'
            'const s=k.querySelector(".snimek");const b=s&&s.getBoundingClientRect();'
            'return{v:Math.round(k.scrollHeight),limit:Math.round(k.clientHeight),'
-           'foto:s?s.dataset.foto:null,'
+           'foto:s?s.dataset.foto:null,nad:s&&s.dataset.nad?Number(s.dataset.nad):null,'
            'ram:b?[Math.round(b.width),Math.round(b.height)]:null}});'
            'return{data:r,type:"application/json"}}').replace('HTML', json.dumps(html))
     odpoved = subprocess.run(
@@ -499,7 +524,8 @@ def uloz(ukoly: list, format: str) -> None:
     """Karty se fotí souběžně — jinak by celá sada trvala minuty."""
     def jeden(u):
         mira = zmer(dokument(u['html'].replace(POS, '20'), format))
-        pozice = orez(mira.get('foto'), *(mira.get('ram') or (0, 0))) if mira.get('foto') else 20
+        pozice = (orez(mira.get('foto'), *(mira.get('ram') or (0, 0)), mira.get('nad'))
+                  if mira.get('foto') else 20)
         vyfot(dokument(u['html'].replace(POS, str(pozice)), format), u['cil'], format)
         return u['cil'], mira, pozice
 

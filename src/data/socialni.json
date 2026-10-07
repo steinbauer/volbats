@@ -2,9 +2,15 @@
   "_": "Texty pro karty na Instagram a Facebook. Hesla jsou oddělená od sazby stejně jako v plakat.json, ať se dají přepsat bez sahání do tools/socialni.py. Sloveso drží opoziční tón: co umíme a co chceme, ne co jsme udělali.",
   "kandidati": {
     "1": {
-      "heslo": "Umí sehnat dotaci",
+      "heslo": "Město pro nás, pro všechny!",
       "povolani": "Středoškolská učitelka, bývalá starostka",
-      "text": "Kanalizace na Rejtech, multifunkční hřiště, školní jídelna. Ví, kde o peníze žádat a jak je uhlídat."
+      "text": "Znát potřeby, najít řešení, získat finance!",
+      "karta": {
+        "_": "Rozložení vybrala sama 7. 10. 2026 (varianta 6 z deseti): menší popisek, fotka na 84 % šířky, nad vlasy 5 % rámu — chtěla vidět krk i celé vlasy.",
+        "popisek": "mensi",
+        "sirka_fotky": 84,
+        "nad_vlasy": 5
+      }
     },
     "2": {
       "heslo": "Veřejný prostor",
